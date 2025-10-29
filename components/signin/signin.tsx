@@ -276,12 +276,7 @@ function LoginPage() {
               {submitting ?  t("cta.signing_in") : t("cta.signin")}
             </button>
 
-            <p className="text-sm text-gray-600">
-                 {t("cta.signup_prompt")}{" "}
-              <Link href="/signup" className="font-medium underline">
-                  {t("cta.signup")}
-              </Link>
-            </p>
+         
 
             {message && (
               <div
@@ -301,18 +296,6 @@ function LoginPage() {
   );
 }
 
-// =========================
-// DEV smoke tests (additive – do not modify existing)
-// =========================
-if (__DEV__) {
-  const _valid = isEmailValid("a@b.com");
-  console.assert(_valid === true, "login: email validator shares util");
-  // Additional safety check
-  console.assert(
-    typeof LoginPage === "function",
-    "login: component is declared once and exported"
-  );
-}
 
 export default LoginPage;
 export { LoginPage };
