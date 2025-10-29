@@ -52,7 +52,7 @@ export default function ForgotPassword() {
               data?.message || t("toasts.success") || "Reset link sent."
             );
             setSent(true);
-            setTimeout(() => push("/signin"), 4000);
+            setTimeout(() => push("/signin"), 5000);
           },
           onError: (e) => {
             toast.error(
