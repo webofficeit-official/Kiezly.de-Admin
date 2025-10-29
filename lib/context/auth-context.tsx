@@ -46,10 +46,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const refreshToken = getCookie("refreshToken");
     if (!refreshToken) {
       setUser(null);
+      localStorage.setItem("kUId", null);
       setLoading(false);
       return;
     }
+
+    loadUser();
   }, []);
+
+  async function loadUser() {
+    try {
+      const res = await apiClient.get("/me");
+      setUser(res?.data?.user);
+    } catch {
+      setUser(null);
+      localStorage.setItem("kUId", null);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   useEffect(() => {
     if (loading) return;
@@ -75,7 +90,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         onSuccess: (data: LoginResponse) => {
           if (data?.token?.access) setAccessToken(data.token.access);
           if (data?.token?.refresh) setRefreshToken(data.token.refresh);
-          setUser(data?.data as UserProfile);
+          loadUser();
 
           opts?.onSuccess?.();
         },
