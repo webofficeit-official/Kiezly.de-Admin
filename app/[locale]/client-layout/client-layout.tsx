@@ -9,23 +9,23 @@ import NextTopLoader from "nextjs-toploader";
 import NavigationProgress from "@/app/NavigationProgress";
 
 const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-    },
-  },
+  defaultOptions: { queries: { refetchOnWindowFocus: false } },
 });
 
-export default function ClientLayout({ children }: { children: ReactNode }) {  
-
+export default function ClientLayout({ children }: { children: ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <NextTopLoader color="#3f4040ff" showSpinner={false} />
-         <NavigationProgress/>
-        <Header />
-        {children}
-        <Footer />
+        {/*  wrapper must be full-height flex column */}
+        <div className="min-h-screen flex flex-col">
+          <NextTopLoader color="#3f4040ff" showSpinner={false} />
+          <NavigationProgress />
+          <Header />
+          {/*  main grows to push footer down */}
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </div>
       </AuthProvider>
-    </QueryClientProvider>);
+    </QueryClientProvider>
+  );
 }

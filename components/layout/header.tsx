@@ -268,62 +268,7 @@ export default function Header() {
                 <X className="h-6 w-6" />
               </button>
 
-              {/* Avatar Dropdown */}
-              {user && mobileHeaderDDOpen && (
-                <div
-                  className="absolute right-0 top-full mt-2 w-64 rounded-lg border bg-white shadow-lg z-50"
-                  role="menu"
-                  aria-label="Mobile header user menu"
-                >
-                  <div className="px-3 py-2 border-b">
-                    <p className="text-sm font-semibold">
-                      {user?.display_name ||
-                        `${user?.first_name ?? ""} ${user?.last_name ?? ""}`}
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      {(user?.first_name || "") + " " + (user?.last_name || "")}
-                    </p>
-                  </div>
-
-                  <button
-                    className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"
-                    onClick={() => {
-                      setMobileHeaderDDOpen(false);
-                      setMobileOpen(false);
-                      push("/my-profile");
-                    }}
-                    role="menuitem"
-                  >
-                    {t("my-profile")}
-                  </button>
-
-                  <button
-                    className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"
-                    onClick={() => {
-                      setMobileHeaderDDOpen(false);
-                      setMobileOpen(false);
-                      push("/change-password");
-                    }}
-                    role="menuitem"
-                  >
-                    {t("change-password")}
-                  </button>
-
-              
-
-                  <button
-                    className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"
-                    onClick={() => {
-                      setMobileHeaderDDOpen(false);
-                      setMobileOpen(false);
-                      logout();
-                    }}
-                    role="menuitem"
-                  >
-                    {t("logout")}
-                  </button>
-                </div>
-              )}
+           
             </div>
           </div>
 
@@ -356,151 +301,25 @@ export default function Header() {
                           (user?.last_name || "")}
                       </p>
                     </div>
-                    {/* {mobileUserSubOpen ? (
-                      <ChevronUp className="h-5 w-5 text-gray-500" />
-                    ) : (
-                      <ChevronDown className="h-5 w-5 text-gray-500" />
-                    )} */}
                   </button>
 
-                  {/* {mobileUserSubOpen && (
-                    <div className="border-t">
-                      <button
-                        className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"
-                        onClick={() => {
-                          push("/my-profile");
-                          setMobileOpen(false);
-                        }}
-                      >
-                        {t("my-profile")}
-                      </button>
-                      <button
-                        className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"
-                        onClick={() => {
-                          push("/change-password");
-                          setMobileOpen(false);
-                        }}
-                      >
-                        {t("change-password")}
-                      </button>
-
-                      {user.role === "client" ? (
-                        <button
-                          className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"
-                          onClick={() => {
-                            push("/my-jobs");
-                            setMobileOpen(false);
-                          }}
-                        >
-                          {t("my-jobs")}
-                        </button>
-                      ) : (
-                        <>
-                          <button
-                            className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"
-                            onClick={() => {
-                              push("/saved-job");
-                              setMobileOpen(false);
-                            }}
-                          >
-                            {t("saved-jobs")}
-                          </button>
-                          <button
-                            className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"
-                            onClick={() => {
-                              push("/applied-jobs");
-                              setMobileOpen(false);
-                            }}
-                          >
-                            {t("applied-jobs")}
-                          </button>
-                        </>
-                      )}
-
-                      <button
-                        className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"
-                        onClick={() => {
-                          logout();
-                          setMobileOpen(false);
-                        }}
-                      >
-                        {t("logout")}
-                      </button>
-                    </div>
-                  )} */}
+              
                 </div>
               </>
             )}
-         
-            <nav className="space-y-2">
-              {!user && (
-                <>
-                  <div className="grid grid-cols-1 gap-2">
-                    <LocalizedLink
-                      href="/signin"
+
+             {(
+                    <button
+                      className="w-full text-left px-3 py-2 rounded-lg border text-sm text-sm hover:bg-gray-50 bg-gray-900 text-white border-gray-900"
                       onClick={() => {
+                        logout();
                         setMobileOpen(false);
                       }}
-                      className="inline-flex items-center justify-center rounded-xl text-sm font-medium px-3 py-2 transition-colors border bg-neutral-900 text-white border-neutral-900 hover:opacity-90"
                     >
-                      {t("signin")}
-                    </LocalizedLink>
-                  </div>
-                  <div className="flex items-center gap-0 my-4">
-                    <div className="flex-1 border-t border-gray-200"></div>
-                    {/* <span className="text-xs uppercase text-gray-400"></span> */}
-                    <div className="flex-1 border-t border-gray-200"></div>
-                  </div>
-                </>
-              )}
-
-              <LocalizedLink
-                href="/how-it-works"
-                className="block rounded-lg px-3 py-2 hover:bg-gray-100"
-                onClick={() => setMobileOpen(false)}
-              >
-                {t("how-it-works")}
-              </LocalizedLink>
-              <LocalizedLink
-                href="/#categories"
-                className="block rounded-lg px-3 py-2 hover:bg-gray-100"
-                onClick={() => setMobileOpen(false)}
-              >
-                {t("categories")}
-              </LocalizedLink>
-              <LocalizedLink
-                href="/#trust"
-                className="block rounded-lg px-3 py-2 hover:bg-gray-100"
-                onClick={() => setMobileOpen(false)}
-              >
-                {t("trust-safety")}
-              </LocalizedLink>
-              <LocalizedLink
-                href="/jobs"
-                className="block rounded-lg px-3 py-2 hover:bg-gray-100"
-                onClick={() => setMobileOpen(false)}
-              >
-                {t("jobs")}
-              </LocalizedLink>
-            </nav>
-
-            {user && user?.role === "client" && (
-              <>
-                <div className="flex items-center gap-0 my-4">
-                  <div className="flex-1 border-t border-gray-200"></div>
-                  {/* <span className="text-xs uppercase text-gray-400"></span> */}
-                  <div className="flex-1 border-t border-gray-200"></div>
-                </div>
-                <div className="grid grid-cols-1 gap-2">
-                  <LocalizedLink
-                    href="/post-job/basic-details"
-                    className="inline-flex items-center rounded-xl text-sm font-medium px-3 py-2 transition-colors border bg-neutral-900 text-white border-neutral-900 hover:opacity-90"
-                  >
-                    {t("post-mini-job")}
-                  </LocalizedLink>
-                </div>
-              </>
-            )}
+                      {t("logout")}
+                    </button>
+                  )}
+         
           </div>
         </aside>
       </div>
