@@ -2,8 +2,7 @@
 
 import { ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Header from "@/components/layout/header";
-import Footer from "@/components/layout/footer";
+
 import { AuthProvider } from "@/lib/context/auth-context";
 import NextTopLoader from "nextjs-toploader";
 import NavigationProgress from "@/app/NavigationProgress";
@@ -20,10 +19,10 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
         <div className="min-h-screen flex flex-col">
           <NextTopLoader color="#3f4040ff" showSpinner={false} />
           <NavigationProgress />
-          <Header />
+         
           {/*  main grows to push footer down */}
           <main className="flex-1">{children}</main>
-          <Footer />
+       
         </div>
       </AuthProvider>
     </QueryClientProvider>
