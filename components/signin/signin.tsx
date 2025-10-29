@@ -160,7 +160,7 @@ function LoginPage() {
             </div>
           ));
 
-          push("/jobs");
+          push("/dashboard");
         },
         onError: (err) => {
           toast.error(getErrorMessage(err) || `${t('toasts.error')}`);
