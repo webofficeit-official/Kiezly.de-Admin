@@ -1,0 +1,10 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+.*.env
+.env
+
+# dependencies
+node_modules
+# Next.js
+.next
+out/
+.vscode/launch.json
