@@ -13,7 +13,7 @@ const FilterAdmins = () => {
 
     const [admins, setAdmins] = useState([]);
     const [page, setPage] = useState(1);
-    const [pageSize, setPageSize] = useState(2);
+    const [pageSize, setPageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(null);
     const [totalPages, setTotalPages] = useState(null);
     const [verified, setVerified] = useState(null);
