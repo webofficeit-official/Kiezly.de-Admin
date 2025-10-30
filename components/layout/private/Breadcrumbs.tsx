@@ -18,8 +18,8 @@ const Breadcrumb = ({ items }) => {
                         </a>
                     </li>
                     {
-                        items.map((i) => (
-                            <li>
+                        items.map((i, j) => (
+                            <li key={j}>
                                 <div className="flex items-center">
                                     <ChevronRight className="w-4 h-4" />
                                     <LocalizedLink
