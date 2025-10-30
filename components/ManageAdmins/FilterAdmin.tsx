@@ -13,7 +13,7 @@ const FilterAdmins = () => {
 
     const [admins, setAdmins] = useState([]);
     const [page, setPage] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
+    const [pageSize, setPageSize] = useState(2);
     const [totalItems, setTotalItems] = useState(null);
     const [totalPages, setTotalPages] = useState(null);
 
@@ -23,8 +23,8 @@ const FilterAdmins = () => {
 
     useEffect(() => {
         filterAdmins.mutate({
-            page: 1,
-            page_size: 10
+            page: page,
+            page_size: pageSize
         }, {
             onSuccess: (data) => {
                 setAdmins(data?.data?.admins?.items)
@@ -37,7 +37,7 @@ const FilterAdmins = () => {
                 console.log(error);
             }
         })
-    }, [])
+    }, [page, pageSize])
 
     return (
         <>
@@ -50,7 +50,7 @@ const FilterAdmins = () => {
                 <AdminTable admins={admins} t={t} />
 
                 {/* Pagination */}
-                <AdminPagination page={page} totalPages={totalPages} t={t} />
+                <AdminPagination page={page} totalPages={totalPages} t={t} setPage={setPage} />
             </div>
 
             <InviteAdmins isOpen={inviteAdminModelOpen} setIsOpen={setInviteAdminModelOpen} t={t} />
