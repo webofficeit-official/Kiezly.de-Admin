@@ -1,0 +1,12 @@
+{
+    "menu": {
+        "dashboard": "Armaturenbrett",
+        "admins": "Administratoren",
+        "users": "Benutzer",
+        "jobs": "Jobs",
+        "categories": "Kategorien",
+        "job-tags": "Job-Tags",
+        "langauges": "Sprachen",
+        "countries": "Länder"
+    }
+}
