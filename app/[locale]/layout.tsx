@@ -83,7 +83,8 @@ export default function LocaleLayout({ children, params }: any) {
     "reset-password",
     "forgot-password",
     "changePassword",
-    "navbar"
+    "navbar",
+    "sidebar"
   ]; // add more as needed
 
   useEffect(() => {

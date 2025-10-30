@@ -1,0 +1,12 @@
+{
+    "menu": {
+        "dashboard": "Dashboard",
+        "admins": "Admins",
+        "users": "Users",
+        "jobs": "Jobs",
+        "categories": "Categories",
+        "job-tags": "Job Tags",
+        "langauges": "Languages",
+        "countries": "Countries"
+    }
+}

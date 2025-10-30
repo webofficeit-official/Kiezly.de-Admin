@@ -1,155 +1,116 @@
+import { useT } from "@/app/[locale]/layout";
+import LocalizedLink from "@/lib/localizedLink";
+import { BriefcaseBusiness, ChevronDown, ChevronUp, FolderCheck, FolderCode, Globe, Languages, LayoutDashboard, ScrollText, ShieldPlus, Users } from "lucide-react";
 import { useState } from "react";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+    const t = useT('sidebar');
+    
     return (
         <>
             <div className="relative">
-                <button>
-                    asd
-                </button>
-                {/* Toggle button (mobile) */}
-                <button
-                    onClick={() => {
-                        setSidebarOpen(!sidebarOpen)
-                    }}
-                    aria-controls="sidebar-multi-level-sidebar"
-                    type="button"
-                    className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden 
-                    hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 
-                    dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                >
-                    <span className="sr-only">Open sidebar</span>
-                    <svg
-                        className="w-6 h-6"
-                        aria-hidden="true"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                    >
-                        <path
-                            clipRule="evenodd"
-                            fillRule="evenodd"
-                            d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 
-                            0 010 1.5H2.75A.75.75 0 012 4.75zm0 
-                            10.5a.75.75 0 01.75-.75h7.5a.75.75 
-                            0 010 1.5h-7.5a.75.75 
-                            0 01-.75-.75zM2 10a.75.75 
-                            0 01.75-.75h14.5a.75.75 
-                            0 010 1.5H2.75A.75.75 0 012 10z"
-                        />
-                    </svg>
-                </button>
-
                 {/* Sidebar */}
                 <aside
-                    id="sidebar-multi-level-sidebar"
                     className={`fixed top-0 left-0 z-40 w-64 h-screen transition-transform 
                     ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} 
-                    sm:translate-x-0 bg-gray-50 dark:bg-gray-800`}
-                    aria-label="Sidebar"
+                    sm:translate-x-0 bg-white/80 border`}
                 >
-                    <div className="h-full px-3 py-4 overflow-y-auto">
-                        <ul className="space-y-2 font-medium">
+                    <div className="h-full py-4 overflow-y-auto mt-14">
+                        <ul className="space-y-2 font-medium p-2">
                             {/* Dashboard */}
                             <li>
-                                <a
-                                    href="#"
-                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white 
-                                    hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                                >
-                                    <svg
-                                        className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 
-                                        group-hover:text-gray-900 dark:group-hover:text-white"
-                                        fill="currentColor"
-                                        viewBox="0 0 22 21"
-                                    >
-                                        <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 
-                                        8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 
-                                        0-1-1.066h.002Z" />
-                                        <path d="M12.5 0c-.157 0-.311.01-.565.027A1 
-                                        1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 
-                                        1-.935c.013-.188.028-.374.028-.565A8.51 
-                                        8.51 0 0 0 12.5 0Z" />
-                                    </svg>
-                                    <span className="ms-3">Dashboard</span>
-                                </a>
+                                <LocalizedLink href="/dashboard" className="flex px-4 py-2 text-sm hover:bg-gray-100 w-full text-left false ">
+                                    <LayoutDashboard className="w-5 h-5" />
+                                    <span className="ms-3">{t("menu.dashboard")}</span>
+                                </LocalizedLink>
                             </li>
-
-                            {/* E-commerce dropdown */}
+                            {/* Admins */}
                             <li>
-                                <button
-                                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                                    type="button"
-                                    className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 
-                                    rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                                >
-                                    <svg
-                                        className="w-5 h-5 text-gray-500 transition duration-75 
-                                        group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                                        fill="currentColor"
-                                        viewBox="0 0 18 21"
-                                    >
-                                        <path d="M15 12a1 1 0 0 0 .962-.726l2-7A1 
-                                        1 0 0 0 17 3H3.77L3.175.745A1 
-                                        1 0 0 0 2.208 0H1a1 1 0 0 
-                                        0 0 2h.438l.6 2.255v.019l2 
-                                        7 .746 2.986A3 3 0 1 0 9 
-                                        17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 
-                                        1a3 3 0 1 0 3-3H6.78l-.5-2H15Z" />
-                                    </svg>
-                                    <span className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">
-                                        E-commerce
-                                    </span>
-                                    <svg
-                                        className={`w-3 h-3 transition-transform ${isDropdownOpen ? "rotate-180" : ""
-                                            }`}
-                                        fill="none"
-                                        viewBox="0 0 10 6"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            stroke="currentColor"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="m1 1 4 4 4-4"
-                                        />
-                                    </svg>
+                                <LocalizedLink href="/admins" className="flex px-4 py-2 text-sm hover:bg-gray-100 w-full text-left false">
+                                    <ShieldPlus className="w-5 h-5" />
+                                    <span className="ms-3">{t("menu.admins")}</span>
+                                </LocalizedLink>
+                            </li>
+                            {/* Users */}
+                            <li>
+                                <LocalizedLink href="/users" className="flex px-4 py-2 text-sm hover:bg-gray-100 w-full text-left false">
+                                    <Users className="w-5 h-5" />
+                                    <span className="ms-3">{t("menu.users")}</span>
+                                </LocalizedLink>
+                            </li>
+                            {/* Jobs  */}
+                            <li>
+                                <LocalizedLink href="/jobs" className="flex px-4 py-2 text-sm hover:bg-gray-100 w-full text-left false">
+                                    <BriefcaseBusiness className="w-5 h-5" />
+                                    <span className="ms-3">{t("menu.jobs")}</span>
+                                </LocalizedLink>
+                            </li>
+                        </ul>
+                        <ul className="space-y-2 font-medium p-2 border-t border-gray-200 dark:border-gray-700 mt-3 pt-4">
+                            {/* Categories */}
+                            <li>
+                                <LocalizedLink href="/categories" className="flex px-4 py-2 text-sm hover:bg-gray-100 w-full text-left false ">
+                                    <FolderCode className="w-5 h-5" />
+                                    <span className="ms-3">{t("menu.categories")}</span>
+                                </LocalizedLink>
+                            </li>
+                            {/* Job Tags */}
+                            <li>
+                                <LocalizedLink href="/job-tags" className="flex px-4 py-2 text-sm hover:bg-gray-100 w-full text-left false">
+                                    <FolderCheck className="w-5 h-5" />
+                                    <span className="ms-3">{t("menu.job-tags")}</span>
+                                </LocalizedLink>
+                            </li>
+                            {/* Languages */}
+                            <li>
+                                <LocalizedLink href="/langauges" className="flex px-4 py-2 text-sm hover:bg-gray-100 w-full text-left false">
+                                    <Languages className="w-5 h-5" />
+                                    <span className="ms-3">{t("menu.langauges")}</span>
+                                </LocalizedLink>
+                            </li>
+                            {/* Countries  */}
+                            <li>
+                                <LocalizedLink href="/countries" className="flex px-4 py-2 text-sm hover:bg-gray-100 w-full text-left false">
+                                    <Globe className="w-5 h-5" />
+                                    <span className="ms-3">{t("menu.countries")}</span>
+                                </LocalizedLink>
+                            </li>
+                            {/* Submenu */}
+                            <li>
+                                <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className={`flex px-4 py-2 text-sm hover:bg-gray-100 w-full text-left false justify-between ${isDropdownOpen && 'bg-gray-100'}`}>
+                                    <div className="flex">
+                                        <ScrollText className="w-5 h-5" />
+                                        <span className="ms-3">Submenu</span>
+                                    </div>
+                                    {isDropdownOpen ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
                                 </button>
-
                                 {isDropdownOpen && (
                                     <ul className="py-2 space-y-2">
-                                        {["Products", "Billing", "Invoice"].map((item) => (
-                                            <li key={item}>
-                                                <a
-                                                    href="#"
-                                                    className="flex items-center w-full p-2 pl-11 text-gray-900 
+                                        <li>
+                                            <LocalizedLink href="/categories" className="flex items-center w-full p-2 pl-11 text-gray-900 
                                                     transition duration-75 rounded-lg group 
-                                                    hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                                                >
-                                                    {item}
-                                                </a>
-                                            </li>
-                                        ))}
+                                                    hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 text-sm">
+                                                <span className="ms-3">Menu 1</span>
+                                            </LocalizedLink>
+                                        </li>
+                                        <li>
+                                            <LocalizedLink href="/categories" className="flex items-center w-full p-2 pl-11 text-gray-900 
+                                                    transition duration-75 rounded-lg group 
+                                                    hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 text-sm">
+                                                <span className="ms-3">Menu 2</span>
+                                            </LocalizedLink>
+                                        </li>
+                                        <li>
+                                            <LocalizedLink href="/categories" className="flex items-center w-full p-2 pl-11 text-gray-900 
+                                                    transition duration-75 rounded-lg group 
+                                                    hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 text-sm">
+                                                <span className="ms-3">Menu 3</span>
+                                            </LocalizedLink>
+                                        </li>
                                     </ul>
                                 )}
                             </li>
-
-                            {/* Other sidebar links */}
-                            {["Kanban", "Inbox", "Users", "Products", "Sign In", "Sign Up"].map(
-                                (item, idx) => (
-                                    <li key={idx}>
-                                        <a
-                                            href="#"
-                                            className="flex items-center p-2 text-gray-900 rounded-lg 
-                                            dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                                        >
-                                            <span className="ms-3">{item}</span>
-                                        </a>
-                                    </li>
-                                )
-                            )}
                         </ul>
                     </div>
                 </aside>
