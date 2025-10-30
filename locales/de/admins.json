@@ -1,0 +1,23 @@
+{
+    "title": "Administratoren verwalten",
+    "list": {
+        "table": {
+            "full-name": "Vollständiger Name",
+            "email": "Email",
+            "phone": "Phone",
+            "super": "Super",
+            "verified": "Verified",
+            "active": "Aktiv",
+            "deleted": "Gelöscht",
+            "since": "Seit"
+        }
+    },
+    "pagination": {
+        "page": "Seite {page} von {totalPages}",
+        "prev": "Prev",
+        "next": "Nächste"
+    },
+    "invite": {
+        "title": "Admin einladen"
+    }
+}
