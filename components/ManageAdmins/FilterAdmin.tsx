@@ -16,6 +16,9 @@ const FilterAdmins = () => {
     const [pageSize, setPageSize] = useState(2);
     const [totalItems, setTotalItems] = useState(null);
     const [totalPages, setTotalPages] = useState(null);
+    const [verified, setVerified] = useState(null);
+    const [active, setActive] = useState(null);
+    const [deleted, setDeleted] = useState(null);
 
     const [inviteAdminModelOpen, setInviteAdminModelOpen] = useState(false);
 
@@ -24,7 +27,10 @@ const FilterAdmins = () => {
     useEffect(() => {
         filterAdmins.mutate({
             page: page,
-            page_size: pageSize
+            page_size: pageSize,
+            verified,
+            active,
+            deleted
         }, {
             onSuccess: (data) => {
                 setAdmins(data?.data?.admins?.items)
@@ -37,14 +43,25 @@ const FilterAdmins = () => {
                 console.log(error);
             }
         })
-    }, [page, pageSize])
+    }, [page, pageSize, verified, active, deleted])
 
     return (
         <>
             <div className="relative flex flex-col w-full h-full text-slate-700 bg-white shadow-md rounded-xl bg-clip-border mt-10  ">
 
                 {/* Admin header */}
-                <AdminHeader totalItems={totalItems} setInviteAdminModelOpen={setInviteAdminModelOpen} inviteAdminModelOpen={inviteAdminModelOpen} t={t} />
+                <AdminHeader 
+                    totalItems={totalItems} 
+                    setInviteAdminModelOpen={setInviteAdminModelOpen} 
+                    inviteAdminModelOpen={inviteAdminModelOpen} 
+                    t={t} 
+                    verified={verified}
+                    setVerified={setVerified}
+                    active={active}
+                    setActive={setActive}
+                    deleted={deleted}
+                    setDeleted={setDeleted}
+                />
 
                 {/* Admin Table */}
                 <AdminTable admins={admins} t={t} />
