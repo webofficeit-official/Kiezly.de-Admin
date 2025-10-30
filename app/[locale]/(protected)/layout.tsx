@@ -1,5 +1,6 @@
 'use client'
 import Footer from "@/components/layout/footer";
+import Breadcrumb from "@/components/layout/private/Breadcrumbs";
 import Navbar from "@/components/layout/private/Navbar";
 import Sidebar from "@/components/layout/private/Sidebar";
 import { useState } from "react";
