@@ -14,9 +14,10 @@ export default function ProtectedLayout({ children }: { children: React.ReactNod
 
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-      <div className="p-4 sm:ml-64">
-        {children}
-
+      <div className="p-4 sm:ml-64 ">
+        <main className="h-[calc(100vh-8rem)]">
+          {children}
+        </main>
         <Footer />
       </div>
     </>

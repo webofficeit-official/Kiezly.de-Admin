@@ -1,0 +1,23 @@
+{
+    "title": "Manage Admins",
+    "list": {
+        "table": {
+            "full-name": "Full Name",
+            "email": "Email",
+            "phone": "Phone",
+            "super": "Super",
+            "verified": "Verified",
+            "active": "Active",
+            "deleted": "Deleted",
+            "since": "Since"
+        }
+    },
+    "pagination": {
+        "page": "Page {page} of {totalPages}",
+        "prev": "Prev",
+        "next": "Next"
+    },
+    "invite": {
+        "title": "Invite Admin"
+    }
+}
