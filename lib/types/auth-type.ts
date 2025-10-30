@@ -19,6 +19,7 @@ export type UserProfile = {
   is_email_verified?: boolean;
   first_name?: string;
   last_name?: string;
+  avatar_url?: string;
   created_at?:any,
   updated_at?:any
 };
