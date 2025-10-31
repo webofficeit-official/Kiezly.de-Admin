@@ -10,6 +10,12 @@ export type ResetPasswordData = {
   password: string;
 };
 export type ResetPasswordResponse = { success: boolean; message: string };
+export type AcceptInviteResponse = { success: boolean; message: string };
+export type AcceptInvitedData = {
+  id: string | number;
+  token: string;
+  password: string;
+};
 export type UserRole = "admin";
 export type UserProfile = {
   id?: string;
@@ -23,3 +29,13 @@ export type UserProfile = {
   created_at?:any,
   updated_at?:any
 };
+
+
+export interface VerifyEmailResponse {
+  success: boolean;
+  message: string;
+  token?: {
+    access: string;
+    refresh: string;
+  };
+}
