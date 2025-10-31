@@ -16,7 +16,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         {/*  wrapper must be full-height flex column */}
-        <div className="min-h-screen flex flex-col">
+         <div className="min-h-screen flex flex-col">
           <NextTopLoader color="#3f4040ff" showSpinner={false} />
           <NavigationProgress />
          

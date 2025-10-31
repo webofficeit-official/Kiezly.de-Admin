@@ -1,6 +1,6 @@
 import { useMutation, UseMutationResult, useQuery, UseQueryResult } from "@tanstack/react-query";
 import apiClient, { setAccessToken, setRefreshToken } from "@/lib/config/axios-client";
-import { ForgotPasswordData, ForgotPasswordResponse, ResetPasswordData, ResetPasswordResponse, VerifyResetParams, VerifyResetResponse } from "@/lib/types/auth-type";
+import { AcceptInvitedData, AcceptInviteResponse, ForgotPasswordData, ForgotPasswordResponse, ResetPasswordData, ResetPasswordResponse, VerifyResetParams, VerifyResetResponse } from "@/lib/types/auth-type";
 
 
 
@@ -147,6 +147,42 @@ export const useResetPassword = (): UseMutationResult<
         { params: { token } }          // query ?token=...
       );
       return res.data as ResetPasswordResponse;
+    },
+  });
+};
+
+export const useVerifyInvitation = (
+  params: VerifyResetParams | null
+): UseQueryResult<VerifyResetResponse, Error> => {
+  const enabled = !!params?.id && !!params?.token;
+  return useQuery({
+    queryKey: ["verify-invite", params?.id, params?.token],
+    enabled,
+    queryFn: async () => {
+      const { id, token } = params!;
+      const res = await apiClient.get(`/auth/verify-link/${id}`, {
+        params: { token },
+      });
+      return res.data as VerifyResetResponse;
+    },
+  
+    retry: false,
+  });
+};
+
+export const useAcceptInvitation= (): UseMutationResult<
+  AcceptInviteResponse,
+  Error,
+  AcceptInvitedData
+> => {
+  return useMutation({
+    mutationFn: async ({ id, token, password }) => {
+      const res = await apiClient.post(
+        `/auth/accpet-invitation/${id}`,
+        { password },                  
+        { params: { token } }          
+      );
+      return res.data as AcceptInviteResponse;
     },
   });
 };

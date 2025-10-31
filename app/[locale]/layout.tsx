@@ -85,7 +85,8 @@ export default function LocaleLayout({ children, params }: any) {
     "changePassword",
     "navbar",
     "sidebar",
-    "admins"
+    "admins",
+    "accept-invitation"
   ]; // add more as needed
 
   useEffect(() => {
