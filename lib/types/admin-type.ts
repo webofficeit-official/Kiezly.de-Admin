@@ -1,4 +1,4 @@
-export type Admins = {
+export type Admin = {
     id: string;
     email: string;
     active?: boolean;
@@ -15,7 +15,7 @@ export type Admins = {
 
 export type FilteredAdmins = {
     admins: {
-        items: Admins[]
+        items: Admin[]
         page: number
         page_size: number
         total_items: number
@@ -31,4 +31,29 @@ export type FilterAdminData = {
   verified?: boolean | null
   active?: boolean | null
   deleted?: boolean | null
+};
+
+export type InviteAdminResponse = { success: boolean; message: string, data: {
+    admin: Admin
+} };
+
+export type InviteAdminData = {
+    first_name: string;
+    last_name?: string;
+    email: string;
+};
+
+export type UpdateAdminStatusResponse = { success: boolean; message: string, data: {
+    admin: Admin
+} };
+
+export type UpdateAdminStatusData = {
+    status: boolean;
+    id: string
+};
+
+export type DeleteAdminResponse = { success: boolean; message: string};
+
+export type DeleteAdminData = {
+    id: string
 };

@@ -12,12 +12,58 @@
             "since": "Since"
         }
     },
+    "filter": {
+        "active": "Active",
+        "deleted": "Deleted",
+        "verified": "Verified"
+    },
     "pagination": {
         "page": "Page {page} of {totalPages}",
         "prev": "Prev",
         "next": "Next"
     },
     "invite": {
-        "title": "Invite Admin"
+        "title": "Invite Admin",
+        "description": "Send invitation link to the mail",
+        "form": {
+            "firstName": {
+                "label": "First Name",
+                "placeholder": "Enter first name",
+                "error": "First name required"
+            },
+            "lastName": {
+                "label": "Last Name",
+                "placeholder": "Enter last name",
+                "error": "Last name required"
+            },
+            "email": {
+                "label": "Email",
+                "placeholder": "Enter the email",
+                "error": "Email is not valid"
+            },
+            "button": {
+                "cancel": "Cancel",
+                "invite": "Invite",
+                "inviting": "Inviting"
+            }
+        },
+        "success": "Invitation send successfully",
+        "error": "Cannot send the invitation, Try again later"
+    },
+    "update": {
+        "status": {
+            "active": "Active",
+            "inactive": "Inactive"
+        },
+        "success": "Updated admin as {status}",
+        "error": "Cannot update admin status"
+    },
+    "delete": {
+        "title": "Confirm Deletion",
+        "description": "Are you sure you want to delete this record? This action cannot be undone.",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "success": "Admin has been deleted",
+        "error": "Cannot delete admin"
     }
 }

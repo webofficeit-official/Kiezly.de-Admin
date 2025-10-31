@@ -1,10 +1,54 @@
-import { Admins } from "@/lib/types/admin-type";
-import { Check, Trash2, X } from "lucide-react";
+import { Admin } from "@/lib/types/admin-type";
+import { Check, ToggleLeft, ToggleRight, ToggleRightIcon, Trash2, X } from "lucide-react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { useDeleteAdmin, useUpdateAdminStatus } from "@/lib/react-query/queries/admins/admins";
+import toast from "react-hot-toast";
+import DeleteButton from "../ui/DeleteButton";
 dayjs.extend(relativeTime);
 
-const AdminTable = ({ admins, t }) => {
+const AdminTable = ({ admins, t, setAdmins }) => {
+    const updateStatus = useUpdateAdminStatus();
+    const deleteAdmin = useDeleteAdmin();
+
+    const handleStatusUpdate = (id: string, status: boolean) => {
+        updateStatus.mutate({
+            status, id
+        }, {
+            onSuccess: (s) => {
+                setAdmins(
+                    admins.map(a => {
+                        if (a.id === id) return { ...a, active: !a.active }
+                        return a
+                    })
+                )
+                toast.success(t("update.success", { status: status ? t("update.status.active") : t("update.status.inactive") }))
+            }, onError: (e) => {
+                console.log(e);
+                toast.error(t("update.error"))
+            }
+        })
+    }
+
+    const handleDelete = (id: string) => {
+        deleteAdmin.mutate({
+            id
+        }, {
+            onSuccess: (s) => {
+                setAdmins(
+                    admins.map(a => {
+                        if (a.id === id) return { ...a, deleted: true }
+                        return a
+                    })
+                )
+                toast.success(t("delete.success"))
+            }, onError: (e) => {
+                console.log(e);
+                toast.error(t("delete.error"))
+            }
+        })
+    }
+
     return (
         <div className="p-0 overflow-scroll">
             <table className="w-full mt-4 text-left table-auto min-w-max">
@@ -14,56 +58,56 @@ const AdminTable = ({ admins, t }) => {
                             className="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100">
                             <p
                                 className="flex items-center justify-between gap-2 font-sans text-sm font-normal leading-none text-slate-500 pl-11">
-                                {t("list.table.full-name")} 
+                                {t("list.table.full-name")}
                             </p>
                         </th>
                         <th
                             className="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100">
                             <p
                                 className="flex items-center justify-between gap-2 font-sans text-sm font-normal leading-none text-slate-500">
-                                {t("list.table.email")} 
+                                {t("list.table.email")}
                             </p>
                         </th>
                         <th
                             className="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100">
                             <p
                                 className="flex items-center justify-between gap-2 font-sans text-sm font-normal leading-none text-slate-500">
-                                {t("list.table.phone")} 
+                                {t("list.table.phone")}
                             </p>
                         </th>
                         <th
                             className="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100 w-0">
                             <p
                                 className="flex items-center justify-between gap-2 font-sans text-sm  font-normal leading-none text-slate-500">
-                                {t("list.table.super")} 
+                                {t("list.table.super")}
                             </p>
                         </th>
                         <th
                             className="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100 w-0">
                             <p
                                 className="flex items-center justify-between gap-2 font-sans text-sm  font-normal leading-none text-slate-500">
-                                {t("list.table.verified")} 
+                                {t("list.table.verified")}
                             </p>
                         </th>
                         <th
                             className="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100 w-0">
                             <p
                                 className="flex items-center justify-between gap-2 font-sans text-sm  font-normal leading-none text-slate-500">
-                                {t("list.table.active")} 
+                                {t("list.table.active")}
                             </p>
                         </th>
                         <th
                             className="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100">
                             <p
                                 className="flex items-center justify-between gap-2 font-sans text-sm  font-normal leading-none text-slate-500">
-                                {t("list.table.deleted")} 
+                                {t("list.table.deleted")}
                             </p>
                         </th>
                         <th
                             className="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100">
                             <p
                                 className="flex items-center justify-between gap-2 font-sans text-sm  font-normal leading-none text-slate-500">
-                                {t("list.table.since")} 
+                                {t("list.table.since")}
                             </p>
                         </th>
                         <th
@@ -76,7 +120,7 @@ const AdminTable = ({ admins, t }) => {
                 </thead>
                 <tbody>
                     {
-                        admins?.map((a: Admins) => (
+                        admins?.map((a: Admin) => (
                             <tr key={a.id}>
                                 <td className="p-4 border-b border-slate-200">
                                     <div className="flex items-center gap-3">
@@ -141,12 +185,22 @@ const AdminTable = ({ admins, t }) => {
                                         {dayjs(a?.created_at).format("MMM D, YYYY")}
                                     </p>
                                 </td>
-                                <td className="p-4 border-b border-slate-200">
-                                    <button
-                                        className="relative p-2 max-h-[40px] max-w-[40px] items-center select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-slate-900 transition-all hover:bg-slate-900/10 active:bg-slate-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                        type="button">
-                                        <Trash2 className="w-5 h-5 text-red-600" />
-                                    </button>
+                                <td className="p-4 border-b border-slate-200 flex                                                                                               ">
+                                    {
+                                        (!a.super && !a.deleted) && <>
+                                            <button
+                                                className="relative p-2 max-h-[40px] max-w-[40px] items-center select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-slate-900 transition-all hover:bg-slate-900/10 active:bg-slate-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                                type="button"
+                                            >
+                                                {
+                                                    a.active ?
+                                                        <ToggleRight className="w-6 h-6 text-black-600" onClick={() => handleStatusUpdate(a.id, !a.active)} /> :
+                                                        <ToggleLeft className="w-6 h-6 text-black-600" onClick={() => handleStatusUpdate(a.id, !a.active)} />
+                                                }
+                                            </button>
+                                            <DeleteButton onConfirm={() => handleDelete(a.id)} t={t} />
+                                        </>
+                                    }
                                 </td>
                             </tr>
                         ))

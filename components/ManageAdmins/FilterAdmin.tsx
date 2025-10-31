@@ -18,7 +18,7 @@ const FilterAdmins = () => {
     const [totalPages, setTotalPages] = useState(null);
     const [verified, setVerified] = useState(null);
     const [active, setActive] = useState(null);
-    const [deleted, setDeleted] = useState(null);
+    const [deleted, setDeleted] = useState(false);
 
     const [inviteAdminModelOpen, setInviteAdminModelOpen] = useState(false);
 
@@ -43,7 +43,7 @@ const FilterAdmins = () => {
                 console.log(error);
             }
         })
-    }, [page, pageSize, verified, active, deleted])
+    }, [page, pageSize, verified, active, deleted, inviteAdminModelOpen])
 
     return (
         <>
@@ -64,7 +64,7 @@ const FilterAdmins = () => {
                 />
 
                 {/* Admin Table */}
-                <AdminTable admins={admins} t={t} />
+                <AdminTable admins={admins} t={t} setAdmins={setAdmins} />
 
                 {/* Pagination */}
                 <AdminPagination page={page} totalPages={totalPages} t={t} setPage={setPage} />
