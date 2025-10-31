@@ -1,0 +1,43 @@
+{
+  "title": "Passwort festlegen",
+  "subtitle": "Bitte lege ein sicheres Passwort fest, um dein Konto zu aktivieren.",
+  
+  "form": {
+    "password": {
+      "label": "Passwort *",
+      "show": "Anzeigen",
+      "hide": "Verbergen",
+      "error_required": "Passwort ist erforderlich.",
+      "error_min": "Das Passwort muss mindestens 8 Zeichen lang sein.",
+      "error_invalid": "Das Passwort muss mindestens einen Buchstaben, eine Zahl und ein Sonderzeichen enthalten.",
+      "hint": "Verwende mindestens 8 Zeichen mit Groß- und Kleinbuchstaben, Zahlen und Symbolen."
+    },
+    "confirm": {
+      "label": "Passwort bestätigen *",
+      "error_required": "Bitte bestätige dein Passwort.",
+      "error_match": "Passwörter stimmen nicht überein."
+    }
+  },
+
+  "cta": {
+    "set": "Passwort festlegen",
+    "setting": "Passwort wird festgelegt..."
+  },
+
+  "error": {
+    "title": "Ungültiger oder abgelaufener Einladungslink",
+    "description": "Bitte prüfen Sie Ihre E-Mails – möglicherweise haben Sie eine neue Einladung erhalten. Falls nicht, wenden Sie sich bitte an Ihren Administrator.",
+    "cta_resend": "Neue Einladung anfordern",
+     "back": "Zurück zum Login"
+  },
+
+  "messages": {
+    "bad_link": "Dieser Einladungslink ist ungültig oder abgelaufen.",
+    "success": "Passwort erfolgreich festgelegt! Du kannst dich jetzt anmelden.",
+    "expired": "Dein Einladungslink ist abgelaufen. Bitte fordere einen neuen an."
+  },
+
+  "toasts": {
+    "error": "Beim Festlegen deines Passworts ist ein Fehler aufgetreten. Bitte versuche es erneut."
+  }
+}
