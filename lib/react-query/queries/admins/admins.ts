@@ -1,5 +1,5 @@
 import apiClient from "@/lib/config/axios-client";
-import { FilterAdminData, FilterAdminResponse, InviteAdminData, InviteAdminResponse, UpdateAdminStatusData, UpdateAdminStatusResponse } from "@/lib/types/admin-type";
+import { DeleteAdminData, DeleteAdminResponse, FilterAdminData, FilterAdminResponse, InviteAdminData, InviteAdminResponse, UpdateAdminStatusData, UpdateAdminStatusResponse } from "@/lib/types/admin-type";
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 
 // Filter Admins 
@@ -52,6 +52,23 @@ export const useUpdateAdminStatus = (): UseMutationResult<
         { params: {} }          // query ?token=...
       );
       return res.data as UpdateAdminStatusResponse;
+    },
+  });
+};
+
+// Invite Admin 
+export const useDeleteAdmin = (): UseMutationResult<
+  DeleteAdminResponse,
+  Error,
+  DeleteAdminData
+> => {
+  return useMutation({
+    mutationFn: async ({ id }) => {
+      const res = await apiClient.delete(
+        `/${id}`,
+        {  },  // body
+      );
+      return res.data as DeleteAdminResponse;
     },
   });
 };

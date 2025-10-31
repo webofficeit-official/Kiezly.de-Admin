@@ -18,7 +18,7 @@ const FilterAdmins = () => {
     const [totalPages, setTotalPages] = useState(null);
     const [verified, setVerified] = useState(null);
     const [active, setActive] = useState(null);
-    const [deleted, setDeleted] = useState(null);
+    const [deleted, setDeleted] = useState(false);
 
     const [inviteAdminModelOpen, setInviteAdminModelOpen] = useState(false);
 

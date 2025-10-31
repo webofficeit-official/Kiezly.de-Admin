@@ -2,16 +2,16 @@ import { Admin } from "@/lib/types/admin-type";
 import { Check, ToggleLeft, ToggleRight, ToggleRightIcon, Trash2, X } from "lucide-react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { useUpdateAdminStatus } from "@/lib/react-query/queries/admins/admins";
+import { useDeleteAdmin, useUpdateAdminStatus } from "@/lib/react-query/queries/admins/admins";
 import toast from "react-hot-toast";
+import DeleteButton from "../ui/DeleteButton";
 dayjs.extend(relativeTime);
 
 const AdminTable = ({ admins, t, setAdmins }) => {
     const updateStatus = useUpdateAdminStatus();
+    const deleteAdmin = useDeleteAdmin();
 
     const handleStatusUpdate = (id: string, status: boolean) => {
-        console.log(id, status);
-        
         updateStatus.mutate({
             status, id
         }, {
@@ -22,10 +22,29 @@ const AdminTable = ({ admins, t, setAdmins }) => {
                         return a
                     })
                 )
-                toast.success(t("update.success", { status: status ? t("update.status.active") : t("update.status.inactive")}))
+                toast.success(t("update.success", { status: status ? t("update.status.active") : t("update.status.inactive") }))
             }, onError: (e) => {
                 console.log(e);
                 toast.error(t("update.error"))
+            }
+        })
+    }
+
+    const handleDelete = (id: string) => {
+        deleteAdmin.mutate({
+            id
+        }, {
+            onSuccess: (s) => {
+                setAdmins(
+                    admins.map(a => {
+                        if (a.id === id) return { ...a, deleted: true }
+                        return a
+                    })
+                )
+                toast.success(t("delete.success"))
+            }, onError: (e) => {
+                console.log(e);
+                toast.error(t("delete.error"))
             }
         })
     }
@@ -166,22 +185,22 @@ const AdminTable = ({ admins, t, setAdmins }) => {
                                         {dayjs(a?.created_at).format("MMM D, YYYY")}
                                     </p>
                                 </td>
-                                <td className="p-4 border-b border-slate-200">
-                                    <button
-                                        className="relative p-2 max-h-[40px] max-w-[40px] items-center select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-slate-900 transition-all hover:bg-slate-900/10 active:bg-slate-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                        type="button"
-                                    >
-                                        {
-                                            a.active ?
-                                                <ToggleRight className="w-6 h-6 text-black-600" onClick={() => handleStatusUpdate(a.id, !a.active)} /> :
-                                                <ToggleLeft className="w-6 h-6 text-black-600" onClick={() => handleStatusUpdate(a.id, !a.active)} />
-                                        }
-                                    </button>
-                                    <button
-                                        className="relative p-2 max-h-[40px] max-w-[40px] items-center select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-slate-900 transition-all hover:bg-slate-900/10 active:bg-slate-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                        type="button">
-                                        <Trash2 className="w-5 h-5 text-red-600" />
-                                    </button>
+                                <td className="p-4 border-b border-slate-200 flex                                                                                               ">
+                                    {
+                                        (!a.super && !a.deleted) && <>
+                                            <button
+                                                className="relative p-2 max-h-[40px] max-w-[40px] items-center select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-slate-900 transition-all hover:bg-slate-900/10 active:bg-slate-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                                type="button"
+                                            >
+                                                {
+                                                    a.active ?
+                                                        <ToggleRight className="w-6 h-6 text-black-600" onClick={() => handleStatusUpdate(a.id, !a.active)} /> :
+                                                        <ToggleLeft className="w-6 h-6 text-black-600" onClick={() => handleStatusUpdate(a.id, !a.active)} />
+                                                }
+                                            </button>
+                                            <DeleteButton onConfirm={() => handleDelete(a.id)} t={t} />
+                                        </>
+                                    }
                                 </td>
                             </tr>
                         ))

@@ -51,3 +51,9 @@ export type UpdateAdminStatusData = {
     status: boolean;
     id: string
 };
+
+export type DeleteAdminResponse = { success: boolean; message: string};
+
+export type DeleteAdminData = {
+    id: string
+};

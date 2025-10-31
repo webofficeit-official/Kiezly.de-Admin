@@ -57,5 +57,13 @@
         },
         "success": "Updated admin as {status}",
         "error": "Cannot update admin status"
+    },
+    "delete": {
+        "title": "Confirm Deletion",
+        "description": "Are you sure you want to delete this record? This action cannot be undone.",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "success": "Admin has been deleted",
+        "error": "Cannot delete admin"
     }
 }

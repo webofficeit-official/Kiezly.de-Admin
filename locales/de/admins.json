@@ -57,5 +57,13 @@
         },
         "success": "Administratorstatus aktualisiert: {status}",
         "error": "Administratorstatus kann nicht aktualisiert werden"
+    },
+    "delete": {
+        "title": "Bestätigen Sie den Löschvorgang",
+        "description": "Sind Sie sicher, dass Sie diesen Datensatz löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden..",
+        "cancel": "Stornieren",
+        "delete": "Löschen",
+        "success": "Der Administrator wurde gelöscht",
+        "error": "Der Administrator kann nicht gelöscht werden"
     }
 }
