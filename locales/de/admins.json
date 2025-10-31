@@ -46,6 +46,16 @@
                 "invite": "Einladen",
                 "inviting": "Einladend"
             }
-        }
+        },
+        "success": "Einladung erfolgreich versendet",
+        "error": "Die Einladung konnte nicht gesendet werden. Bitte versuchen Sie es später erneut."
+    },
+    "update": {
+        "status": {
+            "active": "Aktiv",
+            "inactive": "Inaktiv"
+        },
+        "success": "Administratorstatus aktualisiert: {status}",
+        "error": "Administratorstatus kann nicht aktualisiert werden"
     }
 }

@@ -1,5 +1,6 @@
 import { useInviteAdmins } from "@/lib/react-query/queries/admins/admins";
 import { useState } from "react"
+import toast from "react-hot-toast";
 
 const InviteAdmins = ({ isOpen, setIsOpen, t }) => {
     const [firstName, setFirstName] = useState("");
@@ -44,9 +45,11 @@ const InviteAdmins = ({ isOpen, setIsOpen, t }) => {
                     setEmail("")
                     setSubmitting(false)
                     setIsOpen(!isOpen)
+                    toast.success(t("invite.success"))
                 },
                 onError: (e) => {
                     console.log(e);
+                    toast.success(t("invite.error"))
                 }
             })
         }

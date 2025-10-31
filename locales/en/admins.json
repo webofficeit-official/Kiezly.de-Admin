@@ -46,6 +46,16 @@
                 "invite": "Invite",
                 "inviting": "Inviting"
             }
-        }
+        },
+        "success": "Invitation send successfully",
+        "error": "Cannot send the invitation, Try again later"
+    },
+    "update": {
+        "status": {
+            "active": "Active",
+            "inactive": "Inactive"
+        },
+        "success": "Updated admin as {status}",
+        "error": "Cannot update admin status"
     }
 }

@@ -64,7 +64,7 @@ const FilterAdmins = () => {
                 />
 
                 {/* Admin Table */}
-                <AdminTable admins={admins} t={t} />
+                <AdminTable admins={admins} t={t} setAdmins={setAdmins} />
 
                 {/* Pagination */}
                 <AdminPagination page={page} totalPages={totalPages} t={t} setPage={setPage} />

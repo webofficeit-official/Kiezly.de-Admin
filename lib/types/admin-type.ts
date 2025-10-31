@@ -42,3 +42,12 @@ export type InviteAdminData = {
     last_name?: string;
     email: string;
 };
+
+export type UpdateAdminStatusResponse = { success: boolean; message: string, data: {
+    admin: Admin
+} };
+
+export type UpdateAdminStatusData = {
+    status: boolean;
+    id: string
+};
