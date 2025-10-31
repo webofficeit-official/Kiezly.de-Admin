@@ -23,6 +23,29 @@
         "next": "Nächste"
     },
     "invite": {
-        "title": "Admin einladen"
+        "title": "Admin einladen",
+        "description": "Einladungslink per E-Mail senden",
+        "form": {
+            "firstName": {
+                "label": "Vorname",
+                "placeholder": "Enter first name",
+                "error": "Vorname erforderlich"
+            },
+            "lastName": {
+                "label": "Nachname",
+                "placeholder": "Geben Sie den Nachnamen ein",
+                "error": "Nachname erforderlich"
+            },
+            "email": {
+                "label": "E-Mail",
+                "placeholder": "Geben Sie die E-Mail ein",
+                "error": "E-Mail ist ungültig"
+            },
+            "button": {
+                "cancel": "Stornieren",
+                "invite": "Einladen",
+                "inviting": "Einladend"
+            }
+        }
     }
 }

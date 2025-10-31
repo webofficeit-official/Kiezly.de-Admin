@@ -43,7 +43,7 @@ const FilterAdmins = () => {
                 console.log(error);
             }
         })
-    }, [page, pageSize, verified, active, deleted])
+    }, [page, pageSize, verified, active, deleted, inviteAdminModelOpen])
 
     return (
         <>

@@ -23,6 +23,29 @@
         "next": "Next"
     },
     "invite": {
-        "title": "Invite Admin"
+        "title": "Invite Admin",
+        "description": "Send invitation link to the mail",
+        "form": {
+            "firstName": {
+                "label": "First Name",
+                "placeholder": "Enter first name",
+                "error": "First name required"
+            },
+            "lastName": {
+                "label": "Last Name",
+                "placeholder": "Enter last name",
+                "error": "Last name required"
+            },
+            "email": {
+                "label": "Email",
+                "placeholder": "Enter the email",
+                "error": "Email is not valid"
+            },
+            "button": {
+                "cancel": "Cancel",
+                "invite": "Invite",
+                "inviting": "Inviting"
+            }
+        }
     }
 }
