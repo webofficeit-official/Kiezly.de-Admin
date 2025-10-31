@@ -16,7 +16,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                     ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} 
                     sm:translate-x-0 bg-white/80 border`}
                 >
-                    <div className="h-full py-4 overflow-y-auto mt-14">
+                    <div className="h-full py-4 overflow-y-auto mt-14 bg-white">
                         <ul className="space-y-2 font-medium p-2">
                             {/* Dashboard */}
                             <li>

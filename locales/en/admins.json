@@ -12,6 +12,11 @@
             "since": "Since"
         }
     },
+    "filter": {
+        "active": "Active",
+        "deleted": "Deleted",
+        "verified": "Verified"
+    },
     "pagination": {
         "page": "Page {page} of {totalPages}",
         "prev": "Prev",

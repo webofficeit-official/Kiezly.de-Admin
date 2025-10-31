@@ -123,7 +123,7 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
                                 {userMenuOpen && (
                                     <div
                                         className="absolute right-0 top-12 z-50 my-auto text-base list-none bg-white divide-y 
-                                        divide-gray-100 rounded-sm shadow-sm dark:bg-gray-700 dark:divide-gray-600"
+                                        divide-gray-100 rounded-sm shadow-sm dark:bg-gray-700 dark:divide-gray-600 border shadow-xl"
                                     >
                                         <div className="px-4 py-3">
                                             <p className="text-sm text-gray-900 dark:text-white">{user?.first_name} {user?.last_name}</p>
