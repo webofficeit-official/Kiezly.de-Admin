@@ -1,6 +1,5 @@
 "use client";
-import UserInfoCard from "@/components/user-profile/UserInfoCard";
-import UserMetaCard from "@/components/user-profile/UserMetaCard";
+import UserInfoCard from "@/components/admin-profile/UserInfoCard";
 import React from "react";
 import { useT } from "../../layout";
 import Breadcrumb from "@/components/layout/private/Breadcrumbs";
@@ -24,7 +23,6 @@ export default function Profile() {
           {t("profile.main_title")}
         </h3>
         <div className="space-y-2">
-          {/* <UserMetaCard /> */}
           <UserInfoCard />
         </div>
       </div>

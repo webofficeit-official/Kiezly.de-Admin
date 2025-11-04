@@ -19,7 +19,7 @@ type Props = {
   onSave: (payload: { values: Omit<ProfileValues, "avatarUrl">; avatarFile: File | null }) => Promise<void>;
 };
 
-// ------------------ helper: create initials SVG data URL ------------------
+
 function getInitialsAvatar(name?: string, size = 96) {
   const initials = (name || "")
     .split(/\s+/)
@@ -40,7 +40,6 @@ function getInitialsAvatar(name?: string, size = 96) {
   return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
 }
 
-// ------------------ component ------------------
 export default function ProfileEditModal({
   isOpen,
   setIsOpen,
@@ -50,14 +49,14 @@ export default function ProfileEditModal({
 }: Props) {
   const tt = (k: string, fallback: string) => (t ? t(k) : fallback);
 
-  // Controlled defaults (always strings)
+
   const [firstName, setFirstName] = useState<string>(initialValues?.first_name ?? "");
   const [lastName, setLastName] = useState<string>(initialValues?.last_name ?? "");
   const [email, setEmail] = useState<string>(initialValues?.email ?? "");
   const [phone, setPhone] = useState<string>(initialValues?.phone ?? "");
   const [bio, setBio] = useState<string>(initialValues?.bio ?? "");
 
-  // Avatar: server URL and local picked file + preview URL
+
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [avatarUrl, setAvatarUrl] = useState<string | undefined>(initialValues?.avatarUrl ?? undefined);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -68,10 +67,9 @@ export default function ProfileEditModal({
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const isEmailValid = (e: string) => EMAIL_RE.test(e.trim());
 
-  // Submitting state
+ 
   const [submitting, setSubmitting] = useState(false);
 
-  // Sync local state when initialValues change (e.g., after fetch)
   useEffect(() => {
     setFirstName(initialValues?.first_name ?? "");
     setLastName(initialValues?.last_name ?? "");
@@ -79,10 +77,9 @@ export default function ProfileEditModal({
     setPhone(initialValues?.phone ?? "");
     setBio(initialValues?.bio ?? "");
     setAvatarUrl(initialValues?.avatarUrl ?? undefined);
-    // do not override avatarFile (if user picked a file while editing)
   }, [initialValues]);
 
-  // Generate preview URL when user picks a file, and cleanup
+
   useEffect(() => {
     if (!avatarFile) {
       setPreviewUrl(null);
@@ -90,20 +87,19 @@ export default function ProfileEditModal({
     }
     const url = URL.createObjectURL(avatarFile);
     setPreviewUrl(url);
-    // cleanup on change/unmount
     return () => {
       URL.revokeObjectURL(url);
       setPreviewUrl(null);
     };
   }, [avatarFile]);
 
-  // Close modal
+
   const close = () => setIsOpen(false);
 
-  // File picker
+
   const pickFile = () => fileInputRef.current?.click();
 
-  // Handle file selection
+ 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0] ?? null;
     if (!f) return;
@@ -116,7 +112,7 @@ export default function ProfileEditModal({
       return;
     }
     setAvatarFile(f);
-    setAvatarUrl(undefined); // prefer local preview when file selected
+    setAvatarUrl(undefined); 
   };
 
   // Handle submit
@@ -149,7 +145,7 @@ export default function ProfileEditModal({
     }
   };
 
-  // Determine what avatar src to show: preview -> server url -> initials svg
+
   const avatarSrc = previewUrl ?? avatarUrl ?? getInitialsAvatar(`${firstName ?? ""} ${lastName ?? ""}`, 96);
 
   return (
@@ -168,17 +164,16 @@ export default function ProfileEditModal({
           <p className="mt-1 text-sm text-slate-400">{tt("profile.subtitle", "Update your details to keep your profile up-to-date.")}</p>
         </div>
 
-        {/* Content */}
+      
         <div className="p-6 pt-4">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {/* LEFT */}
+          
             <div>
-              {/* Avatar */}
+             
               <div className="mb-6">
                 <label className="mb-2 block text-sm text-slate-700">{tt("profile.avatar.label", "Profile Picture")}</label>
                 <div className="flex items-center gap-4">
                   <div className="h-24 w-24 overflow-hidden rounded-full ring-1 ring-slate-200">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={avatarSrc} alt="avatar" className="h-full w-full object-cover" />
                   </div>
 
@@ -204,7 +199,6 @@ export default function ProfileEditModal({
                 </div>
               </div>
 
-              {/* First Name */}
               <Field
                 label={tt("profile.form.firstName.label", "First Name")}
                 placeholder={tt("profile.form.firstName.placeholder", "Enter first name")}
@@ -217,7 +211,7 @@ export default function ProfileEditModal({
                 errorMessage={tt("profile.form.firstName.error", "First name is required")}
               />
 
-              {/* Last Name */}
+           
               <Field
                 className="mt-4"
                 label={tt("profile.form.lastName.label", "Last Name")}
@@ -232,9 +226,9 @@ export default function ProfileEditModal({
               />
             </div>
 
-            {/* RIGHT */}
+        
             <div>
-              {/* Email - DISABLED so user cannot edit it */}
+           
               <Field
                 label={tt("profile.form.email.label", "Email Address")}
                 type="email"
@@ -270,7 +264,7 @@ export default function ProfileEditModal({
           </div>
         </div>
 
-        {/* Footer */}
+        
         <div className="p-6 pt-0">
           <div className="flex space-x-2">
             <button
