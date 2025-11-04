@@ -56,6 +56,7 @@ function LoginPage() {
   const [message, setMessage] = React.useState(null);
   const [showPassword, setShowPassword] = React.useState(false);
   const [errors, setErrors] = React.useState({});
+  const [remember, setRemember] = React.useState(false);
   const [role, setRole] = React.useState<"helper" | "client">(
     roleParam === "client" || roleParam === "helper" ? roleParam : "client"
   );
@@ -129,6 +130,7 @@ function LoginPage() {
       // Simulate API call
 
       login(email, password, {
+        remember,
         onSuccess: () => {
           toast.custom((to) => (
             <div
@@ -219,12 +221,12 @@ function LoginPage() {
               )}
             </div>
 
-            <div>
+              <div>
               <label
                 htmlFor="password"
                 className="mb-1 block text-sm font-medium"
               >
-                 {t("form.password.label")}
+                {t("form.password.label")}
               </label>
               <div className="relative">
                 <input
@@ -249,7 +251,9 @@ function LoginPage() {
                   onClick={() => setShowPassword((s) => !s)}
                   className="absolute inset-y-0 right-2 my-auto rounded-lg px-2 text-xs text-gray-600 hover:bg-gray-100"
                 >
-                  {showPassword ? t("form.password.hide") : t("form.password.show")}
+                  {showPassword
+                    ? t("form.password.hide")
+                    : t("form.password.show")}
                 </button>
               </div>
               {getFieldError("password") && (
@@ -257,12 +261,20 @@ function LoginPage() {
                   {getFieldError("password")}
                 </p>
               )}
-              <div className="mt-2 text-right text-xs">
+              <div className="mt-3 flex items-center justify-between">
+                <label className="flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={remember}
+                    onChange={(e) => setRemember(e.target.checked)}
+                  />
+                  {t("form.remember_me") ?? "Remember me"}
+                </label> 
                 <Link
                   href="/forgot-password"
                   className="text-gray-600 underline hover:text-black"
                 >
-                 {t("form.forgot")}
+                  {t("form.forgot")}
                 </Link>
               </div>
             </div>
