@@ -18,7 +18,11 @@ type AuthContextType = {
   login: (
     email: string,
     password: string,
-    opts?: { onSuccess?: () => void; onError?: (err: any) => void }
+    opts?: {
+      remember?: boolean;
+      onSuccess?: () => void;
+      onError?: (err: any) => void;
+    }
   ) => void;
   logout: () => Promise<void>;
   loading: boolean;
@@ -80,14 +84,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   function login(
     email: string,
     password: string,
-    opts?: { onSuccess?: () => void; onError?: (err: any) => void }
+    opts?: {
+       remember?: boolean;
+      onSuccess?: () => void;
+      onError?: (err: any) => void;
+    }
   ) {
+     const remember = !!opts?.remember;
     loginMutation.mutate(
       { email, password },
       {
         onSuccess: (data: LoginResponse) => {
-          if (data?.token?.access) setAccessToken(data.token.access);
-          if (data?.token?.refresh) setRefreshToken(data.token.refresh);
+          if (data?.token?.access) setAccessToken(data.token.access,{ remember });
+          if (data?.token?.refresh) setRefreshToken(data.token.refresh,{ remember });
           loadUser();
 
           opts?.onSuccess?.();
@@ -124,7 +133,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading ,loadUser}}>
+    <AuthContext.Provider value={{ user, login, logout, loading, loadUser }}>
       {children}
     </AuthContext.Provider>
   );
