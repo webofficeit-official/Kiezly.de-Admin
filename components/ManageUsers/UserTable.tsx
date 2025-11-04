@@ -4,13 +4,20 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { User } from "@/lib/types/user-type";
 dayjs.extend(relativeTime);
 
-const UserTable = ({ users, t, setUsers }) => {
+const UserTable = ({ users, t, setUsers, page, pageSize }) => {
 
     return (
         <div className="p-0 overflow-scroll">
             <table className="w-full mt-4 text-left table-auto min-w-max">
                 <thead>
                     <tr>
+                        <th
+                            className="text-left transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100">
+                            <p
+                                className="flex items-center justify-between gap-2 font-sans text-sm font-normal leading-none text-slate-500 pl-11">
+                                {t("list.table.sl")}
+                            </p>
+                        </th>
                         <th
                             className="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100">
                             <p
@@ -63,8 +70,13 @@ const UserTable = ({ users, t, setUsers }) => {
                 </thead>
                 <tbody>
                     {
-                        users?.map((u: User) => (
+                        users?.map((u: User, i) => (
                             <tr key={u.id}>
+                                <td className="border-b border-slate-200 text-center">
+                                    <div className="flex flex-col">
+                                        {i + ((page - 1) * pageSize) + 1}
+                                    </div>
+                                </td>
                                 <td className="p-4 border-b border-slate-200">
                                     <div className="flex items-center gap-3">
                                         {
@@ -146,14 +158,6 @@ const UserTable = ({ users, t, setUsers }) => {
             </table>
         </div>
     )
-}
-
-function SocialIcons({ link, Icon }: { link: string; Icon: any }) {
-    return (
-        <a href={link} target="__blank" className="p-2 bg-background rounded-full border border-gray-200 hover:bg-gray-100 transition-all duration-200">
-            {Icon}
-        </a>
-    );
 }
 
 export default UserTable;

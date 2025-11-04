@@ -14,7 +14,7 @@ const UserPagination = ({ page, totalPages, t, setPage }) => {
                 </button>
                 <div className="flex items-center gap-1" data-testid="pager">
                     {Array.from({ length: totalPages }, (_, i) => i + 1)
-                        .slice(Math.max(0, page - 3), Math.max(0, page - 3) + 5)
+                        .slice(Math.max(0, page - 3), Math.max(0, page - 3) + 3)
                         .map((n) => (
                             <button
                                 key={n}

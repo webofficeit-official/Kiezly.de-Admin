@@ -78,7 +78,7 @@ const FilterUser = () => {
                 />
 
                 {/* User Table */}
-                <UserTable users={users} t={t} setUsers={setUsers} />
+                <UserTable users={users} t={t} setUsers={setUsers} page={page} pageSize={filter.pageSize} />
 
                 {/* Pagination */}
                 <UserPagination page={page} totalPages={totalPages} t={t} setPage={setPage} />

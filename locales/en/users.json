@@ -2,6 +2,7 @@
     "title": "Manage Users",
     "list": {
         "table": {
+            "sl": "Sl no",
             "full-name": "Full Name",
             "role": "Role",
             "contact-details": "Contact Details",
@@ -12,7 +13,7 @@
     },
     "filter": {
         "title": "Filter Records",
-        "description": "Filter by following",
+        "description": "User segmentation and filter",
         "form": {
             "name": {
                 "label": "Name / Email",
@@ -33,7 +34,7 @@
             },
             "sort": {
                 "label": "Sort By",
-                "placeholder": "Coose sorting",
+                "placeholder": "Choose sorting",
                 "options": {
                     "new": "Newest",
                     "oldest": "Oldest",
@@ -56,5 +57,10 @@
                 "filter": "Filter"
             }
         }
+    },
+    "pagination": {
+        "page": "Page {page} of {totalPages}",
+        "prev": "Prev",
+        "next": "Next"
     }
 }

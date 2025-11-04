@@ -2,12 +2,65 @@
     "title": "Benutzer verwalten",
     "list": {
         "table": {
-            "full-name": "Vollständiger Name",
+            "sl": "Sl-Nr",
+            "full-name": "Full Name",
             "role": "Role",
             "contact-details": "Kontaktdaten",
             "location": "Standort",
             "skills": "Fähigkeiten",
             "since": "Seit"
         }
+    },
+    "filter": {
+        "title": "Datensätze filtern",
+        "description": "Nutzersegmentierung und Filter",
+        "form": {
+            "name": {
+                "label": "Name / E-Mail",
+                "placeholder": "John / Doe / john.doe@gmail.com"
+            },
+            "location": {
+                "label": "Standort",
+                "placeholder": "Berlin / 40215"
+            },
+            "role": {
+                "label": "Rolle",
+                "placeholder": "Wählen Sie eine Rolle",
+                "options": {
+                    "all": "Alle",
+                    "client": "Kunde",
+                    "helper": "Helfer"
+                }
+            },
+            "sort": {
+                "label": "Sortieren nach",
+                "placeholder": "Wählen Sie Sortierung",
+                "options": {
+                    "new": "Neueste",
+                    "oldest": "Oldest",
+                    "name_asc": "Name aufsteigend",
+                    "name_desc": "Name absteigend"
+                }
+            },
+            "policeVerified": {
+                "label": "Polizei verifiziert"
+            },
+            "firstAid": {
+                "label": "Hat Erste Hilfe"
+            },
+            "pageSize": {
+                "label": "Seitengröße",
+                "placeholder": "Artikel pro Seite"
+            },
+            "button": {
+                "cancel": "Stornieren",
+                "filter": "Filter"
+            }
+        }
+    },
+    "pagination": {
+        "page": "Seite {page} von {totalPages}",
+        "prev": "Prev",
+        "next": "Nächste"
     }
 }
