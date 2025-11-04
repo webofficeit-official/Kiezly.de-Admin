@@ -17,10 +17,11 @@ export type AcceptInvitedData = {
   password: string;
 };
 export type UserRole = "admin";
-export type UserProfile = {
+export type adminProfile = {
   id?: string;
   email?: string;
   phone?: string;
+  display_name?: string;
   role?: UserRole;
   is_active?: boolean;
   is_email_verified?: boolean;
