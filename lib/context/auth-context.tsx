@@ -11,10 +11,10 @@ import { useRouter, usePathname } from "next/navigation";
 import { getCookie } from "cookies-next";
 import toast from "react-hot-toast";
 import { useLocalizedRouter } from "../useLocalizedRouter";
-import { UserProfile } from "../types/auth-type";
+import { adminProfile } from "../types/auth-type";
 
 type AuthContextType = {
-  user: UserProfile;
+  user: adminProfile;
   login: (
     email: string,
     password: string,
@@ -38,7 +38,7 @@ export const useAuth = () => {
 };
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<UserProfile>(null);
+  const [user, setUser] = useState<adminProfile>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { push, replace } = useLocalizedRouter();

@@ -1,12 +1,12 @@
 
 import apiClient from "@/lib/config/axios-client";
-import { UserProfile } from "@/lib/types/auth-type";
+import { adminProfile } from "@/lib/types/auth-type";
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 
 export interface MyProfileResponse {
   success: boolean;
   message: string;
-  user: UserProfile;
+  user: adminProfile;
 }
 
 export interface UpdateProfileData {
@@ -33,13 +33,13 @@ interface UploadProfilePicResponse {
 interface UpdateProfileResponse {
   success: boolean;
   message: string;
-  user: UserProfile;
+  user: adminProfile;
 }
 
 interface UpdatePasswordResponse {
   success: boolean;
   message: string;
-  user: UserProfile;
+  user: adminProfile;
 }
 
 export const updateProfile = (): UseMutationResult<
