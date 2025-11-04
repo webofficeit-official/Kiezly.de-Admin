@@ -14,7 +14,7 @@ interface UserProfileProps {
 
 export default function UserProfile({ user, onClose }: UserProfileProps) {
   if (!user) return null;
-  const t = useT("application")
+  const t = useT("users")
 
   return (
     <>
