@@ -19,12 +19,12 @@ export default function Profile() {
   return (
     <div className="p-4 mt-14">
       <Breadcrumb items={breadcrumb} /> 
-      <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] mt-10 lg:p-4">
-        <h3 className="mb-5 text-lg font-semibold text-gray-800 dark:text-white/90 lg:mb-7">
+      <div className="rounded-2xl   p-2 mt-2 lg:p-2">
+        <h3 className="mb-3 text-lg font-semibold text-gray-800 dark:text-white/90 lg:mb-5">
           {t("profile.main_title")}
         </h3>
         <div className="space-y-2">
-          <UserMetaCard />
+          {/* <UserMetaCard /> */}
           <UserInfoCard />
         </div>
       </div>
