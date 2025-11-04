@@ -1,0 +1,65 @@
+{
+  "profile": {
+    "breadcrumb": {
+      "profile": "My Profile"
+    },
+    "main_title": "Profile",
+    "title": "Edit Personal Information",
+    "subtitle": "Update your details to keep your profile up-to-date.",
+    "avatar": {
+      "label": "Profile Picture",
+      "choose": "Choose Image",
+      "remove": "Remove",
+      "hint": "PNG/JPG up to 5MB. Square images look best.",
+      "invalid": "Please choose an image file.",
+      "size": "Image too large (max 5MB)."
+    },
+    "form": {
+      "firstName": {
+        "label": "First Name",
+        "placeholder": "Enter first name",
+        "error": "First name is required"
+      },
+      "lastName": {
+        "label": "Last Name",
+        "placeholder": "Enter last name",
+        "error": "Last name is required"
+      },
+      "email": {
+        "label": "Email Address",
+        "placeholder": "your@email.com",
+        "error": "Enter a valid email"
+      },
+      "phone": {
+        "label": "Phone",
+        "placeholder": "+00 000 000 00"
+      },
+      "bio": {
+        "label": "Bio",
+        "placeholder": "What do you do?"
+      },
+      "button": {
+        "cancel": "Cancel",
+        "save": "Save Changes",
+        "saving": "Saving…"
+      }
+    },
+    "save": {
+      "success": "Profile updated!",
+      "error": "Couldn't save changes."
+    }
+  },
+  "metaCard": {
+    "edit": "Edit"
+  },
+  "infoCard": {
+    "sectionTitle": "Personal Information",
+    "labels": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email address",
+      "phone": "Phone",
+      "bio": "Bio"
+    }
+  }
+}

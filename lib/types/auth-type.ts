@@ -20,6 +20,7 @@ export type UserRole = "admin";
 export type UserProfile = {
   id?: string;
   email?: string;
+  phone?: string;
   role?: UserRole;
   is_active?: boolean;
   is_email_verified?: boolean;
@@ -27,7 +28,8 @@ export type UserProfile = {
   last_name?: string;
   avatar_url?: string;
   created_at?:any,
-  updated_at?:any
+  updated_at?:any,
+  bio?: string;
 };
 
 

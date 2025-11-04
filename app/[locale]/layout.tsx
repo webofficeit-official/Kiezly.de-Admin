@@ -87,6 +87,7 @@ export default function LocaleLayout({ children, params }: any) {
     "sidebar",
     "admins",
     "accept-invitation",
+    "profile",
     "users"
   ]; // add more as needed
 

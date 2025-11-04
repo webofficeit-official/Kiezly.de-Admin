@@ -1,0 +1,65 @@
+{
+  "profile": {
+     "breadcrumb": {
+      "profile": "My Mein Profil"
+    },
+    "main_title":"Profil",
+    "title": "Persönliche Informationen bearbeiten",
+    "subtitle": "Aktualisiere deine Angaben, um dein Profil auf dem neuesten Stand zu halten.",
+    "avatar": {
+      "label": "Profilbild",
+      "choose": "Bild auswählen",
+      "remove": "Entfernen",
+      "hint": "PNG/JPG bis 5 MB. Quadratische Bilder sehen am besten aus.",
+      "invalid": "Bitte wähle eine Bilddatei aus.",
+      "size": "Bild zu groß (max. 5 MB)."
+    },
+    "form": {
+      "firstName": {
+        "label": "Vorname",
+        "placeholder": "Vornamen eingeben",
+        "error": "Vorname ist erforderlich"
+      },
+      "lastName": {
+        "label": "Nachname",
+        "placeholder": "Nachnamen eingeben",
+        "error": "Nachname ist erforderlich"
+      },
+      "email": {
+        "label": "E-Mail-Adresse",
+        "placeholder": "dein@email.com",
+        "error": "Gültige E-Mail eingeben"
+      },
+      "phone": {
+        "label": "Telefon",
+        "placeholder": "+00 000 000 00"
+      },
+      "bio": {
+        "label": "Bio",
+        "placeholder": "Was machst du?"
+      },
+      "button": {
+        "cancel": "stornieren",
+        "save": "Änderungen speichern",
+        "saving": "Wird gespeichert …"
+      }
+    },
+    "save": {
+      "success": "Profil aktualisiert!",
+      "error": "Änderungen konnten nicht gespeichert werden."
+    }
+  },
+  "metaCard": {
+    "edit": "Bearbeiten"
+  },
+  "infoCard": {
+    "sectionTitle": "Persönliche Informationen",
+    "labels": {
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "email": "E-Mail-Adresse",
+      "phone": "Telefon",
+      "bio": "Bio"
+    }
+  }
+}

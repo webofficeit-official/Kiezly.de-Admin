@@ -22,7 +22,7 @@ type AuthContextType = {
   ) => void;
   logout: () => Promise<void>;
   loading: boolean;
-  // loadUser: () => Promise<void>;
+  loadUser: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -46,7 +46,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const refreshToken = getCookie("refreshToken");
     if (!refreshToken) {
       setUser(null);
-      localStorage.setItem("kUId", null);
       setLoading(false);
       return;
     }
@@ -60,7 +59,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUser(res?.data?.user);
     } catch {
       setUser(null);
-      localStorage.setItem("kUId", null);
     } finally {
       setLoading(false);
     }
@@ -113,7 +111,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setAccessToken(null);
       setRefreshToken(null);
       setUser(null);
-      localStorage.setItem("kUId", null);
       push("/signin");
     }
   }
@@ -127,7 +124,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, logout, loading ,loadUser}}>
       {children}
     </AuthContext.Provider>
   );
