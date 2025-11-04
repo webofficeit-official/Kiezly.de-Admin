@@ -19,28 +19,6 @@ export default function UserInfoCard() {
   }, [loading, user]);
   if (loading) return <p>Loading...</p>;
 
-  // Save handler for ProfileEditModal (multipart with optional avatar)
-  const onSave = async ({
-    values,
-    avatarFile,
-  }: {
-    values: Omit<typeof initial, "avatarUrl">;
-    avatarFile: File | null;
-  }) => {
-    const form = new FormData();
-    form.append("firstName", values.firstName);
-    form.append("lastName", values.lastName);
-    form.append("email", values.email);
-    form.append("phone", values.phone);
-    form.append("bio", values.bio);
-    if (avatarFile) form.append("avatar", avatarFile);
-
-    const res = await fetch("/api/profile", { method: "POST", body: form });
-    if (!res.ok) throw new Error("Failed to save");
-
-    // Optionally: const data = await res.json(); refresh cache/UI here.
-  };
-
   return (
     <div className="p-5 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
