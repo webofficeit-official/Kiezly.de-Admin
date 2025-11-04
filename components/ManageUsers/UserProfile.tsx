@@ -14,12 +14,12 @@ interface UserProfileProps {
 
 export default function UserProfile({ user, onClose }: UserProfileProps) {
   if (!user) return null;
-  const t = useT("application")
+  const t = useT("users")
 
   return (
     <>
       <Card className="space-y-6">
-        <div className="grid grid-cols-12">
+        <div className="grid grid-cols-1 md:grid-cols-12">
           <div className="col-span-5 bg-gray-100 p-6">
             {user.avatar_url ? (
               <>
