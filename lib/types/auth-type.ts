@@ -21,6 +21,7 @@ export type UserProfile = {
   id?: string;
   email?: string;
   phone?: string;
+  display_name?: string;
   role?: UserRole;
   is_active?: boolean;
   is_email_verified?: boolean;
