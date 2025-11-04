@@ -1,12 +1,12 @@
 import { useT } from "@/app/[locale]/layout";
 import LocalizedLink from "@/lib/localizedLink";
-import { BriefcaseBusiness, ChevronDown, ChevronUp, FolderCheck, FolderCode, Globe, Languages, LayoutDashboard, ScrollText, ShieldPlus, Users } from "lucide-react";
+import { BriefcaseBusiness, ChevronDown, ChevronUp, FolderCheck, FolderCode, Globe, Languages, LayoutDashboard, MapPinned, Navigation, ShieldPlus, Users } from "lucide-react";
 import { useState } from "react";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const t = useT('sidebar');
-    
+
     return (
         <>
             <div className="relative">
@@ -69,19 +69,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                     <span className="ms-3">{t("menu.langauges")}</span>
                                 </LocalizedLink>
                             </li>
-                            {/* Countries  */}
-                            <li>
-                                <LocalizedLink href="/countries" className="flex px-4 py-2 text-sm hover:bg-gray-100 w-full text-left false">
-                                    <Globe className="w-5 h-5" />
-                                    <span className="ms-3">{t("menu.countries")}</span>
-                                </LocalizedLink>
-                            </li>
-                            {/* Submenu */}
+                            {/* Locations */}
                             <li>
                                 <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className={`flex px-4 py-2 text-sm hover:bg-gray-100 w-full text-left false justify-between ${isDropdownOpen && 'bg-gray-100'}`}>
                                     <div className="flex">
-                                        <ScrollText className="w-5 h-5" />
-                                        <span className="ms-3">Submenu</span>
+                                        <Navigation className="w-5 h-5" />
+                                        <span className="ms-3">{t("menu.locations")}</span>
                                     </div>
                                     {isDropdownOpen ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
                                 </button>
@@ -91,21 +84,16 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                             <LocalizedLink href="/categories" className="flex items-center w-full p-2 pl-11 text-gray-900 
                                                     transition duration-75 rounded-lg group 
                                                     hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 text-sm">
-                                                <span className="ms-3">Menu 1</span>
+                                                <Globe className="w-5 h-5" />
+                                                <span className="ms-3">{t("menu.countries")}</span>
                                             </LocalizedLink>
                                         </li>
                                         <li>
                                             <LocalizedLink href="/categories" className="flex items-center w-full p-2 pl-11 text-gray-900 
                                                     transition duration-75 rounded-lg group 
                                                     hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 text-sm">
-                                                <span className="ms-3">Menu 2</span>
-                                            </LocalizedLink>
-                                        </li>
-                                        <li>
-                                            <LocalizedLink href="/categories" className="flex items-center w-full p-2 pl-11 text-gray-900 
-                                                    transition duration-75 rounded-lg group 
-                                                    hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 text-sm">
-                                                <span className="ms-3">Menu 3</span>
+                                                <MapPinned className="w-5 h-5" />
+                                                <span className="ms-3">{t("menu.zipcodes")}</span>
                                             </LocalizedLink>
                                         </li>
                                     </ul>

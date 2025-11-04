@@ -86,7 +86,8 @@ export default function LocaleLayout({ children, params }: any) {
     "navbar",
     "sidebar",
     "admins",
-    "accept-invitation"
+    "accept-invitation",
+    "users"
   ]; // add more as needed
 
   useEffect(() => {

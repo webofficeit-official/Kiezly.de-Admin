@@ -7,6 +7,8 @@
         "categories": "Categories",
         "job-tags": "Job Tags",
         "langauges": "Languages",
-        "countries": "Countries"
+        "locations": "Locations",
+        "countries": "Countries",
+        "zipcodes": "Postal Codes"
     }
 }
