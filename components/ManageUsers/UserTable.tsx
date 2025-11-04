@@ -111,7 +111,7 @@ const UserTable = ({ users, t, setUsers }) => {
                                     </div>
                                 </td>
                                 <td className="p-4 border-b border-slate-200 w-0">
-                                    <div className="w-max flex gap-2">
+                                    <div className="flex flex-col">
                                         <p className="text-sm font-semibold text-slate-700">
                                             {u.street} {u.postal_code}
                                         </p>
@@ -125,7 +125,12 @@ const UserTable = ({ users, t, setUsers }) => {
                                     <div className="w-max flex gap-2">
                                         <p
                                             className="text-sm text-slate-500">
-                                            {u.skills.map(s => s.name).join(', ')}
+                                            {u.skills.map((s, i) => (
+                                                <div key={i}>
+                                                    {s.name} <br />
+                                                </div>
+                                            ))}
+
                                         </p>
                                     </div>
                                 </td>

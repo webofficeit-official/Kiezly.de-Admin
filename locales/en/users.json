@@ -9,5 +9,52 @@
             "skills": "Skills",
             "since": "Since"
         }
+    },
+    "filter": {
+        "title": "Filter Records",
+        "description": "Filter by following",
+        "form": {
+            "name": {
+                "label": "Name / Email",
+                "placeholder": "John / Doe / john.doe@gmail.com"
+            },
+            "location": {
+                "label": "Location",
+                "placeholder": "Berlin / 40215"
+            },
+            "role": {
+                "label": "Role",
+                "placeholder": "Choose a role",
+                "options": {
+                    "all": "All",
+                    "client": "Client",
+                    "helper": "Helper"
+                }
+            },
+            "sort": {
+                "label": "Sort By",
+                "placeholder": "Coose sorting",
+                "options": {
+                    "new": "Newest",
+                    "oldest": "Oldest",
+                    "name_asc": "Name Ascending",
+                    "name_desc": "Name Descending"
+                }
+            },
+            "policeVerified": {
+                "label": "Police verified"
+            },
+            "firstAid": {
+                "label": "Has first aid"
+            },
+            "pageSize": {
+                "label": "Page Size",
+                "placeholder": "Items per page"
+            },
+            "button": {
+                "cancel": "Cancel",
+                "filter": "Filter"
+            }
+        }
     }
 }

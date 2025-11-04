@@ -9,10 +9,10 @@ export const useFilterUsers = (): UseMutationResult<
   FilterUserData
 > => {
   return useMutation({
-    mutationFn: async ({ page, page_size, verified, active, deleted }) => {
+    mutationFn: async ({ page, page_size, q, location, role, sort, police_verified, has_first_aid }) => {
       const res = await apiClient.get(
         `/users`,
-        {  },  // body
+        { params: { page, page_size, q, location, role, sort, police_verified, has_first_aid } },  // body
       );
       return res.data as FilterUserResponse;
     },

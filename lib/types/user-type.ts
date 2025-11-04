@@ -60,11 +60,14 @@ export type FilteredUsers = {
 export type FilterUserResponse = { success: boolean; message: string, data: FilteredUsers };
 
 export type FilterUserData = {
-    page?: number | 1;
-    page_size?: number | 10
-    verified?: boolean | null
-    active?: boolean | null
-    deleted?: boolean | null
+    q?: string;
+    location?: string;
+    has_first_aid?: string | boolean;
+    police_verified?: string | boolean;
+    role?: string;
+    sort?: string;
+    page?: number;
+    page_size?: number;
 };
 
 export type InviteUserResponse = {

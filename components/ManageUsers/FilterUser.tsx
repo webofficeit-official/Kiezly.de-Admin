@@ -1,24 +1,38 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import InviteAdmins from "./InviteUsers";
 import { useT } from "@/app/[locale]/layout";
 import UserHeader from "./UserHeader";
 import UserTable from "./UserTable";
 import UserPagination from "./UserPagination";
 import { useFilterUsers } from "@/lib/react-query/queries/user/users";
+import FilterModel from "./FilterModel";
+
+export type FilterOption = {
+    name?: string
+    location?: string
+    firstAid?: boolean
+    policeVerified?: boolean
+    role?: "client" | "helper"
+    sort?: "new" | "oldest" | "name_asc" | "name_desc"
+} 
 
 const FilterUser = () => {
     const t = useT("users");
 
     const [users, setUsers] = useState([]);
     const [page, setPage] = useState(1);
-    const [pageSize, setPageSize] = useState(100);
     const [totalItems, setTotalItems] = useState(null);
     const [totalPages, setTotalPages] = useState(null);
-    const [verified, setVerified] = useState(null);
-    const [active, setActive] = useState(null);
-    const [deleted, setDeleted] = useState(false);
+    const [filter, setFilter] = useState({
+        q: "",
+        location: "",
+        firstAid: null,
+        policeVerified: null,
+        role: "",
+        sort: "",
+        pageSize: 10,
+    })
 
     const [inviteAdminModelOpen, setInviteAdminModelOpen] = useState(false);
 
@@ -27,15 +41,21 @@ const FilterUser = () => {
     useEffect(() => {
         filterUsers.mutate({
             page: page,
-            page_size: pageSize,
-            verified,
-            active,
-            deleted
+            page_size: filter.pageSize,
+            q: filter?.q,
+            location: filter?.location,
+            role: filter?.role,
+            sort: filter?.sort,
+            police_verified: filter?.policeVerified,
+            has_first_aid: filter?.firstAid,
         }, {
             onSuccess: (data) => {
                 setUsers(data?.data?.items)
                 setPage(data?.data?.page)
-                setPageSize(data?.data?.page_size)
+                setFilter({
+                    ...filter,
+                    pageSize: data?.data?.page_size
+                })
                 setTotalItems(data?.data?.total_items)
                 setTotalPages(data?.data?.total_pages)
             },
@@ -43,7 +63,7 @@ const FilterUser = () => {
                 console.log(error);
             }
         })
-    }, [page, pageSize, verified, active, deleted, inviteAdminModelOpen])
+    }, [page, inviteAdminModelOpen])
 
     return (
         <>
@@ -54,13 +74,7 @@ const FilterUser = () => {
                     totalItems={totalItems} 
                     setInviteAdminModelOpen={setInviteAdminModelOpen} 
                     inviteAdminModelOpen={inviteAdminModelOpen} 
-                    t={t} 
-                    verified={verified}
-                    setVerified={setVerified}
-                    active={active}
-                    setActive={setActive}
-                    deleted={deleted}
-                    setDeleted={setDeleted}
+                    t={t}
                 />
 
                 {/* User Table */}
@@ -70,7 +84,13 @@ const FilterUser = () => {
                 <UserPagination page={page} totalPages={totalPages} t={t} setPage={setPage} />
             </div>
 
-            <InviteAdmins isOpen={inviteAdminModelOpen} setIsOpen={setInviteAdminModelOpen} t={t} />
+            <FilterModel 
+                isOpen={inviteAdminModelOpen} 
+                setIsOpen={setInviteAdminModelOpen} 
+                t={t}
+                filter={filter}
+                setFilter={setFilter} 
+            />
         </>
     )
 }
