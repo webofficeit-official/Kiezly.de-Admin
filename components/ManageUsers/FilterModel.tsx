@@ -1,5 +1,5 @@
 import { Listbox, Popover, Transition } from "@headlessui/react";
-import { Check, ChevronDown, Search } from "lucide-react";
+import { Check, ChevronDown, Search, X } from "lucide-react";
 import { Fragment, useState } from "react";
 
 const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
@@ -8,7 +8,7 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
 
         isOpen &&
         <div className="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-            <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0 max-w-[24rem] mx-auto">
+            <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0 max-w-[50rem] mx-auto">
                 {/* Backdrop overlay */}
                 <div
                     className="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity"
@@ -23,142 +23,150 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
                 <div className="inline-block align-bottom bg-white rounded-xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl sm:w-full">
                     <div className="space-y-2">
                         <div className="flex flex-col p-6">
-                            <h4
-                                className="text-2xl mb-1 font-semibold text-slate-700">
-                                {t("filter.title")}
-                            </h4>
-                            <p className="mb-3 mt-1 text-slate-400">
+                            <div className="flex justify-between">
+                                <h2 className="text-xl font-bold text-gray-900">
+                                    {t("filter.title")}
+                                </h2>
+                                <X className="h-6 w-6 text-black-300 border border-gray-200 cursor-pointer rounded-lg" onClick={() => setIsOpen(!isOpen)} />
+                            </div>
+                            <p className="mb-3 mt-1 text-slate-400 text-sm">
                                 {t("filter.description")}
                             </p>
 
-                            <FilterInput
-                                label={t("filter.form.name.label")}
-                                placeholder={t("filter.form.name.placeholder")}
-                                value={filter.q}
-                                onChange={(e) => {
+                            <div className="flex col space-x-5">
+                                <FilterInput
+                                    label={t("filter.form.name.label")}
+                                    placeholder={t("filter.form.name.placeholder")}
+                                    value={filter.q}
+                                    onChange={(e) => {
+                                        setFilter({
+                                            ...filter,
+                                            q: e.target.value
+                                        })
+                                    }}
+                                />
+
+                                <FilterInput
+                                    label={t("filter.form.location.label")}
+                                    placeholder={t("filter.form.location.placeholder")}
+                                    value={filter.location}
+                                    onChange={(e) => {
+                                        setFilter({
+                                            ...filter,
+                                            location: e.target.value
+                                        })
+                                    }}
+                                />
+                            </div>
+
+                            <div className="flex col space-x-5">
+                                <Select
+                                    label={t("filter.form.role.label")}
+                                    value={filter.role}
+                                    onChange={(v) => {
+                                        setFilter({
+                                            ...filter,
+                                            role: v
+                                        })
+                                    }}
+                                    options={[
+                                        {
+                                            value: "",
+                                            name: t("filter.form.role.options.all")
+                                        },
+                                        {
+                                            value: "client",
+                                            name: t("filter.form.role.options.client")
+                                        },
+                                        {
+                                            value: "helper",
+                                            name: t("filter.form.role.options.helper")
+                                        },
+                                    ]}
+                                    placeholder={t("filter.form.role.placeholder")}
+                                />
+
+                                <Select
+                                    label={t("filter.form.sort.label")}
+                                    value={filter.sort}
+                                    onChange={(v) => {
+                                        setFilter({
+                                            ...filter,
+                                            sort: v
+                                        })
+                                    }}
+                                    options={[
+                                        {
+                                            value: "new",
+                                            name: t("filter.form.sort.options.new")
+                                        },
+                                        {
+                                            value: "oldest",
+                                            name: t("filter.form.sort.options.oldest")
+                                        },
+                                        {
+                                            value: "name_asc",
+                                            name: t("filter.form.sort.options.name_asc")
+                                        },
+                                        {
+                                            value: "name_desc",
+                                            name: t("filter.form.sort.options.name_desc")
+                                        },
+                                    ]}
+                                    placeholder={t("filter.form.sort.placeholder")}
+                                />
+
+                                <Select
+                                    label={t("filter.form.pageSize.label")}
+                                    value={filter.pageSize}
+                                    onChange={(v) => {
+                                        setFilter({
+                                            ...filter,
+                                            pageSize: v
+                                        })
+                                    }}
+                                    options={[
+                                        {
+                                            value: "10",
+                                            name: "10"
+                                        },
+                                        {
+                                            value: "25",
+                                            name: "25"
+                                        },
+                                        {
+                                            value: "50",
+                                            name: "50"
+                                        },
+                                        {
+                                            value: "100",
+                                            name: "100"
+                                        },
+                                    ]}
+                                    placeholder={t("filter.form.pageSize.placeholder")}
+                                />
+                            </div>
+
+                            <div className="flex col space-x-5">
+                                <Switch label={t("filter.form.policeVerified.label")} checked={filter.policeVerified} onChange={(v) => {
                                     setFilter({
                                         ...filter,
-                                        q: e.target.value
+                                        policeVerified: filter.policeVerified ? null : true
                                     })
-                                }}
-                            />
+                                }} />
 
-                            <FilterInput
-                                label={t("filter.form.location.label")}
-                                placeholder={t("filter.form.location.placeholder")}
-                                value={filter.location}
-                                onChange={(e) => {
+                                <Switch label={t("filter.form.firstAid.label")} checked={filter.firstAid} onChange={(v) => {
                                     setFilter({
                                         ...filter,
-                                        location: e.target.value
+                                        firstAid: filter.firstAid ? null : true
                                     })
-                                }}
-                            />
-
-                            <Select
-                                label={t("filter.form.role.label")}
-                                value={filter.role}
-                                onChange={(v) => {
-                                    setFilter({
-                                        ...filter,
-                                        role: v
-                                    })
-                                }}
-                                options={[
-                                    {
-                                        value: "",
-                                        name: t("filter.form.role.options.all")
-                                    },
-                                    {
-                                        value: "client",
-                                        name: t("filter.form.role.options.client")
-                                    },
-                                    {
-                                        value: "helper",
-                                        name: t("filter.form.role.options.helper")
-                                    },
-                                ]}
-                                placeholder={t("filter.form.role.placeholder")}
-                            />
-
-                            <Select
-                                label={t("filter.form.sort.label")}
-                                value={filter.sort}
-                                onChange={(v) => {
-                                    setFilter({
-                                        ...filter,
-                                        sort: v
-                                    })
-                                }}
-                                options={[
-                                    {
-                                        value: "new",
-                                        name: t("filter.form.sort.options.new")
-                                    },
-                                    {
-                                        value: "oldest",
-                                        name: t("filter.form.sort.options.oldest")
-                                    },
-                                    {
-                                        value: "name_asc",
-                                        name: t("filter.form.sort.options.name_asc")
-                                    },
-                                    {
-                                        value: "name_desc",
-                                        name: t("filter.form.sort.options.name_desc")
-                                    },
-                                ]}
-                                placeholder={t("filter.form.sort.placeholder")}
-                            />
-
-                            <Switch label={t("filter.form.policeVerified.label")} checked={filter.policeVerified} onChange={(v) => {
-                                setFilter({
-                                    ...filter,
-                                    policeVerified: filter.policeVerified ? null : true
-                                })
-                            }} />
-
-                            <Switch label={t("filter.form.firstAid.label")} checked={filter.firstAid} onChange={(v) => {
-                                setFilter({
-                                    ...filter,
-                                    firstAid: filter.firstAid ? null : true
-                                })
-                            }} />
-
-                            <Select
-                                label={t("filter.form.pageSize.label")}
-                                value={filter.pageSize}
-                                onChange={(v) => {
-                                    setFilter({
-                                        ...filter,
-                                        pageSize: v
-                                    })
-                                }}
-                                options={[
-                                    {
-                                        value: "10",
-                                        name: "10"
-                                    },
-                                    {
-                                        value: "25",
-                                        name: "25"
-                                    },
-                                    {
-                                        value: "50",
-                                        name: "50"
-                                    },
-                                    {
-                                        value: "100",
-                                        name: "100"
-                                    },
-                                ]}
-                                placeholder={t("filter.form.pageSize.placeholder")}
-                            />
+                                }} />
+                            </div>
                         </div>
                         <div className="p-6 pt-0">
-                            <div className="flex space-x-2">
+                            <div className="text-end space-x-2">
                                 <button
-                                    className="w-full mx-auto select-none rounded border border-red-600 py-2 px-4 text-center text-sm font-semibold text-red-600 transition-all hover:bg-red-600 hover:text-white hover:shadow-md hover:shadow-red-600/20 active:bg-red-700 active:text-white active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                    className="w-32 mx-auto select-none rounded border border-red-600 py-2 px-4 text-center text-sm font-semibold text-red-600 transition-all hover:bg-red-600 hover:text-white hover:shadow-md hover:shadow-red-600/20 active:bg-red-700 active:text-white active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                     type="button"
                                     data-dialog-close="true"
                                     onClick={() => setIsOpen(!isOpen)}
@@ -168,7 +176,7 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
 
                                 <button
                                     onClick={() => setIsOpen(!isOpen)}
-                                    className="w-full mx-auto select-none rounded bg-slate-800 py-2 px-4 text-center text-sm font-semibold text-white shadow-md shadow-slate-900/10 transition-all hover:shadow-lg hover:shadow-slate-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                    className="w-32 mx-auto select-none rounded bg-slate-800 py-2 px-4 text-center text-sm font-semibold text-white shadow-md shadow-slate-900/10 transition-all hover:shadow-lg hover:shadow-slate-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                     type="button"
                                     data-dialog-close="true">
                                     {t("filter.form.button.filter")}
@@ -207,7 +215,7 @@ function FilterInput({ label, placeholder = "", error = false, errorMesage = "",
 
 function Switch({ label, checked, onChange }: { label: string; checked: boolean; onChange: (v: boolean) => void }) {
     return (
-        <div className="flex items-center justify-between border border-gray-300 px-3 py-2 mt-4 rounded-xl">
+        <div className="flex items-center justify-between border border-gray-300 px-3 py-2 mt-4 rounded-xl w-full">
             <span className="text-sm">{label}</span>
             <button type="button" onClick={() => onChange(!checked)} className={classNames("h-6 w-11 rounded-full border p-0.5 text-left", checked ? "bg-black" : "bg-gray-200")}
                 aria-pressed={checked}
@@ -239,7 +247,7 @@ function Select({
     placeholder?: string
 }) {
     return (
-        <div className="text-sm mt-5">
+        <div className="text-sm mt-5 w-full">
             <span className="mb-1 block text-gray-700">{label}</span>
 
             <Listbox value={value} onChange={onChange}>
