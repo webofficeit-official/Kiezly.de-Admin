@@ -70,31 +70,8 @@ export type FilterUserData = {
     page_size?: number;
 };
 
-export type InviteUserResponse = {
-    success: boolean; message: string, data: {
-        user: User
-    }
-};
-
-export type InviteUserData = {
-    first_name: string;
-    last_name?: string;
-    email: string;
-};
-
-export type UpdateUserStatusResponse = {
-    success: boolean; message: string, data: {
-        user: User
-    }
-};
-
-export type UpdateUserStatusData = {
-    status: boolean;
+export type UserProfileData = {
     id: string
 };
 
-export type DeleteUserResponse = { success: boolean; message: string };
-
-export type DeleteUserData = {
-    id: string
-};
+export type userProfileResponse = { success: boolean; message: string, data: User };

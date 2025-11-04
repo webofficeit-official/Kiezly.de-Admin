@@ -2,9 +2,21 @@ import { Check, Facebook, Globe, Instagram, Linkedin, X } from "lucide-react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { User } from "@/lib/types/user-type";
+import { useState } from "react";
+import UserModel from "./UserModel";
 dayjs.extend(relativeTime);
 
 const UserTable = ({ users, t, setUsers, page, pageSize }) => {
+    const [isUserModalOpen, setIsUserModalOpen] = useState(false);
+    const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+    const closeUserModal = () => {
+        setIsUserModalOpen(false);
+        setSelectedUserId(null);
+    };
+    const openUserModal = (userId: string) => {
+        setSelectedUserId(userId);
+        setIsUserModalOpen(true);
+    };
 
     return (
         <div className="p-0 overflow-scroll">
@@ -71,13 +83,13 @@ const UserTable = ({ users, t, setUsers, page, pageSize }) => {
                 <tbody>
                     {
                         users?.map((u: User, i) => (
-                            <tr key={u.id}>
+                            <tr key={u.id} onClick={() => openUserModal(u.id)} className="cursor-pointer">
                                 <td className="border-b border-slate-200 text-center">
                                     <div className="flex flex-col">
                                         {i + ((page - 1) * pageSize) + 1}
                                     </div>
                                 </td>
-                                <td className="p-4 border-b border-slate-200">
+                                <td className="p-4 border-b border-slate-200" onClick={() => openUserModal(u.id)}>
                                     <div className="flex items-center gap-3">
                                         {
                                             u.avatar_url ?
@@ -156,6 +168,14 @@ const UserTable = ({ users, t, setUsers, page, pageSize }) => {
                     }
                 </tbody>
             </table>
+
+            {isUserModalOpen && (
+                <UserModel
+                    isOpen={isUserModalOpen}
+                    onClose={closeUserModal}
+                    userId={selectedUserId}
+                />
+            )}
         </div>
     )
 }
