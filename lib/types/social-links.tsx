@@ -1,5 +1,5 @@
 export type SocialLinks = {
     id: Number;
-    url?: String;
-    platform?: String;
+    url?: string;
+    platform?: string;
 }

@@ -1,4 +1,4 @@
-import { Check, X } from "lucide-react";
+import { Check, Facebook, Globe, Instagram, Linkedin, X } from "lucide-react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { User } from "@/lib/types/user-type";
@@ -22,42 +22,28 @@ const UserTable = ({ users, t, setUsers }) => {
                             className="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100">
                             <p
                                 className="flex items-center justify-between gap-2 font-sans text-sm font-normal leading-none text-slate-500">
-                                {t("list.table.email")}
+                                {t("list.table.role")}
                             </p>
                         </th>
                         <th
                             className="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100">
                             <p
                                 className="flex items-center justify-between gap-2 font-sans text-sm font-normal leading-none text-slate-500">
-                                {t("list.table.phone")}
+                                {t("list.table.contact-details")}
                             </p>
                         </th>
                         <th
                             className="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100 w-0">
                             <p
                                 className="flex items-center justify-between gap-2 font-sans text-sm  font-normal leading-none text-slate-500">
-                                {t("list.table.super")}
+                                {t("list.table.location")}
                             </p>
                         </th>
                         <th
                             className="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100 w-0">
                             <p
                                 className="flex items-center justify-between gap-2 font-sans text-sm  font-normal leading-none text-slate-500">
-                                {t("list.table.verified")}
-                            </p>
-                        </th>
-                        <th
-                            className="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100 w-0">
-                            <p
-                                className="flex items-center justify-between gap-2 font-sans text-sm  font-normal leading-none text-slate-500">
-                                {t("list.table.active")}
-                            </p>
-                        </th>
-                        <th
-                            className="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100">
-                            <p
-                                className="flex items-center justify-between gap-2 font-sans text-sm  font-normal leading-none text-slate-500">
-                                {t("list.table.deleted")}
+                                {t("list.table.skills")}
                             </p>
                         </th>
                         <th
@@ -97,7 +83,7 @@ const UserTable = ({ users, t, setUsers }) => {
                                             </p>
                                             <p
                                                 className="text-sm text-slate-500">
-
+                                                {u.role == "client" ? u.org_name : u.display_name}
                                             </p>
                                         </div>
                                     </div>
@@ -105,36 +91,42 @@ const UserTable = ({ users, t, setUsers }) => {
                                 <td className="p-4 border-b border-slate-200">
                                     <div className="flex flex-col">
                                         <p className="text-sm font-semibold text-slate-700">
-                                            {u.email}
+                                            {u.role}
+                                        </p>
+                                        <p
+                                            className="text-sm text-slate-500">
+                                            {u.gender}
                                         </p>
                                     </div>
                                 </td>
                                 <td className="p-4 border-b border-slate-200">
                                     <div className="flex flex-col">
+                                        <p className="text-sm font-semibold text-slate-700">
+                                            {u.email}
+                                        </p>
                                         <p
                                             className="text-sm text-slate-500">
-                                            {u.phone || '-'}
+                                            {u.phone}
                                         </p>
                                     </div>
                                 </td>
                                 <td className="p-4 border-b border-slate-200 w-0">
                                     <div className="w-max flex gap-2">
-                                        {u.super ? <Check className="text-green-600" /> : <X className="text-red-600" />}
+                                        <p className="text-sm font-semibold text-slate-700">
+                                            {u.street} {u.postal_code}
+                                        </p>
+                                        <p
+                                            className="text-sm text-slate-500">
+                                            {u.state}, {u.countrydetails.name}
+                                        </p>
                                     </div>
                                 </td>
                                 <td className="p-4 border-b border-slate-200 w-0">
                                     <div className="w-max flex gap-2">
-                                        {u.verified ? <Check className="text-green-600" /> : <X className="text-red-600" />}
-                                    </div>
-                                </td>
-                                <td className="p-4 border-b border-slate-200 w-0">
-                                    <div className="w-max flex gap-2">
-                                        {u.active ? <Check className="text-green-600" /> : <X className="text-red-600" />}
-                                    </div>
-                                </td>
-                                <td className="p-4 border-b border-slate-200">
-                                    <div className="w-max flex gap-2">
-                                        {u.deleted ? <Check className="text-green-600" /> : <X className="text-red-600" />}
+                                        <p
+                                            className="text-sm text-slate-500">
+                                            {u.skills.map(s => s.name).join(', ')}
+                                        </p>
                                     </div>
                                 </td>
                                 <td className="p-4 border-b border-slate-200">
@@ -149,6 +141,14 @@ const UserTable = ({ users, t, setUsers }) => {
             </table>
         </div>
     )
+}
+
+function SocialIcons({ link, Icon }: { link: string; Icon: any }) {
+    return (
+        <a href={link} target="__blank" className="p-2 bg-background rounded-full border border-gray-200 hover:bg-gray-100 transition-all duration-200">
+            {Icon}
+        </a>
+    );
 }
 
 export default UserTable;

@@ -1,0 +1,13 @@
+{
+    "title": "Benutzer verwalten",
+    "list": {
+        "table": {
+            "full-name": "Vollständiger Name",
+            "role": "Role",
+            "contact-details": "Kontaktdaten",
+            "location": "Standort",
+            "skills": "Fähigkeiten",
+            "since": "Seit"
+        }
+    }
+}

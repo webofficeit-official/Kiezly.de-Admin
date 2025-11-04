@@ -1,3 +1,13 @@
 {
-    "title": "Manage Users"
+    "title": "Manage Users",
+    "list": {
+        "table": {
+            "full-name": "Full Name",
+            "role": "Role",
+            "contact-details": "Contact Details",
+            "location": "Location",
+            "skills": "Skills",
+            "since": "Since"
+        }
+    }
 }

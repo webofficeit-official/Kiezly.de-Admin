@@ -13,7 +13,7 @@ const FilterUser = () => {
 
     const [users, setUsers] = useState([]);
     const [page, setPage] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
+    const [pageSize, setPageSize] = useState(100);
     const [totalItems, setTotalItems] = useState(null);
     const [totalPages, setTotalPages] = useState(null);
     const [verified, setVerified] = useState(null);
