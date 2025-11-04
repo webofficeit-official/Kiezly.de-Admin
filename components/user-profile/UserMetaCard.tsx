@@ -1,16 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useModal } from "../../lib/custom-hook/useModal";
 import ProfileEditModal from "./profile-edit-modal";
 import { useT } from "@/app/[locale]/layout";
 import { useAuth } from "@/lib/context/auth-context";
-import {
-  updateProfile,
-  uploadProfilePic,
-} from "@/lib/react-query/queries/user/profile";
-import { useMutation } from "@tanstack/react-query";
+import { updateProfile, uploadProfilePic } from "@/lib/react-query/queries/user/profile";
 import { Loader } from "../ui/loader";
 import { useLocalizedRouter } from "@/lib/useLocalizedRouter";
 
@@ -34,14 +30,7 @@ function getInitialsAvatar(name?: string, size = 96) {
       .map((s) => s[0].toUpperCase())
       .join("") || "?";
 
-  const bgColors = [
-    "#FDE68A",
-    "#C7F9CC",
-    "#FBCFE8",
-    "#BFDBFE",
-    "#FEE2E2",
-    "#E9D5FF",
-  ];
+  const bgColors = ["#FDE68A", "#C7F9CC", "#FBCFE8", "#BFDBFE", "#FEE2E2", "#E9D5FF"];
   const bg = bgColors[(initials.charCodeAt(0) || 0) % bgColors.length];
   const fg = "#111827";
 
@@ -61,10 +50,10 @@ export default function UserMetaCard() {
 
   // auth hook (assumes it provides user, loading and loadUser())
   const auth = useAuth();
-  const { user, loading,loadUser } = auth ?? { user: null, loading: true };
-   const { push } = useLocalizedRouter();
+  const { user, loading, loadUser } = auth ?? { user: null, loading: true };
+  const { push } = useLocalizedRouter();
 
-  // initial in the shape expected by ProfileEditModal
+  // local "initial" state for the modal
   const [initial, setInitial] = useState<{
     first_name: string;
     last_name: string;
@@ -75,6 +64,13 @@ export default function UserMetaCard() {
     role?: string | null;
     is_super_admin?: boolean;
   } | null>(null);
+
+  // track last uploaded file signature to avoid re-upload
+  const lastUploadedSigRef = useRef<string | null>(null);
+  const fileSig = (f: File) => `${f.name}:${f.size}:${f.lastModified}`;
+
+  // prevent double submit
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     if (!loading && user) {
@@ -89,26 +85,33 @@ export default function UserMetaCard() {
         is_super_admin: (user as any).is_super_admin ?? false,
       });
     }
-
-    // if not loading and no user, clear
-    if (!loading && !user) {
-      setInitial(null);
-    }
+    if (!loading && !user) setInitial(null);
   }, [loading, user]);
-  const uploadPic = uploadProfilePic(); 
-  const updProfile = updateProfile(); 
+
+  const uploadPic = uploadProfilePic(); // exposes mutate/mutateAsync
+  const updProfile = updateProfile();   // exposes mutate/mutateAsync
 
   // Save handler for ProfileEditModal (multipart with optional avatar)
   const onSave = async ({ values, avatarFile }: OnSaveArgs) => {
+    if (saving) return;
+    setSaving(true);
     try {
       let avatar_url: string | undefined;
 
+      // Only upload if a new file was chosen AND it's different from the last uploaded file
       if (avatarFile) {
-        const uploadRes = await uploadPic.mutateAsync({ file: avatarFile });
-        avatar_url = uploadRes?.data?.filePath;
+        const sig = fileSig(avatarFile);
+        const isNewFile = sig !== lastUploadedSigRef.current;
+
+        if (isNewFile) {
+          const uploadRes = await uploadPic.mutateAsync({ file: avatarFile });
+          avatar_url = uploadRes?.data?.filePath;
+          lastUploadedSigRef.current = sig; 
+        }
       }
 
-      const payload = {
+      // Build payload (only include avatar_url if we actually uploaded a new one)
+      const payload: any = {
         first_name: values.first_name,
         last_name: values.last_name,
         phone: values.phone ?? "",
@@ -116,37 +119,44 @@ export default function UserMetaCard() {
         ...(avatar_url ? { avatar_url } : {}),
       };
 
-      updProfile.mutateAsync(payload, {
-        onSuccess: (res: any) => {
-          setInitial((prev: any) => ({
-            ...(prev ?? {}),
-            first_name: res?.first_name ?? values.first_name,
-            last_name: res?.last_name ?? values.last_name,
-            email: res?.email ?? values.email,
-            phone: res?.phone ?? values.phone,
-            bio: res?.bio ?? values.bio,
-            avatarUrl:
-              res?.avatar_url ?? avatar_url ?? prev?.avatarUrl ?? null,
-          }));
+      const res: any = await updProfile.mutateAsync(payload);
 
-          toast.success(res?.message || "Profile updated",{ id: "profile-updated" });
-          loadUser(); // refresh auth user data
-          push(`/my-profile`);
-          closeModal();
-          
-        },
-      });
+      // Some APIs return { user, message }, others return the user directly
+      const updated = res?.user ?? res ?? {};
+
+      // optimistic UI update
+      setInitial((prev: any) => ({
+        ...(prev ?? {}),
+        first_name: updated?.first_name ?? values.first_name,
+        last_name: updated?.last_name ?? values.last_name,
+        email: updated?.email ?? values.email,
+        phone: updated?.phone ?? values.phone,
+        bio: updated?.bio ?? values.bio,
+        avatarUrl:
+          updated?.avatar_url ??
+          updated?.avatarUrl ??
+          avatar_url ?? // fall back to the one we just uploaded (if any)
+          prev?.avatarUrl ??
+          null,
+        role: updated?.role ?? prev?.role ?? null,
+        is_super_admin: updated?.is_super_admin ?? prev?.is_super_admin ?? false,
+      }));
+      
+      toast.success(t("profile.save.success"));
+      loadUser?.();
+      push(`/my-profile`);
+      closeModal();
     } catch (err: any) {
-      toast.error(err?.message || "Save failed");
+      toast.error(err?.message || t("profile.save.error"), { id: "profile-error" });
+    
+    } finally {
+      setSaving(false);
     }
   };
 
   const avatarSrc = initial?.avatarUrl
     ? initial.avatarUrl
-    : getInitialsAvatar(
-        `${initial?.first_name ?? ""} ${initial?.last_name ?? ""}`,
-        80
-      );
+    : getInitialsAvatar(`${initial?.first_name ?? ""} ${initial?.last_name ?? ""}`, 80);
 
   return (
     <>
@@ -162,9 +172,7 @@ export default function UserMetaCard() {
                 {/* use plain img so data-URL works reliably */}
                 <img
                   src={avatarSrc}
-                  alt={`${initial?.first_name ?? ""} ${
-                    initial?.last_name ?? ""
-                  }`}
+                  alt={`${initial?.first_name ?? ""} ${initial?.last_name ?? ""}`}
                   width={80}
                   height={80}
                   className="h-full w-full object-cover"
@@ -179,8 +187,7 @@ export default function UserMetaCard() {
                     {initial?.is_super_admin
                       ? "Super Admin"
                       : initial?.role
-                      ? initial.role.charAt(0).toUpperCase() +
-                        initial.role.slice(1)
+                      ? initial.role.charAt(0).toUpperCase() + initial.role.slice(1)
                       : ""}
                   </p>
                 </div>
@@ -190,14 +197,9 @@ export default function UserMetaCard() {
             <button
               onClick={openModal}
               className="flex w-full items-center justify-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200 lg:inline-flex lg:w-auto"
+              disabled={saving}
             >
-              <svg
-                className="fill-current"
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                aria-hidden="true"
-              >
+              <svg className="fill-current" width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
                 <path
                   fillRule="evenodd"
                   clipRule="evenodd"
@@ -217,6 +219,7 @@ export default function UserMetaCard() {
           initialValues={initial}
           onSave={onSave}
           t={t}
+          // no changes needed inside the modal for this approach
         />
       )}
     </>

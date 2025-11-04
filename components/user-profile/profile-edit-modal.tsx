@@ -121,7 +121,8 @@ export default function ProfileEditModal({
 
   // Handle submit
   const handleSubmit = async () => {
-    const nextErr = {
+    
+     const nextErr = {
       firstName: firstName.trim() === "",
       lastName: lastName.trim() === "",
       email: email.trim() === "" || !isEmailValid(email),
@@ -141,18 +142,9 @@ export default function ProfileEditModal({
         },
         avatarFile,
       });
-      toast.success(tt("profile.save.success", "Profile updated!"));
-      setSubmitting(false);
-      close();
-    } catch (err: any) {
-      // Attempt to surface useful error messages from backend
-      const msg =
-        err?.message ||
-        err?.response?.data?.message ||
-        (typeof err === "string" ? err : null) ||
-        tt("profile.save.error", "Couldn't save changes.");
-      toast.error(msg);
-      console.error("save error:", err);
+      fileInputRef.current && (fileInputRef.current.value = "");
+      setAvatarFile(null);
+    } finally {
       setSubmitting(false);
     }
   };
