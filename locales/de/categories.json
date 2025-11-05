@@ -1,5 +1,14 @@
 {
     "title": "Kategorien verwalten",
+    "list": {
+        "table": {
+            "sl": "Nr.",
+            "name": "Name",
+            "slug": "Slug",
+            "actions": "Aktionen"
+        },
+        "empty": "Keine Kategorien verfügbar"
+    },
     "create": {
         "title": "Kategorie hinzufügen",
         "description": "Fügen Sie eine neue Kategorie hinzu, um Jobs zu organisieren",

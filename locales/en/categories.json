@@ -1,5 +1,14 @@
 {
-    "title": "Manage Categories", 
+    "title": "Manage Categories",
+    "list": {
+        "table": {
+            "sl": "Sl no",
+            "name": "Name",
+            "slug": "Slug",
+            "actions": "Actions"
+        },
+        "empty": "No categories available"
+    },
     "create": {
         "title": "Add Category",
         "description": "Add a new category to organize jobs",
@@ -18,7 +27,6 @@
         "success": "Category created successfully",
         "error": "Cannot create category, Try again later"
     },
-      
     "pagination": {
         "page": "Page {page} of {totalPages}",
         "prev": "Prev",

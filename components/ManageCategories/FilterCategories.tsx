@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useT } from "@/app/[locale]/layout";
 import CategoriesHeader from "./CategoriesHeader";
+import CategoriesTable from "./CategoriesTable";
 
 const FilterCategories = () => {
   const t = useT("categories");
@@ -20,6 +21,7 @@ const FilterCategories = () => {
     <>
       <div className="relative flex flex-col w-full h-full text-slate-700 bg-white shadow-md rounded-xl bg-clip-border mt-10  ">
         <CategoriesHeader totalItems={totalItems} t={t} />
+         <CategoriesTable categories={categories} t={t}  page={page} pageSize={filter.pageSize} />
       </div>
     </>
   );
