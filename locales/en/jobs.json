@@ -1,5 +1,7 @@
 {
-    "title": "Manage Jobs",
+    "subtitle": "Manage Jobs",
+    "title": "Jobs",
+    "basetitle": "New Jobs (Pending aproval)",
     "list": {
         "table": {
             "sl": "Sl no",
