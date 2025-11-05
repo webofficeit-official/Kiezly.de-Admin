@@ -32,22 +32,23 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
     }, [isOpen])
 
     const POSTED = [
-        {
-            value: "1",
-            label: t("filter.form.posted.options.1")
-        },
-        {
-            value: "7",
-            label: t("filter.form.posted.options.7")
-        },
-        {
-            value: "30",
-            label: t("filter.form.posted.options.30")
-        },
-        {
-            value: "365",
-            label: t("filter.form.posted.options.365")
-        }
+        { value: "1", label: t("filter.form.posted.options.1") },
+        { value: "7", label: t("filter.form.posted.options.7") },
+        { value: "30", label: t("filter.form.posted.options.30") },
+        { value: "365", label: t("filter.form.posted.options.365") }
+    ]
+
+    const STATUS = [
+        { value: "open", label: t("filter.form.status.options.open") },
+        { value: "in_progress", label: t("filter.form.status.options.in_progress") },
+        { value: "completed", label: t("filter.form.status.options.completed") },
+        { value: "cancelled", label: t("filter.form.status.options.cancelled") },
+        { value: "draft", label: t("filter.form.status.options.draft") },
+        { value: "pending_review", label: t("filter.form.status.options.pending_review") },
+        { value: "published", label: t("filter.form.status.options.published") },
+        { value: "closed", label: t("filter.form.status.options.closed") },
+        { value: "rejected", label: t("filter.form.status.options.rejected") },
+        { value: "expired", label: t("filter.form.status.options.expired") },
     ]
 
     return (
@@ -148,32 +149,6 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
                             </div>
 
                             <div className="flex col space-x-5">
-                                <FilterJobInput
-                                    label={t("filter.form.min_price.label")}
-                                    placeholder={t("filter.form.min_price.placeholder")}
-                                    value={filter.minPrice}
-                                    onChange={(e) => {
-                                        setFilter({
-                                            ...filter,
-                                            minPrice: e.target.value
-                                        })
-                                    }}
-                                />
-
-                                <FilterJobInput
-                                    label={t("filter.form.max_price.label")}
-                                    placeholder={t("filter.form.max_price.placeholder")}
-                                    value={filter.maxPrice}
-                                    onChange={(e) => {
-                                        setFilter({
-                                            ...filter,
-                                            maxPrice: e.target.value
-                                        })
-                                    }}
-                                />
-                            </div>
-
-                            <div className="flex col space-x-5">
                                 <FilterJobMultiSelectArray
                                     label={t("filter.form.experience.label")}
                                     values={filter.experience}
@@ -226,8 +201,7 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
                                             status: v
                                         })
                                     }}
-                                    options={[
-                                    ]}
+                                    options={STATUS}
                                     placeholder={t("filter.form.status.placeholder")}
                                 />
 
@@ -289,6 +263,32 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
                                         },
                                     ]}
                                     placeholder={t("filter.form.pageSize.placeholder")}
+                                />
+                            </div>
+
+                            <div className="flex col space-x-5">
+                                <FilterJobInput
+                                    label={t("filter.form.min_price.label")}
+                                    placeholder={t("filter.form.min_price.placeholder")}
+                                    value={filter.minPrice}
+                                    onChange={(e) => {
+                                        setFilter({
+                                            ...filter,
+                                            minPrice: e.target.value
+                                        })
+                                    }}
+                                />
+
+                                <FilterJobInput
+                                    label={t("filter.form.max_price.label")}
+                                    placeholder={t("filter.form.max_price.placeholder")}
+                                    value={filter.maxPrice}
+                                    onChange={(e) => {
+                                        setFilter({
+                                            ...filter,
+                                            maxPrice: e.target.value
+                                        })
+                                    }}
                                 />
                             </div>
 

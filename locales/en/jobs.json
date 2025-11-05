@@ -10,7 +10,8 @@
             "type-experience": "Job type & experience",
             "date": "Starts and End date",
             "external_link": "External link"
-        }
+        },
+        "empty": "No jobs available"
     },
     "filter": {
         "title": "Filter Records",
@@ -72,7 +73,19 @@
             },
             "status": {
                 "label": "Status",
-                "placeholder": "Choose a status"
+                "placeholder": "Choose a status",
+                "options": {
+                    "open": "Open",
+                    "in_progress": "in Progress",
+                    "completed": "Completed",
+                    "cancelled": "Cancelled",
+                    "draft": "Draft",
+                    "pending_review": "Pending Review",
+                    "published": "Published",
+                    "closed": "Closed",
+                    "rejected": "Rejected",
+                    "expired": "Expired"
+                }
             },
             "sort": {
                 "label": "Sort By",
