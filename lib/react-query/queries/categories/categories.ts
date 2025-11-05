@@ -1,6 +1,6 @@
 import apiClient from "@/lib/config/axios-client";
-import { FilteredJobCategoriesResponse, FilterJobCategoriesData } from "@/lib/types/job-categories";
-import { useQuery } from "@tanstack/react-query";
+import { FilteredJobCategoriesResponse, FilterJobCategoriesData, JobCategoriesData, JobCategoriesResponse } from "@/lib/types/job-categories";
+import { useMutation, UseMutationResult, useQuery } from "@tanstack/react-query";
 
 // Filter Job Categories
 export const useFilteredCategories = (filters: FilterJobCategoriesData) =>
@@ -11,3 +11,21 @@ export const useFilteredCategories = (filters: FilterJobCategoriesData) =>
       return res.data as FilteredJobCategoriesResponse;
     },
   });
+
+
+  export const useAddCategories = (): UseMutationResult<
+  JobCategoriesResponse,
+  Error,
+  JobCategoriesData
+> => {
+  return useMutation({
+    mutationFn: async ({ name, slug }) => {
+      const res = await apiClient.post(
+        `/categories`,
+        { name,slug },  
+        { params: {} }         
+      );
+      return res.data as JobCategoriesResponse;
+    },
+  });
+};
