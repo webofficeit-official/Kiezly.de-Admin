@@ -1,0 +1,114 @@
+{
+    "title": "Jobs verwalten",
+    "list": {
+        "table": {
+            "sl": "Sl-Nr",
+            "title": "Berufsbezeichnung",
+            "client": "Kundendaten",
+            "category": "Kategorie",
+            "location": "Standort",
+            "type-experience": "Job type & experience",
+            "date": "Beginn- und Enddatum",
+            "external_link": "Externer Link"
+        },
+        "empty": "Keine Jobs verfügbar"
+    },
+    "filter": {
+        "title": "Keine Jobs verfügbar",
+        "description": "Jobsegmentierung und Filter",
+        "form": {
+            "title": {
+                "label": "Titel",
+                "placeholder": "Kinderbetreuung / Babysitting"
+            },
+            "location": {
+                "label": "Location",
+                "placeholder": "Berlin / 40215"
+            },
+            "category": {
+                "label": "Kategorie",
+                "placeholder": "Wählen Sie Kategorien"
+            },
+            "client": {
+                "label": "Kunde",
+                "placeholder": "Wählen Sie einen Kunden"
+            },
+            "job-tags": {
+                "label": "Job-Tags",
+                "placeholder": "Wählen Sie Job-Tags"
+            },
+            "starts_at": {
+                "label": "Startdatum",
+                "placeholder": ""
+            },
+            "ends_at": {
+                "label": "End date",
+                "placeholder": ""
+            },
+            "min_price": {
+                "label": "Mindestpreis",
+                "placeholder": "10"
+            },
+            "max_price": {
+                "label": "Maximaler Preis",
+                "placeholder": "250"
+            },
+            "experience": {
+                "label": "Berufserfahrung",
+                "placeholder": "Wählen Sie Erlebnisse"
+            },
+            "type": {
+                "label": "Jobtyp",
+                "placeholder": "Wählen Sie Jobtypen"
+            },
+            "posted": {
+                "label": "Gepostet",
+                "placeholder": "Mal gepostet",
+                "options": {
+                    "1": "24 Stunden",
+                    "7": "7 Tage",
+                    "30": "30 Tage",
+                    "365": "1 Jahr"
+                }
+            },
+            "status": {
+                "label": "Status",
+                "placeholder": "Choose a status",
+                "options": {
+                    "open": "Offen",
+                    "in_progress": "im Gange",
+                    "completed": "Vollendet",
+                    "cancelled": "Abgesagt",
+                    "draft": "Draft",
+                    "pending_review": "Ausstehende Überprüfung",
+                    "published": "Veröffentlicht",
+                    "closed": "Geschlossen",
+                    "rejected": "Abgelehnt",
+                    "expired": "Abgelaufen"
+                }
+            },
+            "sort": {
+                "label": "Sortieren nach",
+                "placeholder": "Wählen Sie Sortierung",
+                "options": {
+                    "new": "Neueste",
+                    "price_asc": "Preis aufsteigend",
+                    "price_desc": "Preis absteigend"
+                }
+            },
+            "pageSize": {
+                "label": "Seitengröße",
+                "placeholder": "Artikel pro Seite"
+            },
+            "button": {
+                "cancel": "Stornieren",
+                "filter": "Filter"
+            }
+        }
+    },
+    "pagination": {
+        "page": "Seite {page} von {totalPages}",
+        "prev": "Vorher",
+        "next": "Nächste"
+    }
+}

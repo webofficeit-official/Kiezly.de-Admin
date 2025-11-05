@@ -7,6 +7,7 @@ import { FilterJobMultiSelect } from "./Form/FilterJobMultiSelect";
 import { FilterJobSelect } from "./Form/FilterJobSelect";
 import { FilterJobMultiSelectArray } from "./Form/FilterJobMultiSelectArray";
 import { FilterJobSelectClient } from "./Form/FilterJobSelectClient";
+import { FilterJobDateInput } from "./Form/FilterJobDateInput";
 
 const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
     const [categories, setCategories] = useState([]);
@@ -92,7 +93,7 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
                                 {t("filter.description")}
                             </p>
 
-                            <div className="flex col space-x-5">
+                            <div className="flex flex-col md:flex-row space-y-5 md:space-y-4 md:space-x-5">
                                 <FilterJobInput
                                     label={t("filter.form.title.label")}
                                     placeholder={t("filter.form.title.placeholder")}
@@ -118,7 +119,7 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
                                 />
                             </div>
 
-                            <div className="flex col space-x-5">
+                            <div className="flex flex-col md:flex-row space-y-5 md:space-y-4 md:space-x-5">
                                 <FilterJobMultiSelect
                                     label={t("filter.form.category.label")}
                                     values={filter.categories}
@@ -161,7 +162,7 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
                                 />
                             </div>
 
-                            <div className="flex col space-x-5">
+                            <div className="flex flex-col md:flex-row space-y-5 md:space-y-4 md:space-x-5">
                                 <FilterJobMultiSelectArray
                                     label={t("filter.form.experience.label")}
                                     values={filter.experience}
@@ -204,7 +205,33 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
                                 />
                             </div>
 
-                            <div className="flex col space-x-5">
+                            <div className="flex flex-col md:flex-row space-y-5 md:space-y-4 md:space-x-5">
+                                <FilterJobDateInput
+                                    label={t("filter.form.starts_at.label")}
+                                    placeholder={t("filter.form.starts_at.placeholder")}
+                                    value={filter.start || null}
+                                    onChange={(e) => {
+                                        setFilter({
+                                            ...filter,
+                                            start: e
+                                        })
+                                    }}
+                                />
+
+                                <FilterJobDateInput
+                                    label={t("filter.form.ends_at.label")}
+                                    placeholder={t("filter.form.ends_at.placeholder")}
+                                    value={filter.end}
+                                    onChange={(e) => {
+                                        setFilter({
+                                            ...filter,
+                                            end: e
+                                        })
+                                    }}
+                                />
+                            </div>
+
+                            <div className="flex flex-col md:flex-row space-y-5 md:space-y-4 md:space-x-5">
                                 <FilterJobSelect
                                     label={t("filter.form.status.label")}
                                     value={filter.status}
@@ -245,7 +272,7 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
                                 />
                             </div>
 
-                            <div className="flex col space-x-5">
+                            <div className="flex flex-col md:flex-row space-y-5 md:space-y-4 md:space-x-5">
                                 <FilterJobInput
                                     label={t("filter.form.min_price.label")}
                                     placeholder={t("filter.form.min_price.placeholder")}
@@ -266,34 +293,6 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
                                         setFilter({
                                             ...filter,
                                             maxPrice: e.target.value
-                                        })
-                                    }}
-                                />
-                            </div>
-
-                            <div className="flex col space-x-5">
-                                <FilterJobInput
-                                    label={t("filter.form.starts_at.label")}
-                                    type="date"
-                                    placeholder={t("filter.form.starts_at.placeholder")}
-                                    value={filter.start}
-                                    onChange={(e) => {
-                                        setFilter({
-                                            ...filter,
-                                            start: e.target.value
-                                        })
-                                    }}
-                                />
-
-                                <FilterJobInput
-                                    label={t("filter.form.ends_at.label")}
-                                    type="date"
-                                    placeholder={t("filter.form.ends_at.placeholder")}
-                                    value={filter.end}
-                                    onChange={(e) => {
-                                        setFilter({
-                                            ...filter,
-                                            end: e.target.value
                                         })
                                     }}
                                 />
@@ -328,7 +327,3 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
 }
 
 export default FilterModel
-
-function classNames(...xs: Array<string | false | undefined | null>) {
-    return xs.filter(Boolean).join(" ");
-}

@@ -4,7 +4,7 @@
         "table": {
             "sl": "Sl no",
             "title": "Job title",
-            "client": "Clinet Details",
+            "client": "Client Details",
             "category": "Category",
             "location": "Location",
             "type-experience": "Job type & experience",

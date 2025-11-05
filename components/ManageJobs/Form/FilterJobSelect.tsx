@@ -28,7 +28,7 @@ export function FilterJobSelect({
                         <ChevronDown className="h-4 w-4 text-gray-400" />
                     </Listbox.Button>
 
-                    <Listbox.Options className="absolute z-10 mt-2 max-h-60 w-full overflow-auto rounded-xl border border-gray-200 bg-white shadow-lg focus:outline-none cursor-pointer">
+                    <Listbox.Options className="absolute z-10 mt-2 max-h-36 w-full overflow-auto rounded-xl border border-gray-200 bg-white shadow-lg focus:outline-none cursor-pointer">
                         {options.map((o) => (
                             <Listbox.Option
                                 key={o.value}

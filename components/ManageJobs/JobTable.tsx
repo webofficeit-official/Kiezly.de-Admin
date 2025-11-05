@@ -52,14 +52,14 @@ const JobTable = ({ jobs, t, setJobs, page, pageSize }) => {
                             </p>
                         </th>
                         <th
-                            className="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100 w-0">
+                            className="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100">
                             <p
                                 className="flex items-center justify-between gap-2 font-sans text-sm  font-normal leading-none text-slate-500">
                                 {t("list.table.location")}
                             </p>
                         </th>
                         <th
-                            className="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100 w-0">
+                            className="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100">
                             <p
                                 className="flex items-center justify-between gap-2 font-sans text-sm  font-normal leading-none text-slate-500">
                                 {t("list.table.type-experience")}
@@ -123,7 +123,7 @@ const JobTable = ({ jobs, t, setJobs, page, pageSize }) => {
                                             </p>
                                         </div>
                                     </td>
-                                    <td className="p-4 border-b border-slate-200 w-0">
+                                    <td className="p-4 border-b border-slate-200">
                                         <div className="flex flex-col">
                                             <p className="text-sm font-semibold text-slate-700">
                                                 {j.street} {j.postal_code}
@@ -134,7 +134,7 @@ const JobTable = ({ jobs, t, setJobs, page, pageSize }) => {
                                             </p>
                                         </div>
                                     </td>
-                                    <td className="p-4 border-b border-slate-200 w-0">
+                                    <td className="p-4 border-b border-slate-200">
                                         <div className="w-max flex gap-2">
                                             <p
                                                 className="text-sm font-semibold text-slate-700">
