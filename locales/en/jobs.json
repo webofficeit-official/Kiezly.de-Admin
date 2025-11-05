@@ -1,0 +1,66 @@
+{
+    "title": "Manage Jobs",
+    "list": {
+        "table": {
+            "sl": "Sl no",
+            "title": "Job title",
+            "client": "Clinet Details",
+            "category": "Category",
+            "location": "Location",
+            "type-experience": "Job type & experience",
+            "date": "Starts and End date"
+        }
+    },
+    "filter": {
+        "title": "Filter Records",
+        "description": "User segmentation and filter",
+        "form": {
+            "name": {
+                "label": "Name / Email",
+                "placeholder": "John / Doe / john.doe@gmail.com"
+            },
+            "location": {
+                "label": "Location",
+                "placeholder": "Berlin / 40215"
+            },
+            "role": {
+                "label": "Role",
+                "placeholder": "Choose a role",
+                "options": {
+                    "all": "All",
+                    "client": "Client",
+                    "helper": "Helper"
+                }
+            },
+            "sort": {
+                "label": "Sort By",
+                "placeholder": "Choose sorting",
+                "options": {
+                    "new": "Newest",
+                    "oldest": "Oldest",
+                    "name_asc": "Name Ascending",
+                    "name_desc": "Name Descending"
+                }
+            },
+            "policeVerified": {
+                "label": "Police verified"
+            },
+            "firstAid": {
+                "label": "Has first aid"
+            },
+            "pageSize": {
+                "label": "Page Size",
+                "placeholder": "Items per page"
+            },
+            "button": {
+                "cancel": "Cancel",
+                "filter": "Filter"
+            }
+        }
+    },
+    "pagination": {
+        "page": "Page {page} of {totalPages}",
+        "prev": "Prev",
+        "next": "Next"
+    }
+}

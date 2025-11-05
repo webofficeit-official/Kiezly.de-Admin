@@ -11,7 +11,7 @@ export const useFilterJobs = (): UseMutationResult<
   return useMutation({
     mutationFn: async ({ page, page_size, q, location, role, sort, police_verified, has_first_aid }) => {
       const res = await apiClient.get(
-        `/jobs`,
+        `/manage-jobs`,
         { params: { page, page_size, q, location, role, sort, police_verified, has_first_aid } },  // body
       );
       return res.data as FilterJobResponse;
