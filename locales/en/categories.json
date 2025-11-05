@@ -18,6 +18,11 @@
                 "placeholder": "Enter category name",
                 "error": "Category name required"
             },
+            "slug":{
+                "label":"Slug",
+                "placeholder":"childcare",
+                "error":"Slug is required"
+            },
             "button": {
                 "cancel": "Cancel",
                 "create": "Create",
