@@ -5,6 +5,7 @@ import { useT } from "@/app/[locale]/layout";
 import CategoriesHeader from "./CategoriesHeader";
 import CategoriesTable from "./CategoriesTable";
 import { useFilteredCategories } from "@/lib/react-query/queries/categories/categories";
+import Pagination from "../ui/pagination/pagination";
 
 const FilterCategories = () => {
   const t = useT("categories");
@@ -28,10 +29,8 @@ const FilterCategories = () => {
     [filter.page, filter.pageSize, filter.q]
   );
 
-  // Call your React Query hook
   const { data, isLoading, isError, error } = useFilteredCategories(apiFilters);
 
-  // Sync hook data into your local UI state
   useEffect(() => {
     if (!data) return;
     setCategories(data?.data?.items ?? []);
@@ -41,12 +40,27 @@ const FilterCategories = () => {
     if (data?.data?.page_size && data?.data?.page_size !== filter.pageSize) {
       setFilter((f) => ({ ...f, pageSize: data?.data?.page_size }));
     }
-  }, [data])
+  }, [data]);
+  const handlePageChange = (newPage: number) =>
+    setFilter((f) => ({ ...f, page: newPage }));
   return (
     <>
       <div className="relative flex flex-col w-full h-full text-slate-700 bg-white shadow-md rounded-xl bg-clip-border mt-10  ">
         <CategoriesHeader totalItems={totalItems} t={t} />
-         <CategoriesTable categories={categories} t={t}  page={page} pageSize={filter.pageSize} />
+        <CategoriesTable
+          categories={categories}
+          t={t}
+          page={page}
+          pageSize={filter.pageSize}
+        />
+
+        {/* Pagination */}
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+          t={t}
+          setPage={handlePageChange}
+        />
       </div>
     </>
   );
