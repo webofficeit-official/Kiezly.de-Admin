@@ -17,6 +17,11 @@
                 "label": "Kategoriename",
                 "placeholder": "Kategoriename eingeben",
                 "error": "Kategoriename erforderlich"
+            }, 
+            "slug":{
+                "label":"Slug",
+                "placeholder":"childcare",
+                "error":"Slug ist erforderlich"
             },
             "button": {
                 "cancel": "Abbrechen",
