@@ -89,7 +89,8 @@ export default function LocaleLayout({ children, params }: any) {
     "accept-invitation",
     "profile",
     "users",
-    "jobs"
+    "jobs",
+    "categories",
   ]; // add more as needed
 
   useEffect(() => {

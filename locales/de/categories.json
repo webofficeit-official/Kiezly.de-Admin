@@ -1,0 +1,27 @@
+{
+    "title": "Kategorien verwalten",
+    "create": {
+        "title": "Kategorie hinzufügen",
+        "description": "Fügen Sie eine neue Kategorie hinzu, um Jobs zu organisieren",
+        "form": {
+            "name": {
+                "label": "Kategoriename",
+                "placeholder": "Kategoriename eingeben",
+                "error": "Kategoriename erforderlich"
+            },
+            "button": {
+                "cancel": "Abbrechen",
+                "create": "Erstellen",
+                "creating": "Erstellen"
+            }
+        },
+        "success": "Kategorie erfolgreich erstellt",
+        "error": "Kategorie kann nicht erstellt werden, versuchen Sie es später erneut"
+    },
+   
+    "pagination": {
+        "page": "Seite {page} von {totalPages}",
+        "prev": "Vorher",
+        "next": "Nächste"
+    }
+}
