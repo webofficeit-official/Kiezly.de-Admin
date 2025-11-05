@@ -1,6 +1,6 @@
 import apiClient from "@/lib/config/axios-client";
 import { FilteredJobCategoriesResponse, FilterJobCategoriesData, JobCategoriesData, JobCategoriesResponse } from "@/lib/types/job-categories";
-import { useMutation, UseMutationResult, useQuery } from "@tanstack/react-query";
+import { useMutation, UseMutationResult, useQuery, useQueryClient } from "@tanstack/react-query";
 
 // Filter Job Categories
 export const useFilteredCategories = (filters: FilterJobCategoriesData) =>
@@ -29,3 +29,19 @@ export const useFilteredCategories = (filters: FilterJobCategoriesData) =>
     },
   });
 };
+
+export function useGenerateCategorySlug() {
+  const queryClient = useQueryClient();
+
+  return useMutation<{ slug: string }, Error, string>({
+    mutationFn: async(title) =>{
+         const res = await apiClient.post("/categories/generate-slug", { title });
+      return res.data as { slug: string };
+    } ,
+    onSuccess: (data) => {
+      console.log("Generated slug:", data.slug);
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
+    },
+    onError: (err) => console.error("Slug generation failed:", err),
+  });
+}
