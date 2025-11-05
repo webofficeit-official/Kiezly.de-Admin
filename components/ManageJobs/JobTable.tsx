@@ -72,6 +72,13 @@ const JobTable = ({ jobs, t, setJobs, page, pageSize }) => {
                                 {t("list.table.date")}
                             </p>
                         </th>
+                        <th
+                            className="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100">
+                            <p
+                                className="flex items-center justify-between gap-2 font-sans text-sm  font-normal leading-none text-slate-500">
+                                {t("list.table.status")}
+                            </p>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -153,12 +160,19 @@ const JobTable = ({ jobs, t, setJobs, page, pageSize }) => {
                                             {j.starts_at && dayjs(j?.starts_at).format("MMM D, YYYY")} - {j.ends_at && dayjs(j?.ends_at).format("MMM D, YYYY")}
                                         </p>
                                     </td>
+                                    <td className="p-4 border-b border-slate-200">
+                                        <p className="text-sm text-slate-500">
+                                            <span className={getStatusClasses(j.status)}>
+                                                {t(`filter.form.status.options.${j.status}`)}
+                                            </span>
+                                        </p>
+                                    </td>
                                 </tr>
                             )) : (
-                            <tr>
-                                <td colSpan={7} className="text-center p-6 font-semibold text-lg text-gray-700">{t("list.empty")}</td>
-                            </tr>
-                        )
+                                <tr>
+                                    <td colSpan={7} className="text-center p-6 font-semibold text-lg text-gray-700">{t("list.empty")}</td>
+                                </tr>
+                            )
                     }
                 </tbody>
             </table>
@@ -173,5 +187,33 @@ const JobTable = ({ jobs, t, setJobs, page, pageSize }) => {
         </div>
     )
 }
+
+function getStatusClasses(status: string) {
+    switch (status.toLowerCase()) {
+        case "published":
+            return "px-3 py-1 rounded-xl bg-indigo-100 text-indigo-700 ring-1 ring-indigo-300";
+        case "closed":
+            return "px-3 py-1 rounded-xl bg-slate-100 text-slate-700 ring-1 ring-slate-300";
+        case "rejected":
+            return "px-3 py-1 rounded-xl bg-red-100 text-red-700 ring-1 ring-red-300";
+        case "open":
+            return "px-3 py-1 rounded-xl bg-emerald-100 text-emerald-700 ring-1 ring-emerald-300";
+        case "in_progress":
+            return "px-3 py-1 rounded-xl bg-blue-100 text-blue-700 ring-1 ring-blue-300";
+        case "expired":
+            return "px-3 py-1 rounded-xl bg-orange-100 text-orange-700 ring-1 ring-orange-300";
+        case "draft":
+            return "px-3 py-1 rounded-xl bg-gray-100 text-gray-600 ring-1 ring-gray-300";
+        case "completed":
+            return "px-3 py-1 rounded-xl bg-green-100 text-green-700 ring-1 ring-green-300";
+        case "cancelled":
+            return "px-3 py-1 rounded-xl bg-rose-100 text-rose-700 ring-1 ring-rose-300";
+        case "draft":
+            return "px-3 py-1 rounded-xl bg-gray-100 text-gray-700 ring-1 ring-gray-300";
+        default:
+            return "px-3 py-1 rounded-xl bg-gray-100 text-gray-600";
+    }
+}
+
 
 export default JobTable;

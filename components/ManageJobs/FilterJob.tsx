@@ -39,7 +39,6 @@ const FilterJob = () => {
         end: null,
         status: null,
         sort: null,
-        page: 1,
         pageSize: 10,
     })
 
@@ -51,7 +50,7 @@ const FilterJob = () => {
         filterJobs.mutate({
             q: filter.q,
             ends_at: filter.end,
-            page: filter.page,
+            page: page,
             page_size: filter.pageSize,
             posted: filter.posted, 
             job_experience: filter.experience.join(","),

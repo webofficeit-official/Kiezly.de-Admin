@@ -1,5 +1,7 @@
 {
-    "title": "Jobs verwalten",
+    "subtitle": "Jobs verwalten",
+    "title": "Jobs",
+    "basetitle": "Neue Stellen (vorbehaltlich der Genehmigung)",
     "list": {
         "table": {
             "sl": "Sl-Nr",
