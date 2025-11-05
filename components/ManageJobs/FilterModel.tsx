@@ -51,6 +51,19 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
         { value: "expired", label: t("filter.form.status.options.expired") },
     ]
 
+    const SORT = [
+        { value: "new", label: t("filter.form.sort.options.new") },
+        { value: "price_asc", label: t("filter.form.sort.options.price_asc") },
+        { value: "price_desc", label: t("filter.form.sort.options.price_desc") },
+    ]
+
+    const PAGE = [
+        { value: "10", label: "10" },
+        { value: "25", label: "25" },
+        { value: "50", label: "50" },
+        { value: "100", label: "100" },
+    ]
+
     return (
         isOpen &&
         <div className="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -214,24 +227,7 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
                                             sort: v
                                         })
                                     }}
-                                    options={[
-                                        {
-                                            value: "new",
-                                            name: t("filter.form.sort.options.new")
-                                        },
-                                        {
-                                            value: "oldest",
-                                            name: t("filter.form.sort.options.oldest")
-                                        },
-                                        {
-                                            value: "name_asc",
-                                            name: t("filter.form.sort.options.name_asc")
-                                        },
-                                        {
-                                            value: "name_desc",
-                                            name: t("filter.form.sort.options.name_desc")
-                                        },
-                                    ]}
+                                    options={SORT}
                                     placeholder={t("filter.form.sort.placeholder")}
                                 />
 
@@ -244,24 +240,7 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
                                             pageSize: v
                                         })
                                     }}
-                                    options={[
-                                        {
-                                            value: "10",
-                                            name: "10"
-                                        },
-                                        {
-                                            value: "25",
-                                            name: "25"
-                                        },
-                                        {
-                                            value: "50",
-                                            name: "50"
-                                        },
-                                        {
-                                            value: "100",
-                                            name: "100"
-                                        },
-                                    ]}
+                                    options={PAGE}
                                     placeholder={t("filter.form.pageSize.placeholder")}
                                 />
                             </div>

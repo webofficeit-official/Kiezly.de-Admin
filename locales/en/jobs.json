@@ -92,9 +92,8 @@
                 "placeholder": "Choose sorting",
                 "options": {
                     "new": "Newest",
-                    "oldest": "Oldest",
-                    "name_asc": "Name Ascending",
-                    "name_desc": "Name Descending"
+                    "price_asc": "Price Ascending",
+                    "price_desc": "Price Descending"
                 }
             },
             "pageSize": {
