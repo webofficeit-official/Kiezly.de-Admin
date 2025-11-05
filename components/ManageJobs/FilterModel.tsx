@@ -1,11 +1,56 @@
+import { useJobFilterCollection } from "@/lib/react-query/queries/job/jobs";
 import { Listbox, Popover, Transition } from "@headlessui/react";
 import { Check, ChevronDown, Search, X } from "lucide-react";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
+import { FilterJobInput } from "./Form/FilterJobInput";
+import { FilterJobMultiSelect } from "./Form/FilterJobMultiSelect";
+import { FilterJobSelect } from "./Form/FilterJobSelect";
+import { FilterJobMultiSelectArray } from "./Form/FilterJobMultiSelectArray";
+import { FilterJobSelectClient } from "./Form/FilterJobSelectClient";
 
 const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
+    const [categories, setCategories] = useState([]);
+    const [tags, setTags] = useState([]);
+    const [clients, setClients] = useState([]);
+    const [experience, setExperience] = useState([]);
+    const [type, setType] = useState([]);
+
+    const collection = useJobFilterCollection()
+    useEffect(() => {
+        collection.mutate({}, {
+            onSuccess: (d) => {
+                setCategories(d?.data?.jobCategories)
+                setTags(d?.data?.jobTags)
+                setClients(d?.data?.clients)
+                setExperience(d?.data?.jobExperience)
+                setType(d?.data?.jobType)
+            },
+            onError: (e) => {
+                console.log(e);
+            }
+        })
+    }, [isOpen])
+
+    const POSTED = [
+        {
+            value: "1",
+            label: t("filter.form.posted.options.1")
+        },
+        {
+            value: "7",
+            label: t("filter.form.posted.options.7")
+        },
+        {
+            value: "30",
+            label: t("filter.form.posted.options.30")
+        },
+        {
+            value: "365",
+            label: t("filter.form.posted.options.365")
+        }
+    ]
 
     return (
-
         isOpen &&
         <div className="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
             <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0 max-w-[50rem] mx-auto">
@@ -34,9 +79,9 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
                             </p>
 
                             <div className="flex col space-x-5">
-                                <FilterInput
-                                    label={t("filter.form.name.label")}
-                                    placeholder={t("filter.form.name.placeholder")}
+                                <FilterJobInput
+                                    label={t("filter.form.title.label")}
+                                    placeholder={t("filter.form.title.placeholder")}
                                     value={filter.q}
                                     onChange={(e) => {
                                         setFilter({
@@ -46,7 +91,7 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
                                     }}
                                 />
 
-                                <FilterInput
+                                <FilterJobInput
                                     label={t("filter.form.location.label")}
                                     placeholder={t("filter.form.location.placeholder")}
                                     value={filter.location}
@@ -60,33 +105,133 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
                             </div>
 
                             <div className="flex col space-x-5">
-                                <Select
-                                    label={t("filter.form.role.label")}
-                                    value={filter.role}
+                                <FilterJobMultiSelect
+                                    label={t("filter.form.category.label")}
+                                    values={filter.categories}
                                     onChange={(v) => {
                                         setFilter({
                                             ...filter,
-                                            role: v
+                                            categories: v
+                                        })
+                                    }}
+                                    options={categories}
+                                    placeholder={t("filter.form.category.placeholder")}
+                                    t={t}
+                                />
+
+                                <FilterJobSelectClient
+                                    label={t("filter.form.client.label")}
+                                    value={filter.client}
+                                    onChange={(v) => {
+                                        setFilter({
+                                            ...filter,
+                                            client: v
+                                        })
+                                    }}
+                                    options={clients}
+                                    placeholder={t("filter.form.client.placeholder")}
+                                />
+
+                                <FilterJobMultiSelect
+                                    label={t("filter.form.job-tags.label")}
+                                    values={filter.tags}
+                                    onChange={(v) => {
+                                        setFilter({
+                                            ...filter,
+                                            tags: v
+                                        })
+                                    }}
+                                    options={tags}
+                                    placeholder={t("filter.form.job-tags.placeholder")}
+                                    t={t}
+                                />
+                            </div>
+
+                            <div className="flex col space-x-5">
+                                <FilterJobInput
+                                    label={t("filter.form.min_price.label")}
+                                    placeholder={t("filter.form.min_price.placeholder")}
+                                    value={filter.minPrice}
+                                    onChange={(e) => {
+                                        setFilter({
+                                            ...filter,
+                                            minPrice: e.target.value
+                                        })
+                                    }}
+                                />
+
+                                <FilterJobInput
+                                    label={t("filter.form.max_price.label")}
+                                    placeholder={t("filter.form.max_price.placeholder")}
+                                    value={filter.maxPrice}
+                                    onChange={(e) => {
+                                        setFilter({
+                                            ...filter,
+                                            maxPrice: e.target.value
+                                        })
+                                    }}
+                                />
+                            </div>
+
+                            <div className="flex col space-x-5">
+                                <FilterJobMultiSelectArray
+                                    label={t("filter.form.experience.label")}
+                                    values={filter.experience}
+                                    onChange={(v) => {
+                                        setFilter({
+                                            ...filter,
+                                            experience: v
+                                        })
+                                    }}
+                                    options={experience}
+                                    placeholder={t("filter.form.experience.placeholder")}
+                                    t={t}
+                                />
+
+                                <FilterJobMultiSelectArray
+                                    label={t("filter.form.type.label")}
+                                    values={filter.type}
+                                    onChange={(v) => {
+                                        setFilter({
+                                            ...filter,
+                                            type: v
+                                        })
+                                    }}
+                                    options={type}
+                                    placeholder={t("filter.form.type.placeholder")}
+                                    t={t}
+                                />
+
+                                <FilterJobSelect
+                                    label={t("filter.form.posted.label")}
+                                    value={filter.posted}
+                                    onChange={(v) => {
+                                        setFilter({
+                                            ...filter,
+                                            posted: v
+                                        })
+                                    }}
+                                    options={POSTED}
+                                    placeholder={t("filter.form.posted.placeholder")}
+                                />
+                            </div>
+
+                            <div className="flex col space-x-5">
+                                <FilterJobSelect
+                                    label={t("filter.form.status.label")}
+                                    value={filter.status}
+                                    onChange={(v) => {
+                                        setFilter({
+                                            ...filter,
+                                            status: v
                                         })
                                     }}
                                     options={[
-                                        {
-                                            value: "",
-                                            name: t("filter.form.role.options.all")
-                                        },
-                                        {
-                                            value: "client",
-                                            name: t("filter.form.role.options.client")
-                                        },
-                                        {
-                                            value: "helper",
-                                            name: t("filter.form.role.options.helper")
-                                        },
                                     ]}
-                                    placeholder={t("filter.form.role.placeholder")}
+                                    placeholder={t("filter.form.status.placeholder")}
                                 />
 
-                                <Select
+                                <FilterJobSelect
                                     label={t("filter.form.sort.label")}
                                     value={filter.sort}
                                     onChange={(v) => {
@@ -116,7 +261,7 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
                                     placeholder={t("filter.form.sort.placeholder")}
                                 />
 
-                                <Select
+                                <FilterJobSelect
                                     label={t("filter.form.pageSize.label")}
                                     value={filter.pageSize}
                                     onChange={(v) => {
@@ -148,19 +293,31 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
                             </div>
 
                             <div className="flex col space-x-5">
-                                <Switch label={t("filter.form.policeVerified.label")} checked={filter.policeVerified} onChange={(v) => {
-                                    setFilter({
-                                        ...filter,
-                                        policeVerified: filter.policeVerified ? null : true
-                                    })
-                                }} />
+                                <FilterJobInput
+                                    label={t("filter.form.starts_at.label")}
+                                    type="date"
+                                    placeholder={t("filter.form.starts_at.placeholder")}
+                                    value={filter.start}
+                                    onChange={(e) => {
+                                        setFilter({
+                                            ...filter,
+                                            start: e.target.value
+                                        })
+                                    }}
+                                />
 
-                                <Switch label={t("filter.form.firstAid.label")} checked={filter.firstAid} onChange={(v) => {
-                                    setFilter({
-                                        ...filter,
-                                        firstAid: filter.firstAid ? null : true
-                                    })
-                                }} />
+                                <FilterJobInput
+                                    label={t("filter.form.ends_at.label")}
+                                    type="date"
+                                    placeholder={t("filter.form.ends_at.placeholder")}
+                                    value={filter.end}
+                                    onChange={(e) => {
+                                        setFilter({
+                                            ...filter,
+                                            end: e.target.value
+                                        })
+                                    }}
+                                />
                             </div>
                         </div>
                         <div className="p-6 pt-0">
@@ -193,88 +350,6 @@ const FilterModel = ({ isOpen, setIsOpen, t, filter, setFilter }) => {
 
 export default FilterModel
 
-function FilterInput({ label, placeholder = "", error = false, errorMesage = "", value, onChange, type = 'text' }) {
-    return (
-        <div className="w-full max-w-sm min-w-[200px] mt-4 ">
-            <label className={`block mb-1 text-sm ${error ? 'text-red-600' : 'text-slate-700'}`}>
-                {label}
-            </label>
-            <input
-                type={type}
-                value={value}
-                onChange={onChange}
-                className={`rounded-xl w-full h-10 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border ${error ? 'border-red-400' : 'border-gray-300'} rounded px-3 py-2 transition duration-300 ease shadow-sm focus:shadow-md`}
-                placeholder={placeholder} />
-            {
-                error &&
-                <p className="text-sm mt-2 font-sans text-red-600">{errorMesage}</p>
-            }
-        </div>
-    )
-}
-
-function Switch({ label, checked, onChange }: { label: string; checked: boolean; onChange: (v: boolean) => void }) {
-    return (
-        <div className="flex items-center justify-between border border-gray-300 px-3 py-2 mt-4 rounded-xl w-full">
-            <span className="text-sm">{label}</span>
-            <button type="button" onClick={() => onChange(!checked)} className={classNames("h-6 w-11 rounded-full border p-0.5 text-left", checked ? "bg-black" : "bg-gray-200")}
-                aria-pressed={checked}
-            >
-                <span className={classNames("block h-5 w-5 rounded-full bg-white transition", checked ? "translate-x-5" : "translate-x-0")} />
-            </button>
-        </div>
-    );
-}
-
 function classNames(...xs: Array<string | false | undefined | null>) {
     return xs.filter(Boolean).join(" ");
-}
-
-function Select({
-    label,
-    value,
-    onChange,
-    options,
-    placeholder = "Select"
-}: {
-    label: string;
-    value: string;
-    onChange: (v: string) => void;
-    options: {
-        value: string
-        name: string
-    }[];
-    placeholder?: string
-}) {
-    return (
-        <div className="text-sm mt-5 w-full">
-            <span className="mb-1 block text-gray-700">{label}</span>
-
-            <Listbox value={value} onChange={onChange}>
-                <div className="relative">
-                    <Listbox.Button className="flex w-full items-center justify-between rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-black">
-                        {value || placeholder}
-                        <ChevronDown className="h-4 w-4 text-gray-400" />
-                    </Listbox.Button>
-
-                    <Listbox.Options className="absolute z-10 mt-2 max-h-60 w-full overflow-auto rounded-xl border border-gray-200 bg-white shadow-lg focus:outline-none">
-                        {options.map((o) => (
-                            <Listbox.Option
-                                key={o.value}
-                                value={o.value}
-                                className="cursor-pointer select-none px-3 py-2 text-sm text-gray-700 ui-active:bg-gray-100"
-                            >
-                                {({ selected }) => (
-                                    <div className="flex items-center justify-between">
-                                        <span>{o.name}</span>
-                                        {selected && <Check className="h-4 w-4 text-gray-600" />}
-                                    </div>
-                                )}
-                            </Listbox.Option>
-                        ))}
-                    </Listbox.Options>
-                </div>
-            </Listbox>
-        </div>
-    );
 }

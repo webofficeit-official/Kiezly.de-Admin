@@ -1,5 +1,5 @@
 import apiClient from "@/lib/config/axios-client";
-import { FilterJobData, FilterJobResponse, JobProfileData, jobProfileResponse } from "@/lib/types/job-type";
+import { FilterJobData, FilterJobResponse, JobFilterCollectionData, JobFilterCollectionResponse } from "@/lib/types/job-type";
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 
 // Filter Jobs 
@@ -9,10 +9,10 @@ export const useFilterJobs = (): UseMutationResult<
   FilterJobData
 > => {
   return useMutation({
-    mutationFn: async ({ page, page_size, q, location, role, sort, police_verified, has_first_aid }) => {
+    mutationFn: async ({ q, ends_at, page, page_size, posted, job_experience, job_tags, job_type, sort, starts_at, status, category_id, city, client_id, max_price, min_price }) => {
       const res = await apiClient.get(
         `/manage-jobs`,
-        { params: { page, page_size, q, location, role, sort, police_verified, has_first_aid } },  // body
+        { params: { q, ends_at, page, page_size, posted, job_experience, job_tags, job_type, sort, starts_at, status, category_id, city, client_id, max_price, min_price } },  // body
       );
       return res.data as FilterJobResponse;
     },
@@ -20,17 +20,17 @@ export const useFilterJobs = (): UseMutationResult<
 };
 
 // Job Profile 
-export const useJobProfile = (): UseMutationResult<
-  jobProfileResponse,
+export const useJobFilterCollection = (): UseMutationResult<
+  JobFilterCollectionResponse,
   Error,
-  JobProfileData
+  JobFilterCollectionData
 > => {
   return useMutation({
-    mutationFn: async ({ id }) => {
+    mutationFn: async ({}) => {
       const res = await apiClient.get(
-        `/jobs/${id}`,
+        `/filter`,
       );
-      return res.data as jobProfileResponse;
+      return res.data as JobFilterCollectionResponse;
     },
   });
 };

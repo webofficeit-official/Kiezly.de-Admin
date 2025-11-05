@@ -105,7 +105,7 @@ const JobTable = ({ jobs, t, setJobs, page, pageSize }) => {
                                             className="text-sm text-slate-500">
                                             {(j.contact_method == "direct_email" || j.contact_method == "email_relay") && j.contact_email}
                                             {(j.contact_method == "external_link") && <>
-                                                <a href={j.contact_link} target="__blank">{t("job.external_link")}</a>
+                                                <a href={j.contact_link} target="__blank">{t("list.table.external_link")}</a>
                                             </>}
                                             {(j.contact_method == "phone") && j.contact_phone}
                                         </p>

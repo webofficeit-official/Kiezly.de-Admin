@@ -1,4 +1,5 @@
 import { Country } from "./country-type";
+import { JobCategories } from "./job-categories";
 import { JobTags } from "./job-tags";
 import { User } from "./user-type";
 
@@ -65,18 +66,36 @@ export type FilteredJobs = {
 export type FilterJobResponse = { success: boolean; message: string, data: FilteredJobs };
 
 export type FilterJobData = {
-    q?: string;
-    location?: string;
-    has_first_aid?: string | boolean;
-    police_verified?: string | boolean;
-    role?: string;
+    category_id?: string;
+    city?: string;
+    min_price?: string;
+    max_price?: string;
+    status?: string;
     sort?: string;
     page?: number;
     page_size?: number;
+    job_tags?: string;
+    job_experience?: string;
+    job_type?: string;
+    starts_at?: string;
+    ends_at?: string;
+    posted?: string;
+    client_id?: string;
+    q?: string;
 };
 
-export type JobProfileData = {
-    id: string
-};
+export type JobFilterCollectionData = {};
 
-export type jobProfileResponse = { success: boolean; message: string, data: Job };
+export type JobFilterCollectionResponse = { success: boolean; message: string, data: FilterCollection };
+
+export type FilterCollection = {
+    jobCategories: JobCategories[];
+    jobTags: JobTags[];
+    clients: User[];
+    jobExperience: Enum[];
+    jobType: Enum[];
+}
+
+export type Enum = {
+    label: string
+}

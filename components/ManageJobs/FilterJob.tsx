@@ -27,10 +27,19 @@ const FilterJob = () => {
     const [filter, setFilter] = useState({
         q: "",
         location: "",
-        firstAid: null,
-        policeVerified: null,
-        role: "",
-        sort: "",
+        categories: [],
+        client: null,
+        tags: [],
+        minPrice: null,
+        maxPrice: null,
+        experience: [],
+        type: [],
+        posted: null,
+        start: null,
+        end: null,
+        status: null,
+        sort: null,
+        page: 1,
         pageSize: 10,
     })
 
@@ -40,14 +49,22 @@ const FilterJob = () => {
 
     useEffect(() => {
         filterJobs.mutate({
-            page: page,
+            q: filter.q,
+            ends_at: filter.end,
+            page: filter.page,
             page_size: filter.pageSize,
-            q: filter?.q,
-            location: filter?.location,
-            role: filter?.role,
-            sort: filter?.sort,
-            police_verified: filter?.policeVerified,
-            has_first_aid: filter?.firstAid,
+            posted: filter.posted, 
+            job_experience: filter.experience.join(","),
+            job_tags: filter.tags.join(","),
+            job_type: filter.type.join(","),
+            sort: filter.sort,
+            starts_at: filter.start,
+            status: filter.status,
+            category_id: filter.categories.join(","),
+            city: filter.location,
+            client_id: filter.client,
+            max_price: filter.maxPrice,
+            min_price: filter.minPrice
         }, {
             onSuccess: (data) => {
                 setJobs(data?.data?.items)

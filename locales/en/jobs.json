@@ -8,29 +8,71 @@
             "category": "Category",
             "location": "Location",
             "type-experience": "Job type & experience",
-            "date": "Starts and End date"
+            "date": "Starts and End date",
+            "external_link": "External link"
         }
     },
     "filter": {
         "title": "Filter Records",
-        "description": "User segmentation and filter",
+        "description": "Job segmentation and filter",
         "form": {
-            "name": {
-                "label": "Name / Email",
-                "placeholder": "John / Doe / john.doe@gmail.com"
+            "title": {
+                "label": "Title",
+                "placeholder": "Childcare / Babysitting"
             },
             "location": {
                 "label": "Location",
                 "placeholder": "Berlin / 40215"
             },
-            "role": {
-                "label": "Role",
-                "placeholder": "Choose a role",
+            "category": {
+                "label": "Category",
+                "placeholder": "Choose categories"
+            },
+            "client": {
+                "label": "Client",
+                "placeholder": "Choose a client"
+            },
+            "job-tags": {
+                "label": "Job tags",
+                "placeholder": "Choose job tags"
+            },
+            "starts_at": {
+                "label": "Start date",
+                "placeholder": ""
+            },
+            "ends_at": {
+                "label": "End date",
+                "placeholder": ""
+            },
+            "min_price": {
+                "label": "Min price",
+                "placeholder": "10"
+            },
+            "max_price": {
+                "label": "Max price",
+                "placeholder": "250"
+            },
+            "experience": {
+                "label": "Job experience",
+                "placeholder": "Choose experiences"
+            },
+            "type": {
+                "label": "Job type",
+                "placeholder": "Choose job types"
+            },
+            "posted": {
+                "label": "Posted",
+                "placeholder": "Posted times",
                 "options": {
-                    "all": "All",
-                    "client": "Client",
-                    "helper": "Helper"
+                    "1": "24 Hours",
+                    "7": "7 Days",
+                    "30": "30 Days",
+                    "365": "1 Year"
                 }
+            },
+            "status": {
+                "label": "Status",
+                "placeholder": "Choose a status"
             },
             "sort": {
                 "label": "Sort By",
@@ -41,12 +83,6 @@
                     "name_asc": "Name Ascending",
                     "name_desc": "Name Descending"
                 }
-            },
-            "policeVerified": {
-                "label": "Police verified"
-            },
-            "firstAid": {
-                "label": "Has first aid"
             },
             "pageSize": {
                 "label": "Page Size",
