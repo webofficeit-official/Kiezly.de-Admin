@@ -47,12 +47,13 @@ export type Job = {
     views_count?: number;
     saves_count?: number;
     reports_count?: number;
+    applicants_count?: number;
     published_at?: string;
     expires_at?: string;
     category_name?: string;
     countries?: Country;
     client?: User;
-    tags?: JobTags;
+    tags?: JobTags[];
 }
 
 export type FilteredJobs = {
@@ -99,3 +100,17 @@ export type FilterCollection = {
 export type Enum = {
     label: string
 }
+
+export type JobDetailResponse = { success: boolean; message: string, job: Job };
+
+export type JobDetailData = {
+    id?: string
+    slug?: string
+};
+
+export type JobAprovalResponse = { success: boolean; message: string, job: Job };
+
+export type JobAprovalData = {
+    id?: string
+    status?: string
+};

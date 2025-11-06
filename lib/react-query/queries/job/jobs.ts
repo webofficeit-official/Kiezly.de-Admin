@@ -1,5 +1,5 @@
 import apiClient from "@/lib/config/axios-client";
-import { FilterJobData, FilterJobResponse, JobFilterCollectionData, JobFilterCollectionResponse } from "@/lib/types/job-type";
+import { FilterJobData, FilterJobResponse, JobAprovalData, JobAprovalResponse, JobDetailData, JobDetailResponse, JobFilterCollectionData, JobFilterCollectionResponse } from "@/lib/types/job-type";
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 
 // Filter Jobs 
@@ -31,6 +31,57 @@ export const useJobFilterCollection = (): UseMutationResult<
         `/filter`,
       );
       return res.data as JobFilterCollectionResponse;
+    },
+  });
+};
+
+// Job Profile 
+export const useJobDetails = (): UseMutationResult<
+  JobDetailResponse,
+  Error,
+  JobDetailData
+> => {
+  return useMutation({
+    mutationFn: async ({ id }) => {
+      const res = await apiClient.get(
+        `/manage-jobs/job/job-id/${id}`,
+      );
+      return res.data as JobDetailResponse;
+    },
+  });
+};
+
+// Job Profile 
+export const useJobDetailsBySlug = (): UseMutationResult<
+  JobDetailResponse,
+  Error,
+  JobDetailData
+> => {
+  return useMutation({
+    mutationFn: async ({ slug }) => {
+      const res = await apiClient.get(
+        `/manage-jobs/job/${slug}`,
+      );
+      return res.data as JobDetailResponse;
+    },
+  });
+};
+
+// Job Profile 
+export const useJobApproval = (): UseMutationResult<
+  JobAprovalResponse,
+  Error,
+  JobAprovalData
+> => {
+  return useMutation({
+    mutationFn: async ({ id, status }) => {
+      const res = await apiClient.patch(
+        `/manage-jobs/job/${id}`,
+        {
+          status
+        }
+      );
+      return res.data as JobAprovalResponse;
     },
   });
 };
