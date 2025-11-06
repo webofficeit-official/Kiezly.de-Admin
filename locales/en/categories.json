@@ -2,7 +2,7 @@
     "title": "Manage Categories",
     "list": {
         "table": {
-            "sl": "Sl no",
+            "sl": "Sl No",
             "name": "Name",
             "slug": "Slug",
             "actions": "Actions"
