@@ -99,3 +99,9 @@ export type FilterCollection = {
 export type Enum = {
     label: string
 }
+
+export type JobDetailResponse = { success: boolean; message: string, job: Job };
+
+export type JobDetailData = {
+    id: string
+};

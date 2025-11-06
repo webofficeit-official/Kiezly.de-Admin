@@ -1,21 +1,22 @@
-import { Check, Facebook, Globe, Instagram, Linkedin, X } from "lucide-react";
+import { Check, Eye, Facebook, Globe, Instagram, Linkedin, X } from "lucide-react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { Job } from "@/lib/types/job-type";
 import { useState } from "react";
-import JobModel from "./JobModel";
+import LocalizedLink from "@/lib/localizedLink";
+import UserModel from "../ManageUsers/UserModel";
 dayjs.extend(relativeTime);
 
 const JobTable = ({ jobs, t, setJobs, page, pageSize }) => {
-    const [isJobModalOpen, setIsJobModalOpen] = useState(false);
-    const [selectedJobId, setSelectedJobId] = useState<string | null>(null);
-    const closeJobModal = () => {
-        setIsJobModalOpen(false);
-        setSelectedJobId(null);
+    const [isUserModalOpen, setIsUserModalOpen] = useState(false);
+    const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+    const closeUserModal = () => {
+        setIsUserModalOpen(false);
+        setSelectedUserId(null);
     };
-    const openJobModal = (jobId: string) => {
-        setSelectedJobId(jobId);
-        setIsJobModalOpen(true);
+    const openUserModal = (userId: string) => {
+        setSelectedUserId(userId);
+        setIsUserModalOpen(true);
     };
 
     return (
@@ -79,34 +80,39 @@ const JobTable = ({ jobs, t, setJobs, page, pageSize }) => {
                                 {t("list.table.status")}
                             </p>
                         </th>
+                        <th
+                            className="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100">
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         jobs.length > 0 ?
                             jobs?.map((j: Job, i) => (
-                                <tr key={j.id} onClick={() => openJobModal(j.id)} className="cursor-pointer">
+                                <tr key={j.id} className="cursor-pointer">
                                     <td className="border-b border-slate-200 text-center">
                                         <div className="flex flex-col">
                                             {i + ((page - 1) * pageSize) + 1}
                                         </div>
                                     </td>
-                                    <td className="p-4 border-b border-slate-200 w-64" onClick={() => openJobModal(j.id)}>
+                                    <td className="p-4 border-b border-slate-200 w-64">
                                         <div className="flex items-center gap-3">
-                                            <div className="flex flex-col">
-                                                <p className="text-sm font-semibold text-slate-700">
-                                                    {j.title}
-                                                </p>
-                                                <p
-                                                    className="text-sm text-slate-500">
-                                                    {j.subtitle}
-                                                </p>
-                                            </div>
+                                            <LocalizedLink href={`/job/${j.slug}`}>
+                                                <div className="flex flex-col">
+                                                    <p className="text-sm font-semibold text-slate-700">
+                                                        {j.title}
+                                                    </p>
+                                                    <p
+                                                        className="text-sm text-slate-500">
+                                                        {j.subtitle}
+                                                    </p>
+                                                </div>
+                                            </LocalizedLink>
                                         </div>
                                     </td>
                                     <td className="p-4 border-b border-slate-200">
                                         <div className="flex flex-col">
-                                            <p className="text-sm font-semibold text-slate-700">
+                                            <p className="text-sm font-semibold text-slate-700" onClick={() => openUserModal(j.client.id)}>
                                                 {j.client.org_name}
                                             </p>
                                             <p
@@ -167,6 +173,11 @@ const JobTable = ({ jobs, t, setJobs, page, pageSize }) => {
                                             </span>
                                         </p>
                                     </td>
+                                    <td className="p-4 border-b border-slate-200">
+                                        <LocalizedLink href={`/job/${j.slug}`}>
+                                            <Eye className="w-5 h-5 text-black" />
+                                        </LocalizedLink>
+                                    </td>
                                 </tr>
                             )) : (
                                 <tr>
@@ -177,11 +188,11 @@ const JobTable = ({ jobs, t, setJobs, page, pageSize }) => {
                 </tbody>
             </table>
 
-            {isJobModalOpen && (
-                <JobModel
-                    isOpen={isJobModalOpen}
-                    onClose={closeJobModal}
-                    jobId={selectedJobId}
+            {isUserModalOpen && (
+                <UserModel
+                    isOpen={isUserModalOpen}
+                    onClose={closeUserModal}
+                    userId={selectedUserId}
                 />
             )}
         </div>
