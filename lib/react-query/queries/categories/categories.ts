@@ -34,14 +34,12 @@ export function useGenerateCategorySlug() {
   const queryClient = useQueryClient();
 
   return useMutation<{ slug: string }, Error, string>({
-    mutationFn: async(title) =>{
-         const res = await apiClient.post("/categories/generate-slug", { title });
-      return res.data as { slug: string };
-    } ,
-    onSuccess: (data) => {
-      console.log("Generated slug:", data.slug);
+    mutationFn: async (name: string) => {
+      const res = await apiClient.post("/categories/generate-slug", { name });
+      return { slug: res.data.slug };
+    },
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
-    onError: (err) => console.error("Slug generation failed:", err),
   });
 }
