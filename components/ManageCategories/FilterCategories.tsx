@@ -7,6 +7,7 @@ import CategoriesTable from "./CategoriesTable";
 import { useFilteredCategories } from "@/lib/react-query/queries/categories/categories";
 import Pagination from "../ui/pagination/pagination";
 import CategoryModal from "./CategoriesModel";
+import CategoriesControls from "./CategoriesControls";
 
 const FilterCategories = () => {
   const t = useT("categories");
@@ -21,7 +22,7 @@ const FilterCategories = () => {
   });
 
   const [modelOpen, setModelOpen] = useState(false);
-  
+
   const apiFilters = useMemo(
     () => ({
       page: filter.page,
@@ -45,16 +46,34 @@ const FilterCategories = () => {
   }, [data]);
   const handlePageChange = (newPage: number) =>
     setFilter((f) => ({ ...f, page: newPage }));
+  const handleQueryChange = (q: string) =>
+    setFilter((f) => ({ ...f, q, page: 1 })); // reset to page 1 on new search
+
+  const handlePageSizeChange = (size: number) =>
+    setFilter((f) => ({ ...f, pageSize: size, page: 1 })); // reset to page 1
   return (
     <>
       <div className="relative flex flex-col w-full h-full text-slate-700 bg-white shadow-md rounded-xl bg-clip-border mt-10  ">
-        <CategoriesHeader totalItems={totalItems}    setModelOpen={setModelOpen} 
-                    modelOpen={modelOpen}  t={t} />
+        <CategoriesHeader
+          totalItems={totalItems}
+          setModelOpen={setModelOpen}
+          modelOpen={modelOpen}
+          t={t}
+        />
+      
+        <CategoriesControls
+          q={filter.q}
+          pageSize={filter.pageSize}
+          onQueryChange={handleQueryChange}
+          onPageSizeChange={handlePageSizeChange}
+          t={t}
+        />
         <CategoriesTable
           categories={categories}
           t={t}
           page={page}
           pageSize={filter.pageSize}
+          loading={isLoading}
         />
 
         {/* Pagination */}
@@ -65,7 +84,7 @@ const FilterCategories = () => {
           setPage={handlePageChange}
         />
       </div>
-           <CategoryModal isOpen={modelOpen} setIsOpen={setModelOpen} t={t} />
+      <CategoryModal isOpen={modelOpen} setIsOpen={setModelOpen} t={t} />
     </>
   );
 };

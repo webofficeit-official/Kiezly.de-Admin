@@ -7,9 +7,15 @@
             "slug": "Slug",
             "actions": "Aktionen"
         },
-        "empty": "Keine Kategorien verfügbar"
+        "empty": "Keine Kategorien verfügbar",
+        "search_placeholder": "Kategorien suchen...",
+        "search_label": "Kategorien suchen",
+        "search_aria": "Kategorien suchen",
+        "clearSearch": "Suche löschen",
+        "per_page": "pro Seite",
+        "items": "Elemente"
     },
-    "common":{"generating":"Wird generiert..."},
+    "common":{"generating":"Wird generiert...","clear":"Suche löschen"},
     "create": {
         "title": "Kategorie hinzufügen",
         "description": "Fügen Sie eine neue Kategorie hinzu, um Jobs zu organisieren",
