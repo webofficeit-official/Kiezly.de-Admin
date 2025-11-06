@@ -1,5 +1,7 @@
 {
-    "title": "Manage Jobs",
+    "subtitle": "Manage Jobs",
+    "title": "Jobs",
+    "basetitle": "New Jobs (Pending aproval)",
     "list": {
         "table": {
             "sl": "Sl no",
@@ -106,9 +108,49 @@
             }
         }
     },
+    "detail": {
+        "header": {
+            "not-specified": "Not specified",
+            "posted": "Posted",
+            "start": "Start",
+            "end": "End",
+            "share": "Share",
+            "saved": "Saved",
+            "save": "Save",
+            "accept": "Accept",
+            "decline": "Decline"
+        },
+        "description": {
+            "about-the-role": "About the Role",
+            "requirement": "Requirements",
+            "tasks": "Tasks"
+        }
+    },
+    "count": {
+        "title": "Job Counts",
+        "items": {
+            "views": "Views",
+            "saves": "Saves",
+            "reports": "Reports",
+            "applicants": "Applicants"
+        }
+    },
+    "company": {
+        "title": "About the company",
+        "contact-method": "Contact Method",
+        "socials": "Socials",
+        "click-here": "Click here"
+    },
     "pagination": {
         "page": "Page {page} of {totalPages}",
         "prev": "Prev",
         "next": "Next"
+    },
+    "approve": {
+        "success": {
+            "published": "Job has been published",
+            "rejected": "Job has been rejected"
+        },
+        "error": "Something went wrong"
     }
 }

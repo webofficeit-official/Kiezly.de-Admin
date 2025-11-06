@@ -1,10 +1,11 @@
 import { useT } from "@/app/[locale]/layout";
 import LocalizedLink from "@/lib/localizedLink";
-import { BriefcaseBusiness, ChevronDown, ChevronUp, FolderCheck, FolderCode, Globe, Languages, LayoutDashboard, MapPinned, Navigation, ShieldPlus, Users } from "lucide-react";
+import { BriefcaseBusiness, ChevronDown, ChevronUp, FolderCheck, FolderCode, Globe, Languages, Layers, LayoutDashboard, MapPinned, Navigation, Newspaper, ShieldPlus, Users } from "lucide-react";
 import { useState } from "react";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isJobOpen, setIsJobOpen] = useState(false);
     const t = useT('sidebar');
 
     return (
@@ -41,10 +42,33 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             </li>
                             {/* Jobs  */}
                             <li>
-                                <LocalizedLink href="/jobs" className="flex px-4 py-2 text-sm hover:bg-gray-100 w-full text-left false">
-                                    <BriefcaseBusiness className="w-5 h-5" />
-                                    <span className="ms-3">{t("menu.jobs")}</span>
-                                </LocalizedLink>
+                                <button onClick={() => setIsJobOpen(!isJobOpen)} className={`flex px-4 py-2 text-sm hover:bg-gray-100 w-full text-left false justify-between ${isDropdownOpen && 'bg-gray-100'}`}>
+                                    <div className="flex">
+                                        <BriefcaseBusiness className="w-5 h-5" />
+                                        <span className="ms-3">{t("menu.jobs")}</span>
+                                    </div>
+                                    {isJobOpen ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                                </button>
+                                {isJobOpen && (
+                                    <ul className="py-2 space-y-2">
+                                        <li>
+                                            <LocalizedLink href="/jobs" className="flex items-center w-full p-2 pl-11 text-gray-900 
+                                                    transition duration-75 rounded-lg group 
+                                                    hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 text-sm">
+                                                <Layers className="w-5 h-5" />
+                                                <span className="ms-3">{t("menu.all-jobs")}</span>
+                                            </LocalizedLink>
+                                        </li>
+                                        <li>
+                                            <LocalizedLink href="/new-jobs" className="flex items-center w-full p-2 pl-11 text-gray-900 
+                                                    transition duration-75 rounded-lg group 
+                                                    hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 text-sm">
+                                                <Newspaper className="w-5 h-5" />
+                                                <span className="ms-3">{t("menu.pending-aproval")}</span>
+                                            </LocalizedLink>
+                                        </li>
+                                    </ul>
+                                )}
                             </li>
                         </ul>
                         <ul className="space-y-2 font-medium p-2 border-t border-gray-200 dark:border-gray-700 mt-3 pt-4">

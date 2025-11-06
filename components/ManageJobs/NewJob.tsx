@@ -17,7 +17,7 @@ export type FilterOption = {
     sort?: "new" | "oldest" | "name_asc" | "name_desc"
 } 
 
-const FilterJob = () => {
+const NewJob = () => {
     const t = useT("jobs");
 
     const [jobs, setJobs] = useState([]);
@@ -37,8 +37,8 @@ const FilterJob = () => {
         posted: null,
         start: null,
         end: null,
-        status: null,
         sort: null,
+        page: 1,
         pageSize: 10,
     })
 
@@ -50,7 +50,7 @@ const FilterJob = () => {
         filterJobs.mutate({
             q: filter.q,
             ends_at: filter.end,
-            page: page,
+            page: filter.page,
             page_size: filter.pageSize,
             posted: filter.posted, 
             job_experience: filter.experience.join(","),
@@ -58,7 +58,7 @@ const FilterJob = () => {
             job_type: filter.type.join(","),
             sort: filter.sort,
             starts_at: filter.start,
-            status: filter.status,
+            status: "pending_review",
             category_id: filter.categories.join(","),
             city: filter.location,
             client_id: filter.client,
@@ -91,6 +91,7 @@ const FilterJob = () => {
                     setInviteAdminModelOpen={setInviteAdminModelOpen} 
                     inviteAdminModelOpen={inviteAdminModelOpen} 
                     t={t}
+                    filter={false}
                 />
 
                 {/* Job Table */}
@@ -99,16 +100,8 @@ const FilterJob = () => {
                 {/* Pagination */}
                 <JobPagination page={page} totalPages={totalPages} t={t} setPage={setPage} />
             </div>
-
-            <FilterModel 
-                isOpen={inviteAdminModelOpen} 
-                setIsOpen={setInviteAdminModelOpen} 
-                t={t}
-                filter={filter}
-                setFilter={setFilter} 
-            />
         </>
     )
 }
 
-export default FilterJob
+export default NewJob

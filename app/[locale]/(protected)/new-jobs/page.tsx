@@ -2,7 +2,7 @@
 import Breadcrumb from "@/components/layout/private/Breadcrumbs";
 import React, { Suspense } from "react";
 import { useT } from "../../layout";
-import FilterJob from "@/components/ManageJobs/FilterJob";
+import NewJob from "@/components/ManageJobs/NewJob";
 
 export default function Page() {
     const t = useT("jobs");
@@ -14,7 +14,7 @@ export default function Page() {
             isLast: false
         },
         {
-            title: t("title"),
+            title: t("basetitle"),
             link: '/jobs',
             isLast: true
         }
@@ -22,7 +22,7 @@ export default function Page() {
     return (
         <div className="p-4 mt-14">
             <Breadcrumb items={breadcrumb} />
-            <FilterJob />
+            <NewJob />
         </div>
     );
 }

@@ -1,5 +1,7 @@
 {
-    "title": "Jobs verwalten",
+    "subtitle": "Jobs verwalten",
+    "title": "Jobs",
+    "basetitle": "Neue Stellen (vorbehaltlich der Genehmigung)",
     "list": {
         "table": {
             "sl": "Sl-Nr",
@@ -106,9 +108,49 @@
             }
         }
     },
+    "detail": {
+        "header": {
+            "not-specified": "Nicht angegeben",
+            "posted": "Gepostet",
+            "start": "Start",
+            "end": "Ende",
+            "share": "Aktie",
+            "saved": "Gespeichert",
+            "save": "Speichern",
+            "accept": "Akzeptieren",
+            "decline": "Abfall"
+        },
+        "description": {
+            "about-the-role": "Über die Rolle",
+            "requirement": "Anforderungen",
+            "tasks": "Aufgaben"
+        }
+    },
+    "count": {
+        "title": "Job zählt",
+        "items": {
+            "views": "Ansichten",
+            "saves": "Spart",
+            "reports": "Berichte",
+            "applicants": "Bewerber"
+        }
+    },
+    "company": {
+        "title": "Über das Unternehmen",
+        "contact-method": "Kontaktmethode",
+        "socials": "Soziale Netzwerke",
+        "click-here": "klicken Sie hier"
+    },
     "pagination": {
         "page": "Seite {page} von {totalPages}",
         "prev": "Vorher",
         "next": "Nächste"
+    },
+    "approve": {
+        "success": {
+            "published": "Job wurde veröffentlicht",
+            "rejected": "Job wurde abgelehnt"
+        },
+        "error": "Etwas ist schief gelaufen"
     }
 }
