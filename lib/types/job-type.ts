@@ -47,6 +47,7 @@ export type Job = {
     views_count?: number;
     saves_count?: number;
     reports_count?: number;
+    applicants_count?: number;
     published_at?: string;
     expires_at?: string;
     category_name?: string;

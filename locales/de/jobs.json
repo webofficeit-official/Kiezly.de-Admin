@@ -124,6 +124,21 @@
             "tasks": "Aufgaben"
         }
     },
+    "count": {
+        "title": "Job zählt",
+        "items": {
+            "views": "Ansichten",
+            "saves": "Spart",
+            "reports": "Berichte",
+            "applicants": "Bewerber"
+        }
+    },
+    "company": {
+        "title": "Über das Unternehmen",
+        "contact-method": "Kontaktmethode",
+        "socials": "Soziale Netzwerke",
+        "click-here": "klicken Sie hier"
+    },
     "pagination": {
         "page": "Seite {page} von {totalPages}",
         "prev": "Vorher",

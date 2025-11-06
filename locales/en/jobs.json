@@ -124,6 +124,21 @@
             "tasks": "Tasks"
         }
     },
+    "count": {
+        "title": "Job Counts",
+        "items": {
+            "views": "Views",
+            "saves": "Saves",
+            "reports": "Reports",
+            "applicants": "Applicants"
+        }
+    },
+    "company": {
+        "title": "About the company",
+        "contact-method": "Contact Method",
+        "socials": "Socials",
+        "click-here": "Click here"
+    },
     "pagination": {
         "page": "Page {page} of {totalPages}",
         "prev": "Prev",
