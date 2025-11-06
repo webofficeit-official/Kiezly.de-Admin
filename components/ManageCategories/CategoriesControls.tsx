@@ -39,7 +39,7 @@ export default function CategoriesControls({
   return (
     <div className="px-4 pt-3 pb-2">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-        {/* Search */}
+        
         <div className="w-full sm:max-w-sm">
           <label className="block mb-1 text-sm text-slate-700">
             {t("list.search_label")}
@@ -69,7 +69,7 @@ export default function CategoriesControls({
           </div>
         </div>
 
-        {/* Per Page via Headless UI, rendered in a Portal */}
+     
         <div className="w-full sm:w-44">
           <label className="block mb-1 text-sm text-slate-700">
             {t("list.per_page")}
@@ -86,7 +86,6 @@ export default function CategoriesControls({
                   <ChevronDown className="h-4 w-4 text-gray-400" />
                 </Listbox.Button>
 
-                {/* Render the options into body to bypass overflow clipping */}
                 <Portal>
                   <Transition
                     show={open}
@@ -101,7 +100,7 @@ export default function CategoriesControls({
                       <Listbox.Options
                         static
                         className="z-[1000] max-h-44 w-[--width] overflow-auto rounded-xl border border-gray-200 bg-white shadow-lg focus:outline-none"
-                        // Use CSS variables to pass width; position with inline styles
+                       
                         style={{
                           position: "fixed",
                           top: btnRect.bottom + 6,          // small gap below button
