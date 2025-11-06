@@ -1,24 +1,25 @@
-import { JobCategories } from "@/lib/types/job-categories";
+
 import { Edit, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 import Tooltip from "../ui/ToolTip/ToolTip";
 import { useMemo } from "react";
+import { JobTags } from "@/lib/types/job-tags";
 
 type Sort = "id_desc" | "name_asc" | "name_desc";
 
 type Props = {
-  categories: JobCategories[];
+  dataList: JobTags[];
   t: (k: string, vars?: any) => string;
   page: number;
   pageSize: number;
   loading?: boolean;
-  onEdit?: (cat: JobCategories) => void;
+  onEdit?: (cat: JobTags) => void;
 
   sort?: Sort; // "id_desc" | "name_asc" | "name_desc"
   onSortChange?: (value: Sort) => void;
 };
 
-const CategoriesTable = ({
-  categories = [],
+const JobTagTable = ({
+  dataList = [],
   t,
   page,
   pageSize,
@@ -27,7 +28,7 @@ const CategoriesTable = ({
   sort = "id_desc",
   onSortChange
 }: Props) => {
-  const isEmpty = !loading && categories.length === 0;
+  const isEmpty = !loading && dataList.length === 0;
 
 
   const nameSortIcon = useMemo(() => {
@@ -109,7 +110,7 @@ const CategoriesTable = ({
           {/* Data Rows */}
           {!loading &&
             !isEmpty &&
-            categories.map((u: JobCategories, i) => (
+            dataList.map((u: JobTags, i) => (
               <tr
                 key={`${u.id}-${i}`}
                 className="cursor-pointer whitespace-nowrap transition"
@@ -147,4 +148,4 @@ const CategoriesTable = ({
   );
 };
 
-export default CategoriesTable;
+export default JobTagTable;

@@ -24,4 +24,5 @@ export type FilterJobCategoriesData = {
     q?: string;   
     page?: number;
     page_size?: number;
+    sort?: string;
 };

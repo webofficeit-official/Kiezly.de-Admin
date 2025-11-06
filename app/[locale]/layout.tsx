@@ -91,6 +91,7 @@ export default function LocaleLayout({ children, params }: any) {
     "users",
     "jobs",
     "categories",
+    "job-tags",
   ]; // add more as needed
 
   useEffect(() => {
