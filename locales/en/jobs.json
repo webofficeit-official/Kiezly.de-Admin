@@ -116,7 +116,9 @@
             "end": "End",
             "share": "Share",
             "saved": "Saved",
-            "save": "Save"
+            "save": "Save",
+            "accept": "Accept",
+            "decline": "Decline"
         },
         "description": {
             "about-the-role": "About the Role",
@@ -143,5 +145,12 @@
         "page": "Page {page} of {totalPages}",
         "prev": "Prev",
         "next": "Next"
+    },
+    "approve": {
+        "success": {
+            "published": "Job has been published",
+            "rejected": "Job has been rejected"
+        },
+        "error": "Something went wrong"
     }
 }

@@ -219,7 +219,7 @@ function getStatusClasses(status: string) {
             return "px-3 py-1 rounded-xl bg-green-100 text-green-700 ring-1 ring-green-300";
         case "cancelled":
             return "px-3 py-1 rounded-xl bg-rose-100 text-rose-700 ring-1 ring-rose-300";
-        case "draft":
+        case "pending_review":
             return "px-3 py-1 rounded-xl bg-gray-100 text-gray-700 ring-1 ring-gray-300";
         default:
             return "px-3 py-1 rounded-xl bg-gray-100 text-gray-600";

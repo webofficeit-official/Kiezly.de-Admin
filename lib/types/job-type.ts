@@ -53,7 +53,7 @@ export type Job = {
     category_name?: string;
     countries?: Country;
     client?: User;
-    tags?: JobTags;
+    tags?: JobTags[];
 }
 
 export type FilteredJobs = {
@@ -106,4 +106,11 @@ export type JobDetailResponse = { success: boolean; message: string, job: Job };
 export type JobDetailData = {
     id?: string
     slug?: string
+};
+
+export type JobAprovalResponse = { success: boolean; message: string, job: Job };
+
+export type JobAprovalData = {
+    id?: string
+    status?: string
 };

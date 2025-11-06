@@ -116,7 +116,9 @@
             "end": "Ende",
             "share": "Aktie",
             "saved": "Gespeichert",
-            "save": "Speichern"
+            "save": "Speichern",
+            "accept": "Akzeptieren",
+            "decline": "Abfall"
         },
         "description": {
             "about-the-role": "Über die Rolle",
@@ -143,5 +145,12 @@
         "page": "Seite {page} von {totalPages}",
         "prev": "Vorher",
         "next": "Nächste"
+    },
+    "approve": {
+        "success": {
+            "published": "Job wurde veröffentlicht",
+            "rejected": "Job wurde abgelehnt"
+        },
+        "error": "Etwas ist schief gelaufen"
     }
 }

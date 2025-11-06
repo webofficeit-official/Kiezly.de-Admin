@@ -1,39 +1,70 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Briefcase,
     MapPin,
     Clock,
-    Share2,
     Bookmark,
     Building2,
-    DollarSign,
     CheckCircle2,
-    BookmarkCheck,
+    CheckCircle,
+    Ban,
 } from "lucide-react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useT } from "@/app/[locale]/layout";
 import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/button";
+import { Job } from "@/lib/types/job-type";
+import { useJobApproval } from "@/lib/react-query/queries/job/jobs";
+import toast from "react-hot-toast";
 // Extend dayjs with the plugin
 dayjs.extend(relativeTime);
 
 
-export default function JobHeader({ job, t }) {
+export default function JobHeader({ job, t }: { job: Job, t: any }) {
+    const [jobDetails, setJobDetails] = useState(job);
 
-    const jobDetails = job || {};
+    const jobAproval = useJobApproval()
+
+    const handleAproval = (id: string, status: string) => {
+        jobAproval.mutate({
+            id,
+            status
+        }, {
+            onSuccess: (d) => {
+                setJobDetails({
+                    ...job,
+                    status
+                })
+                status == "published" ? toast.success(t(`approve.success.${status}`)) : toast.error(t(`approve.success.${status}`))
+            }, onError: (e) => {
+                console.log(e)
+                toast.error(t("approve.failed"))
+            }
+        })
+    }
 
     return (
         <>
             <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
-                    <h1 data-testid="job-title" className="text-2xl font-semibold tracking-tight">{jobDetails?.title}</h1>
+                    <div className="flex justify-between">
+                        <h1 data-testid="job-title" className="text-2xl font-semibold tracking-tight">{jobDetails?.title}</h1>
+                        {
+                            jobDetails.status == "pending_review" &&
+                            <div className="space-x-2">
+                                <button className="inline-flex items-center justify-center rounded-2xl text-sm font-medium px-3 py-2 transition-colors disabled:opacity-50 border rounded-xl bg-green-100 text-green-900 border-green-200" onClick={() => handleAproval(jobDetails.id, "published")}><CheckCircle className="mr-2 h-4 w-4" /> {t("detail.header.accept")}</button>
+                                <button className="inline-flex items-center justify-center rounded-2xl text-sm font-medium px-3 py-2 transition-colors disabled:opacity-50 border rounded-xl bg-red-100 text-red-700 border-red-200" onClick={() => handleAproval(jobDetails.id, "rejected")}><Ban className="mr-2 h-4 w-4" /> {t("detail.header.decline")}</button>
+                            </div>
+                        }
+                    </div>
                     {jobDetails?.subtitle && (
                         <h2 className="text-sm text-muted-foreground mt-1">
                             {jobDetails.subtitle}
                         </h2>
                     )}
                     <div className="mt-2 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-                        {jobDetails?.company && (<span className="inline-flex items-center gap-1"><Building2 className="h-4 w-4" />{jobDetails?.company}</span>)}
+                        {jobDetails?.client && (<span className="inline-flex items-center gap-1"><Building2 className="h-4 w-4" />{jobDetails?.client?.org_name}</span>)}
                         {(jobDetails?.street || jobDetails?.city || jobDetails?.state || jobDetails?.postal_code || jobDetails?.country) && (
                             <span className="inline-flex items-center gap-1">
                                 <MapPin className="h-4 w-4" />
@@ -58,9 +89,9 @@ export default function JobHeader({ job, t }) {
                         {jobDetails?.price_type && <span className="inline-flex items-center">/ {jobDetails?.price_type}</span>}
                         <span className="inline-flex items-center gap-1"><Clock className="h-4 w-4" />{t("detail.header.posted")} {dayjs(jobDetails?.created_at).fromNow()}</span>
 
-                        {jobDetails?.category?.name && (
+                        {jobDetails?.category_name && (
                             <span className="inline-flex items-center gap-1">
-                                <CheckCircle2 className="h-3 w-3" /> {jobDetails.category.name}
+                                <CheckCircle2 className="h-3 w-3" /> {jobDetails.category_name}
                             </span>
                         )}
 
@@ -80,7 +111,7 @@ export default function JobHeader({ job, t }) {
             </div>
 
             <div className="mt-4 flex flex-wrap gap-2">
-                {jobDetails.tags.length > 0 && jobDetails.tags.map((t, index) => (
+                {jobDetails.tags?.length > 0 && jobDetails.tags.map((t, index) => (
 
                     <Badge key={index} variant="secondary" className="rounded-full px-3 py-1">
                         {t?.name}
