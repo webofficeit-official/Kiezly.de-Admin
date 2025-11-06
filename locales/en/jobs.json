@@ -135,6 +135,36 @@
             "applicants": "Applicants"
         }
     },
+    "applicants": {
+        "title": "Applicants",
+        "rate": "Rate:",
+        "cover-note": "Cover Note:",
+        "proposed-rate": "Proposed Rate:",
+        "applied": "Applied on:",
+        "update": "Update Status",
+        "view-all": "View all Applicants",
+        "update-model": {
+            "update": {
+                "success": "Application status changed successfully!",
+                "failed": "Failed to update status."
+            },
+            "title": "Update Status for {name}",
+            "current-status": "Current Status:",
+            "status": {
+                "label": "Status",
+                "options": {
+                    "shortlisted": "Shortlisted",
+                    "accepted": "Accepted",
+                    "rejected": "Rejected"
+                }
+            },
+            "rate": "Rate:",
+            "button": {
+                "cancel": "Cancel",
+                "update": "Confirm Update"
+            }
+        }
+    },
     "company": {
         "title": "About the company",
         "contact-method": "Contact Method",

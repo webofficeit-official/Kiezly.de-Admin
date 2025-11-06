@@ -114,3 +114,33 @@ export type JobAprovalData = {
     id?: string
     status?: string
 };
+
+export type FilteredApplicants = {
+    applicants: Application[]
+    page: number
+    page_size: number
+    total_items: number
+    total_pages: number
+}
+
+export interface Application {
+  id: string;
+  job_id: string;
+  helper_id: string;
+  cover_note: string;
+  proposed_rate: string;
+  status: string; // 'applied' | 'shortlisted' | 'accepted' | 'rejected' | 'withdrawn'
+  created_at: string;
+  updated_at: string;
+  user: User;
+}
+
+export type JobApplicantsResponse = { success: boolean; message: string, data: FilteredApplicants };
+
+export type JobApplicantsData = {
+    id?: string
+    status?: string
+    page?: number
+    page_size?: number
+    sort?: string
+};
