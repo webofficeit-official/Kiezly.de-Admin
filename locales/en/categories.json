@@ -9,6 +9,7 @@
         },
         "empty": "No categories available"
     },
+    "common":{"generating":"Generating..."},
     "create": {
         "title": "Add Category",
         "description": "Add a new category to organize jobs",
@@ -21,8 +22,10 @@
             "slug":{
                 "label":"Slug",
                 "placeholder":"childcare",
-                "error":"Slug is required"
+                "error":"Slug is required",
+                "regenerate":"↻ Slug Auto-generate"
             },
+            "slug_conflict": "Slug already exists",
             "button": {
                 "cancel": "Cancel",
                 "create": "Create",
