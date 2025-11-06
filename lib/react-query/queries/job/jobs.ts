@@ -50,3 +50,19 @@ export const useJobDetails = (): UseMutationResult<
     },
   });
 };
+
+// Job Profile 
+export const useJobDetailsBySlug = (): UseMutationResult<
+  JobDetailResponse,
+  Error,
+  JobDetailData
+> => {
+  return useMutation({
+    mutationFn: async ({ slug }) => {
+      const res = await apiClient.get(
+        `/manage-jobs/job/${slug}`,
+      );
+      return res.data as JobDetailResponse;
+    },
+  });
+};

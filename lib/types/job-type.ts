@@ -103,5 +103,6 @@ export type Enum = {
 export type JobDetailResponse = { success: boolean; message: string, job: Job };
 
 export type JobDetailData = {
-    id: string
+    id?: string
+    slug?: string
 };
