@@ -7,6 +7,7 @@ import JobDescription from "./JobDescription";
 import { Separator } from "@/components/ui/separator";
 import JobCountCard from "./JobCount";
 import CompanyInfoCard from "./CompanyInfo";
+import ApplicantList from "./ApplicantsList";
 
 export default function JobDetail({ t, job }: { t: any, job: Job }) {
 
@@ -35,6 +36,10 @@ export default function JobDetail({ t, job }: { t: any, job: Job }) {
                     <JobCountCard job={job} t={t} />
                 </div>
             </section>
+
+            <div className="mt-6">
+                <ApplicantList job={job} t={t} />
+            </div>
         </div>
     );
 }

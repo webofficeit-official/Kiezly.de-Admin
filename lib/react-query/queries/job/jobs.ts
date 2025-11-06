@@ -1,5 +1,5 @@
 import apiClient from "@/lib/config/axios-client";
-import { FilterJobData, FilterJobResponse, JobAprovalData, JobAprovalResponse, JobDetailData, JobDetailResponse, JobFilterCollectionData, JobFilterCollectionResponse } from "@/lib/types/job-type";
+import { FilterJobData, FilterJobResponse, JobApplicantsData, JobApplicantsResponse, JobAprovalData, JobAprovalResponse, JobDetailData, JobDetailResponse, JobFilterCollectionData, JobFilterCollectionResponse } from "@/lib/types/job-type";
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 
 // Filter Jobs 
@@ -82,6 +82,27 @@ export const useJobApproval = (): UseMutationResult<
         }
       );
       return res.data as JobAprovalResponse;
+    },
+  });
+};
+
+// Job Profile 
+export const useJobApplicants = (): UseMutationResult<
+  JobApplicantsResponse,
+  Error,
+  JobApplicantsData
+> => {
+  return useMutation({
+    mutationFn: async ({ id, status, page, page_size, sort }) => {
+      const res = await apiClient.get(
+        `/manage-jobs/${id}/applicants`,
+        {
+          params: {
+            sort, status, page, page_size
+          }
+        }
+      );
+      return res.data as JobApplicantsResponse;
     },
   });
 };
