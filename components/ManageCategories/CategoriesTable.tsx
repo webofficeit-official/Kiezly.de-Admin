@@ -1,6 +1,9 @@
 import { JobCategories } from "@/lib/types/job-categories";
-import { Edit } from "lucide-react";
+import { Edit, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 import Tooltip from "../ui/ToolTip/ToolTip";
+import { useMemo } from "react";
+
+type Sort = "id_desc" | "name_asc" | "name_desc";
 
 type Props = {
   categories: JobCategories[];
@@ -8,6 +11,10 @@ type Props = {
   page: number;
   pageSize: number;
   loading?: boolean;
+  onEdit?: (cat: JobCategories) => void;
+
+  sort?: Sort; // "id_desc" | "name_asc" | "name_desc"
+  onSortChange?: (value: Sort) => void;
 };
 
 const CategoriesTable = ({
@@ -16,8 +23,26 @@ const CategoriesTable = ({
   page,
   pageSize,
   loading = false,
+  onEdit,
+  sort = "id_desc",
+  onSortChange
 }: Props) => {
   const isEmpty = !loading && categories.length === 0;
+
+
+  const nameSortIcon = useMemo(() => {
+    if (sort === "name_asc") return <ArrowUp className="w-4 h-4" />;
+    if (sort === "name_desc") return <ArrowDown className="w-4 h-4" />;
+    return <ArrowUpDown className="w-4 h-4 opacity-60" />;
+  }, [sort]);
+
+
+  const toggleSort = () => {
+    if (!onSortChange) return;
+    if (sort === "id_desc") onSortChange("name_asc");
+    else if (sort === "name_asc") onSortChange("name_desc");
+    else onSortChange("id_desc");
+  };
 
   return (
     <div className="p-0 overflow-x-auto md:overflow-x-visible">
@@ -27,12 +52,22 @@ const CategoriesTable = ({
             <th className="border-y border-slate-200 px-4 py-3 text-sm font-medium text-slate-500 w-16 text-left">
               {t("list.table.sl")}
             </th>
-            <th className="border-y border-slate-200 px-4 py-3 text-sm font-medium text-slate-500">
-              {t("list.table.name")}
+
+           
+           <th
+              className="border-y border-slate-200 px-4 py-3 text-sm font-medium text-slate-500 cursor-pointer select-none"
+              onClick={toggleSort}
+            >
+              <div className="flex items-center justify-between w-full">
+                <span>{t("list.table.name")}</span>
+                {nameSortIcon}
+              </div>
             </th>
+
             <th className="border-y border-slate-200 px-4 py-3 text-sm font-medium text-slate-500">
               {t("list.table.slug")}
             </th>
+
             <th className="border-y border-slate-200 px-4 py-3 text-sm font-medium text-slate-500 text-center w-32">
               {t("list.table.actions")}
             </th>
@@ -77,7 +112,7 @@ const CategoriesTable = ({
             categories.map((u: JobCategories, i) => (
               <tr
                 key={`${u.id}-${i}`}
-                className="cursor-pointer whitespace-nowrap  transition"
+                className="cursor-pointer whitespace-nowrap transition"
               >
                 <td className="border-b border-slate-200 px-4 py-4 text-center">
                   {i + (page - 1) * pageSize + 1}
@@ -93,17 +128,15 @@ const CategoriesTable = ({
                   </p>
                 </td>
                 <td className="border-b border-slate-200 px-4 py-4 text-center">
-                  {/* actions slot (edit/delete buttons etc.) */}
                   <div className="flex justify-center">
                     <Tooltip content="Edit category">
                       <button
-                        onClick={() => console.log("Edit:", u.id)}
+                        onClick={() => onEdit?.(u)}
                         className="inline-flex items-center justify-center rounded-md p-2 text-slate-600 hover:bg-slate-100 transition"
                       >
                         <Edit className="w-4 h-4" />
                       </button>
                     </Tooltip>
-                    
                   </div>
                 </td>
               </tr>

@@ -41,7 +41,31 @@
         "success": "Kategorie erfolgreich erstellt",
         "error": "Kategorie kann nicht erstellt werden, versuchen Sie es später erneut"
     },
-   
+   "update": {
+        "title": "Kategorie bearbeiten",
+        "description": "Kategoriedetails aktualisieren",
+        "form": {
+            "name": {
+                "label": "Kategoriename",
+                "placeholder": "Kategoriename eingeben",
+                "error": "Kategoriename erforderlich"
+            },
+            "slug":{
+                "label":"Slug",
+                "placeholder":"childcare",
+                "error":"Slug ist erforderlich",
+                "regenerate":"↻ Slug automatisch generieren"
+            },
+            "slug_conflict": "Slug existiert bereits",
+            "button": {
+                "cancel": "Abbrechen",
+                "update": "Aktualisieren",
+                "updating": "Aktualisieren"
+            }
+        },
+        "success": "Kategorie erfolgreich aktualisiert",
+        "error": "Kategorie kann nicht aktualisiert werden, versuchen Sie es später erneut"
+    },
     "pagination": {
         "page": "Seite {page} von {totalPages}",
         "prev": "Vorher",
