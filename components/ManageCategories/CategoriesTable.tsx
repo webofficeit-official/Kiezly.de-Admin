@@ -1,4 +1,6 @@
 import { JobCategories } from "@/lib/types/job-categories";
+import { Edit } from "lucide-react";
+import Tooltip from "../ui/ToolTip/ToolTip";
 
 type Props = {
   categories: JobCategories[];
@@ -75,7 +77,7 @@ const CategoriesTable = ({
             categories.map((u: JobCategories, i) => (
               <tr
                 key={`${u.id}-${i}`}
-                className="cursor-pointer whitespace-nowrap hover:bg-slate-50 transition"
+                className="cursor-pointer whitespace-nowrap  transition"
               >
                 <td className="border-b border-slate-200 px-4 py-4 text-center">
                   {i + (page - 1) * pageSize + 1}
@@ -86,10 +88,23 @@ const CategoriesTable = ({
                   </p>
                 </td>
                 <td className="border-b border-slate-200 px-4 py-4">
-                  <p className="text-sm font-semibold text-slate-700">{u.slug}</p>
+                  <p className="text-sm font-semibold text-slate-700">
+                    {u.slug}
+                  </p>
                 </td>
                 <td className="border-b border-slate-200 px-4 py-4 text-center">
                   {/* actions slot (edit/delete buttons etc.) */}
+                  <div className="flex justify-center">
+                    <Tooltip content="Edit category">
+                      <button
+                        onClick={() => console.log("Edit:", u.id)}
+                        className="inline-flex items-center justify-center rounded-md p-2 text-slate-600 hover:bg-slate-100 transition"
+                      >
+                        <Edit className="w-4 h-4" />
+                      </button>
+                    </Tooltip>
+                    
+                  </div>
                 </td>
               </tr>
             ))}
