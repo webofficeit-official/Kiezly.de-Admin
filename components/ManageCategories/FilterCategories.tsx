@@ -6,8 +6,10 @@ import CategoriesHeader from "./CategoriesHeader";
 import CategoriesTable from "./CategoriesTable";
 import { useFilteredCategories } from "@/lib/react-query/queries/categories/categories";
 import Pagination from "../ui/pagination/pagination";
-import CategoryModal from "./CategoriesModel";
 import CategoriesControls from "./CategoriesControls";
+import { JobCategories } from "@/lib/types/job-categories";
+import CategoryUpsertModal from "./CategoryUpsertModal";
+type Sort = "id_desc" | "name_asc" | "name_desc";
 
 const FilterCategories = () => {
   const t = useT("categories");
@@ -19,17 +21,21 @@ const FilterCategories = () => {
     q: "",
     page: 1,
     pageSize: 10,
+    sort: "id_desc" as Sort,
   });
 
-  const [modelOpen, setModelOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] =
+    useState<JobCategories | null>(null);
 
   const apiFilters = useMemo(
     () => ({
       page: filter.page,
       page_size: filter.pageSize,
       q: filter.q,
+      sort: filter.sort,
     }),
-    [filter.page, filter.pageSize, filter.q]
+    [filter.page, filter.pageSize, filter.q,filter.sort]
   );
 
   const { data, isLoading, isError, error } = useFilteredCategories(apiFilters);
@@ -50,17 +56,29 @@ const FilterCategories = () => {
     setFilter((f) => ({ ...f, q, page: 1 })); // reset to page 1 on new search
 
   const handlePageSizeChange = (size: number) =>
-    setFilter((f) => ({ ...f, pageSize: size, page: 1 })); // reset to page 1
+    setFilter((f) => ({ ...f, pageSize: size, page: 1 })); 
+
+    const handleSortChange = (sort: Sort) =>
+    setFilter((f) => ({ ...f, sort, page: 1 }));
+
+  const proxySetModalOpen = (v: boolean) => {
+    if (v) setSelectedCategory(null);
+    setModalOpen(v);
+  };
+    const onEdit = (cat: JobCategories) => {
+    setSelectedCategory(cat);
+    setModalOpen(true);
+  };
   return (
     <>
       <div className="relative flex flex-col w-full h-full text-slate-700 bg-white shadow-md rounded-xl bg-clip-border mt-10  ">
         <CategoriesHeader
           totalItems={totalItems}
-          setModelOpen={setModelOpen}
-          modelOpen={modelOpen}
+          setModelOpen={proxySetModalOpen}
+          modelOpen={modalOpen}
           t={t}
         />
-      
+
         <CategoriesControls
           q={filter.q}
           pageSize={filter.pageSize}
@@ -74,6 +92,9 @@ const FilterCategories = () => {
           page={page}
           pageSize={filter.pageSize}
           loading={isLoading}
+          onEdit={onEdit}
+             sort={filter.sort}
+          onSortChange={handleSortChange}
         />
 
         {/* Pagination */}
@@ -83,8 +104,13 @@ const FilterCategories = () => {
           t={t}
           setPage={handlePageChange}
         />
-      </div>
-      <CategoryModal isOpen={modelOpen} setIsOpen={setModelOpen} t={t} />
+      </div>    
+      <CategoryUpsertModal
+        isOpen={modalOpen}
+        setIsOpen={setModalOpen}
+        t={t}
+        category={selectedCategory}
+      />
     </>
   );
 };
