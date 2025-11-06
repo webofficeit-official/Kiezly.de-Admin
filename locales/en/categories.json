@@ -7,9 +7,15 @@
             "slug": "Slug",
             "actions": "Actions"
         },
-        "empty": "No categories available"
+        "empty": "No categories available",
+        "search_placeholder": "Search categories...",
+        "search_label": "Search Categories",
+        "search_aria": "Search categories",
+        "clearSearch": "Clear search",
+        "per_page": "Per page",
+        "items": "Items"
     },
-    "common":{"generating":"Generating..."},
+    "common":{"generating":"Generating...","clear":"Clear search"},
     "create": {
         "title": "Add Category",
         "description": "Add a new category to organize jobs",
