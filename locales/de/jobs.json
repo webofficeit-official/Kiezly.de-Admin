@@ -108,6 +108,22 @@
             }
         }
     },
+    "detail": {
+        "header": {
+            "not-specified": "Nicht angegeben",
+            "posted": "Gepostet",
+            "start": "Start",
+            "end": "Ende",
+            "share": "Aktie",
+            "saved": "Gespeichert",
+            "save": "Speichern"
+        },
+        "description": {
+            "about-the-role": "Über die Rolle",
+            "requirement": "Anforderungen",
+            "tasks": "Aufgaben"
+        }
+    },
     "pagination": {
         "page": "Seite {page} von {totalPages}",
         "prev": "Vorher",
