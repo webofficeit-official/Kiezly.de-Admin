@@ -1,0 +1,25 @@
+{
+    "count": {
+        "users": {
+            "title": "Users",
+            "total": "Total",
+            "clients": "Clients",
+            "helper": "helpers",
+            "admin": "Admins"
+        },
+        "jobs": {
+            "title": "Jobs",
+            "total": "Total jobs",
+            "open": "Open jobs",
+            "in_progress": "In progress jobs",
+            "completed": "Completed jobs",
+            "cancelled": "Cancelled jobs",
+            "draft": "Drafted jobs",
+            "pending_review": "Pending review jobs",
+            "published": "Published jobs",
+            "closed": "Closed jobs",
+            "rejected": "Rejected jobs",
+            "expired": "Expired jobs"
+        }
+    }
+}
