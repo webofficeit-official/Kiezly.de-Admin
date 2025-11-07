@@ -113,7 +113,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                             </LocalizedLink>
                                         </li>
                                         <li>
-                                            <LocalizedLink href="/zip-codes" className="flex items-center w-full p-2 pl-11 text-gray-900 
+                                            <LocalizedLink href="/postal-codes" className="flex items-center w-full p-2 pl-11 text-gray-900 
                                                     transition duration-75 rounded-lg group 
                                                     hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 text-sm">
                                                 <MapPinned className="w-5 h-5" />
