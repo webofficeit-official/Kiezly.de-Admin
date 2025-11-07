@@ -92,7 +92,8 @@ export default function LocaleLayout({ children, params }: any) {
     "jobs",
     "categories",
     "job-tags",
-    "languages"
+    "languages",
+    "countries",
   ]; // add more as needed
 
   useEffect(() => {
