@@ -1,0 +1,62 @@
+{
+  "title": "Sprachen verwalten",
+  "list": {
+    "table": {
+      "sl": "Nr.",
+      "name": "Name",
+      "actions": "Aktionen"
+    },
+    "empty": "Keine Sprachen verfügbar",
+    "search_placeholder": "Sprachen suchen...",
+    "search_label": "Sprachen suchen",
+    "search_aria": "Sprachen suchen",
+    "clearSearch": "Suche löschen",
+    "per_page": "pro Seite",
+    "items": "Elemente"
+  },
+  "common": {
+    "clear": "Suche löschen",
+    "edit": "Bearbeiten"
+  },
+  "create": {
+    "title": "Sprache hinzufügen",
+    "description": "Fügen Sie eine neue Sprache hinzu, um das System zu erweitern",
+    "form": {
+      "name": {
+        "label": "Sprachname",
+        "placeholder": "Sprachname eingeben",
+        "error": "Sprachname erforderlich"
+      },
+      "button": {
+        "cancel": "Abbrechen",
+        "create": "Erstellen",
+        "creating": "Wird erstellt..."
+      }
+    },
+    "success": "Sprache erfolgreich erstellt",
+    "error": "Sprache kann nicht erstellt werden, versuchen Sie es später erneut"
+  },
+  "update": {
+    "title": "Sprache bearbeiten",
+    "description": "Sprachdetails aktualisieren",
+    "form": {
+      "name": {
+        "label": "Sprachname",
+        "placeholder": "Sprachname eingeben",
+        "error": "Sprachname erforderlich"
+      },
+      "button": {
+        "cancel": "Abbrechen",
+        "update": "Aktualisieren",
+        "updating": "Wird aktualisiert..."
+      }
+    },
+    "success": "Sprache erfolgreich aktualisiert",
+    "error": "Sprache kann nicht aktualisiert werden, versuchen Sie es später erneut"
+  },
+  "pagination": {
+    "page": "Seite {page} von {totalPages}",
+    "prev": "Vorherige",
+    "next": "Nächste"
+  }
+}

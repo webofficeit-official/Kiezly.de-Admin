@@ -1,0 +1,78 @@
+{
+  "title": "Job-Tags verwalten",
+  "list": {
+    "table": {
+      "sl": "Nr.",
+      "name": "Name",
+      "slug": "Slug",
+      "actions": "Aktionen"
+    },
+    "empty": "Keine Job-Tags verfügbar",
+    "search_placeholder": "Job-Tags suchen...",
+    "search_label": "Job-Tags suchen",
+    "search_aria": "Job-Tags suchen",
+    "clearSearch": "Suche löschen",
+    "per_page": "pro Seite",
+    "items": "Elemente"
+  },
+  "common": {
+    "generating": "Wird generiert...",
+    "clear": "Suche löschen",
+    "edit": "Bearbeiten"
+  },
+  "create": {
+    "title": "Job-Tag hinzufügen",
+    "description": "Fügen Sie einen neuen Job-Tag hinzu, um Jobs zu organisieren",
+    "form": {
+      "name": {
+        "label": "Job-Tag-Name",
+        "placeholder": "Job-Tag-Namen eingeben",
+        "error": "Job-Tag-Name erforderlich"
+      },
+      "slug": {
+        "label": "Slug",
+        "placeholder": "software-entwicklung",
+        "error": "Slug ist erforderlich",
+        "regenerate": "↻ Slug automatisch generieren"
+      },
+      "slug_conflict": "Slug existiert bereits",
+      "button": {
+        "cancel": "Abbrechen",
+        "create": "Erstellen",
+        "creating": "Wird erstellt..."
+      }
+    },
+    "success": "Job-Tag erfolgreich erstellt",
+    "error": "Job-Tag kann nicht erstellt werden, versuchen Sie es später erneut"
+  },
+  "update": {
+    "title": "Job-Tag bearbeiten",
+    "description": "Job-Tag-Details aktualisieren",
+    "form": {
+      "name": {
+        "label": "Job-Tag-Name",
+        "placeholder": "Job-Tag-Namen eingeben",
+        "error": "Job-Tag-Name erforderlich"
+      },
+      "slug": {
+        "label": "Slug",
+        "placeholder": "software-entwicklung",
+        "error": "Slug ist erforderlich",
+        "regenerate": "↻ Slug automatisch generieren"
+      },
+      "slug_conflict": "Slug existiert bereits",
+      "button": {
+        "cancel": "Abbrechen",
+        "update": "Aktualisieren",
+        "updating": "Wird aktualisiert..."
+      }
+    },
+    "success": "Job-Tag erfolgreich aktualisiert",
+    "error": "Job-Tag kann nicht aktualisiert werden, versuchen Sie es später erneut"
+  },
+  "pagination": {
+    "page": "Seite {page} von {totalPages}",
+    "prev": "Vorherige",
+    "next": "Nächste"
+  }
+}
