@@ -26,7 +26,7 @@ export const useAddZipcode = (): UseMutationResult<
   return useMutation({
     mutationFn: async (payload: ZipcodeData) => {
       const body: ZipcodeData = {
-        country_id: String(payload.country_id).trim(),
+        country_id: Number(payload.country_id),
         zipcode: String(payload.zipcode).trim(),
         street: String(payload.street).trim(),
         city: String(payload.city).trim(),
