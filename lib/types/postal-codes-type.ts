@@ -1,16 +1,18 @@
 export type Zipcode = {
-  id: string;
-  country_id: string;
+  id: number;
+  country_id: number;
   zipcode: string;
   street: string;
   city: string;
   state: string;
-  latitude: string;
+  latitude: string; 
   longitude: string;
+  country_name?: string;
 };
 
+
 export type ZipcodeData = {
-  country_id: string;
+  country_id: number;
   zipcode: string;
   street: string;
   city: string;
@@ -48,8 +50,8 @@ export type FilterZipcodesData = {
 };
 
 export type UpdateZipcodePayload = {
-  id: string | number;
-  country_id?: string;
+  id: number | string;
+  country_id?: number | string;
   zipcode?: string;
   street?: string;
   city?: string;

@@ -1,0 +1,110 @@
+{
+  "title": "Postleitzahlen verwalten",
+  "list": {
+    "table": {
+      "sl": "Nr.",
+      "zipcode": "Postleitzahl",
+      "country": "Land",
+      "street": "Straße",
+      "city": "Stadt",
+      "state": "Bundesland/Region",
+      "latitude": "Breitengrad",
+      "longitude": "Längengrad",
+      "actions": "Aktionen"
+    },
+    "empty": "Keine Postleitzahlen vorhanden",
+    "search_placeholder": "Nach Postleitzahl, Straße, Stadt oder Region suchen…",
+    "search_label": "Suche (Postleitzahl/Straße/Stadt/Region)",
+    "search_aria": "Nach Postleitzahl, Straße, Stadt oder Region suchen",
+    "clearSearch": "Suche löschen",
+    "per_page": "Pro Seite",
+    "items": "Einträge",
+    "country_label": "Land",
+    "country_placeholder": "Land auswählen",
+    "country_search_placeholder": "Land suchen…",
+    "no_results": "Keine Ergebnisse"
+  },
+  "common": {
+    "clear": "Löschen",
+    "edit": "Bearbeiten",
+    "loading": "Lädt…"
+  },
+  "create": {
+    "title": "Postleitzahl hinzufügen",
+    "description": "Eine neue Postleitzahl zum System hinzufügen"
+  },
+  "update": {
+    "title": "Postleitzahl bearbeiten",
+    "description": "Details der Postleitzahl bearbeiten"
+  },
+  "postal": {
+    "create": {
+      "title": "Postleitzahl hinzufügen",
+      "description": "Eine neue Postleitzahl anlegen",
+      "success": "Postleitzahl erfolgreich erstellt",
+      "error": "Postleitzahl konnte nicht erstellt werden",
+      "button": {
+        "create": "Erstellen",
+        "creating": "Wird erstellt…"
+      }
+    },
+    "update": {
+      "title": "Postleitzahl bearbeiten",
+      "description": "Postleitzahldetails aktualisieren",
+      "success": "Postleitzahl erfolgreich aktualisiert",
+      "error": "Postleitzahl konnte nicht aktualisiert werden",
+      "button": {
+        "update": "Aktualisieren",
+        "updating": "Wird aktualisiert…"
+      }
+    },
+    "form": {
+      "button": {
+        "cancel": "Abbrechen"
+      },
+      "countryId": {
+        "label": "Land",
+        "placeholder": "Land suchen…",
+        "error": "Land ist erforderlich"
+      },
+      "zipcode": {
+        "label": "Postleitzahl",
+        "placeholder": "z. B. 94043",
+        "error": "Postleitzahl ist erforderlich",
+        "invalid": "Bitte eine gültige Postleitzahl eingeben"
+      },
+      "street": {
+        "label": "Straße",
+        "placeholder": "z. B. Vidhansadan",
+        "error": "Straße ist erforderlich"
+      },
+      "city": {
+        "label": "Stadt",
+        "placeholder": "z. B. München",
+        "error": "Stadt ist erforderlich"
+      },
+      "state": {
+        "label": "Bundesland/Region",
+        "placeholder": "z. B. Bayern",
+        "error": "Bundesland/Region ist erforderlich"
+      },
+      "latitude": {
+        "label": "Breitengrad",
+        "placeholder": "z. B. 37.422",
+        "error": "Breitengrad ist erforderlich",
+        "invalid": "Breitengrad muss zwischen -90 und 90 liegen"
+      },
+      "longitude": {
+        "label": "Längengrad",
+        "placeholder": "z. B. -122.084",
+        "error": "Längengrad ist erforderlich",
+        "invalid": "Längengrad muss zwischen -180 und 180 liegen"
+      }
+    }
+  },
+  "pagination": {
+   "page": "Seite {page} von {totalPages}",
+    "prev": "Vorherige",
+    "next": "Nächste"
+  }
+}

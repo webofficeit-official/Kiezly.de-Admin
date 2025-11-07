@@ -1,0 +1,110 @@
+{
+  "title": "Manage Postal Codes",
+  "list": {
+    "table": {
+      "sl": "Sl No",
+      "zipcode": "Zip/Postal Code",
+      "country": "Country",
+      "street": "Street",
+      "city": "City",
+      "state": "State/Region",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "actions": "Actions"
+    },
+    "empty": "No postal codes available",
+    "search_placeholder": "Search by zipcode, street, city, or state…",
+    "search_label": "Search (zipcode/street/city/state)",
+    "search_aria": "Search postal codes by zipcode, street, city, or state",
+    "clearSearch": "Clear search",
+    "per_page": "Per page",
+    "items": "Items",
+    "country_label": "Country",
+    "country_placeholder": "Select country",
+    "country_search_placeholder": "Search country…",
+    "no_results": "No results"
+  },
+  "common": {
+    "clear": "Clear",
+    "edit": "Edit",
+    "loading": "Loading…"
+  },
+  "create": {
+    "title": "Add Postal Code",
+    "description": "Add a new postal code to the system"
+  },
+  "update": {
+    "title": "Edit Postal Code",
+    "description": "Update postal code details"
+  },
+  "postal": {
+    "create": {
+      "title": "Add Postal Code",
+      "description": "Add a new postal code",
+      "success": "Postal code created successfully",
+      "error": "Cannot create postal code",
+      "button": {
+        "create": "Create",
+        "creating": "Creating…"
+      }
+    },
+    "update": {
+      "title": "Edit Postal Code",
+      "description": "Update postal code details",
+      "success": "Postal code updated successfully",
+      "error": "Cannot update postal code",
+      "button": {
+        "update": "Update",
+        "updating": "Updating…"
+      }
+    },
+    "form": {
+      "button": {
+        "cancel": "Cancel"
+      },
+      "countryId": {
+        "label": "Country",
+        "placeholder": "Search country…",
+        "error": "Country is required"
+      },
+      "zipcode": {
+        "label": "Zip/Postal Code",
+        "placeholder": "e.g., 94043",
+        "error": "Zip/Postal code is required",
+        "invalid": "Enter a valid postal code"
+      },
+      "street": {
+        "label": "Street",
+        "placeholder": "e.g., Vidhansadan",
+        "error": "Street is required"
+      },
+      "city": {
+        "label": "City",
+        "placeholder": "e.g., Mountain View",
+        "error": "City is required"
+      },
+      "state": {
+        "label": "State/Region",
+        "placeholder": "e.g., CA",
+        "error": "State/Region is required"
+      },
+      "latitude": {
+        "label": "Latitude",
+        "placeholder": "e.g., 37.422",
+        "error": "Latitude is required",
+        "invalid": "Latitude must be between -90 and 90"
+      },
+      "longitude": {
+        "label": "Longitude",
+        "placeholder": "e.g., -122.084",
+        "error": "Longitude is required",
+        "invalid": "Longitude must be between -180 and 180"
+      }
+    }
+  },
+  "pagination": {
+    "page": "Page {page} of {totalPages}",
+    "prev": "Prev",
+    "next": "Next"
+  }
+}
