@@ -3,16 +3,16 @@ import { useEffect, useMemo, useState } from "react";
 import { useT } from "@/app/[locale]/layout";
 
 import Pagination from "../ui/pagination/pagination";
-import LanguagesHeader from "./LanguagesHeader";
-import LanguagesControls from "./LanguagesControls";
-import LanguagesTable from "./LanguagesTable";
-import LanguagesUpsertModal from "./LanguagesUpsertModal";
-import { useFilteredLanguages } from "@/lib/react-query/queries/languages/languages";
-import { Languages } from "@/lib/types/languages";
+import { Country } from "@/lib/types/country-type";
+import { useFilteredCountries } from "@/lib/react-query/queries/countries/countries";
+import CountriesHeader from "./CountriesHeader";
+import CountriesControls from "./CountriesControls";
+import CountriesTable from "./CountriesTable";
+import CountriesUpsertModal from "./CountriesUpsertModal";
 type Sort = "id_desc" | "name_asc" | "name_desc";
 
-const FilterLanguages = () => {
-  const t = useT("languages");
+const FilterCountries = () => {
+  const t = useT("countries");
   const [dataList, setDataList] = useState([]);
   const [page, setPage] = useState(1);
   const [totalItems, setTotalItems] = useState(null);
@@ -26,7 +26,7 @@ const FilterLanguages = () => {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedData, setSelectedData] =
-    useState<Languages | null>(null);
+    useState<Country | null>(null);
 
   const apiFilters = useMemo(
     () => ({
@@ -38,7 +38,7 @@ const FilterLanguages = () => {
     [filter.page, filter.pageSize, filter.q,filter.sort]
   );
 
-  const { data, isLoading, isError, error } = useFilteredLanguages(apiFilters);
+  const { data, isLoading, isError, error } = useFilteredCountries(apiFilters);
 
   useEffect(() => {
     if (!data) return;
@@ -65,28 +65,28 @@ const FilterLanguages = () => {
     if (v) setSelectedData(null);
     setModalOpen(v);
   };
-    const onEdit = (cat: Languages) => {
+    const onEdit = (cat: Country) => {
     setSelectedData(cat);
     setModalOpen(true);
   };
   return (
     <>
       <div className="relative flex flex-col w-full h-full text-slate-700 bg-white shadow-md rounded-xl bg-clip-border mt-10  ">
-        <LanguagesHeader
+        <CountriesHeader
           totalItems={totalItems}
           setModelOpen={proxySetModalOpen}
           modelOpen={modalOpen}
           t={t}
         />
 
-        <LanguagesControls
+        <CountriesControls
           q={filter.q}
           pageSize={filter.pageSize}
           onQueryChange={handleQueryChange}
           onPageSizeChange={handlePageSizeChange}
           t={t}
         />
-        <LanguagesTable
+        <CountriesTable
           dataList={dataList}
           t={t}
           page={page}
@@ -105,7 +105,7 @@ const FilterLanguages = () => {
           setPage={handlePageChange}
         />
       </div>    
-      <LanguagesUpsertModal
+      <CountriesUpsertModal
         isOpen={modalOpen}
         setIsOpen={setModalOpen}
         t={t}
@@ -115,4 +115,4 @@ const FilterLanguages = () => {
   );
 };
 
-export default FilterLanguages;
+export default FilterCountries;

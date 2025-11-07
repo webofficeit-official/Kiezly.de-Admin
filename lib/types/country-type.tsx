@@ -28,3 +28,10 @@ export type FilterCountriesData = {
     page_size?: number;
     sort?: string;
 };
+
+export type UpdateCountryPayload = {
+  id: string | number;
+  name?: string;
+  code?: string;
+  currency?: string;
+};

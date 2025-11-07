@@ -1,0 +1,88 @@
+{
+  "title": "Manage Countries",
+  "list": {
+    "table": {
+      "sl": "Sl No",
+      "code": "Code",
+      "name": "Name",
+      "currency": "Currency",
+      "actions": "Actions"
+    },
+    "empty": "No countries available",
+    "search_placeholder": "Search countries...",
+    "search_label": "Search Countries",
+    "search_aria": "Search countries",
+    "clearSearch": "Clear search",
+    "per_page": "Per page",
+    "items": "Items"
+  },
+  "common": {
+    "clear": "Clear search",
+    "edit": "Edit"
+  },
+  "create": {
+    "title": "Add Country",
+    "description": "Add a new country to the system",
+    "form": {
+      "name": {
+        "label": "Country Name",
+        "placeholder": "Enter country name",
+        "error": "Country name is required"
+      },
+      "code": {
+        "label": "Country Code",
+        "placeholder": "Enter 2-letter country code (e.g., US)",
+        "error": "Country code is required",
+        "invalid": "Code must be 2 letters (ISO alpha-2)"
+      },
+      "currency": {
+        "label": "Currency",
+        "placeholder": "Enter 3-letter currency code (e.g., USD)",
+        "error": "Currency is required",
+        "invalid": "Currency must be 3 letters (ISO 4217)"
+      },
+      "button": {
+        "cancel": "Cancel",
+        "create": "Create",
+        "creating": "Creating"
+      }
+    },
+    "success": "Country created successfully",
+    "error": "Cannot create country, try again later"
+  },
+  "update": {
+    "title": "Edit Country",
+    "description": "Update country details",
+    "form": {
+      "name": {
+        "label": "Country Name",
+        "placeholder": "Enter country name",
+        "error": "Country name is required"
+      },
+      "code": {
+        "label": "Country Code (ISO alpha-2)",
+        "placeholder": "Enter 2-letter country code (e.g., US)",
+        "error": "Country code is required",
+        "invalid": "Code must be 2 letters (ISO alpha-2)"
+      },
+      "currency": {
+        "label": "Currency (ISO 4217)",
+        "placeholder": "Enter 3-letter currency code (e.g., USD)",
+        "error": "Currency is required",
+        "invalid": "Currency must be 3 letters (ISO 4217)"
+      },
+      "button": {
+        "cancel": "Cancel",
+        "update": "Update",
+        "updating": "Updating"
+      }
+    },
+    "success": "Country updated successfully",
+    "error": "Cannot update country, try again later"
+  },
+  "pagination": {
+    "page": "Page {page} of {totalPages}",
+    "prev": "Prev",
+    "next": "Next"
+  }
+}

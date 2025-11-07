@@ -1,5 +1,5 @@
 import apiClient from "@/lib/config/axios-client";
-import { CountriesResponse, CountryData, FilterCountriesData, FilteredCountriesResponse } from "@/lib/types/country-type";
+import { CountriesResponse, CountryData, FilterCountriesData, FilteredCountriesResponse, UpdateCountryPayload } from "@/lib/types/country-type";
 import { useMutation, UseMutationResult, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Code, Currency } from "lucide-react";
 
@@ -33,19 +33,29 @@ export const useFilteredCountries = (filters: FilterCountriesData) =>
 
 
 
+const compact = <T extends Record<string, any>>(obj: T) =>
+  Object.fromEntries(Object.entries(obj).filter(([, v]) => v !== undefined)) as T;
+
 export function useUpdateCountry() {
   const qc = useQueryClient();
-  return useMutation({
-    mutationFn: async (payload: { id: string | number;code:string; name: string,currency:string}) => {
-      const res = await apiClient.patch(`/countries/${payload.id}`, {
-        code: payload.code,
-        name: payload.name,
-        currency: payload.currency
+
+  return useMutation<any, Error, UpdateCountryPayload>({
+    mutationFn: async ({ id, name, code, currency }) => {
+      const body = compact({
+        name: typeof name === "string" ? name.trim() : undefined,
+        code: typeof code === "string" ? code.trim().toUpperCase() : undefined,
+        currency: typeof currency === "string" ? currency.trim().toUpperCase() : undefined,
       });
+
+      if (Object.keys(body).length === 0) {
+        throw new Error("No fields provided to update");
+      }
+
+      const res = await apiClient.patch(`/countries/${id}`, body);
       return res.data;
     },
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["countries"] });
+      qc.invalidateQueries({ queryKey: ["countries"], exact: false });
     },
   });
 }
