@@ -94,7 +94,8 @@ export default function LocaleLayout({ children, params }: any) {
     "job-tags",
     "languages",
     "countries",
-    "dashboard"
+    "dashboard",
+    "postal-codes",
   ]; // add more as needed
 
   useEffect(() => {
