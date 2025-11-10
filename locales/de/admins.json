@@ -1,0 +1,69 @@
+{
+    "title": "Administratoren verwalten",
+    "list": {
+        "table": {
+            "full-name": "Vollständiger Name",
+            "email": "Email",
+            "phone": "Phone",
+            "super": "Super",
+            "verified": "Verified",
+            "active": "Aktiv",
+            "deleted": "Gelöscht",
+            "since": "Seit"
+        }
+    },
+    "filter": {
+        "verified": "Verified",
+        "active": "Aktiv",
+        "deleted": "Gelöscht"
+    },
+    "pagination": {
+        "page": "Seite {page} von {totalPages}",
+        "prev": "Prev",
+        "next": "Nächste"
+    },
+    "invite": {
+        "title": "Admin einladen",
+        "description": "Einladungslink per E-Mail senden",
+        "form": {
+            "firstName": {
+                "label": "Vorname",
+                "placeholder": "Enter first name",
+                "error": "Vorname erforderlich"
+            },
+            "lastName": {
+                "label": "Nachname",
+                "placeholder": "Geben Sie den Nachnamen ein",
+                "error": "Nachname erforderlich"
+            },
+            "email": {
+                "label": "E-Mail",
+                "placeholder": "Geben Sie die E-Mail ein",
+                "error": "E-Mail ist ungültig"
+            },
+            "button": {
+                "cancel": "Stornieren",
+                "invite": "Einladen",
+                "inviting": "Einladend"
+            }
+        },
+        "success": "Einladung erfolgreich versendet",
+        "error": "Die Einladung konnte nicht gesendet werden. Bitte versuchen Sie es später erneut."
+    },
+    "update": {
+        "status": {
+            "active": "Aktiv",
+            "inactive": "Inaktiv"
+        },
+        "success": "Administratorstatus aktualisiert: {status}",
+        "error": "Administratorstatus kann nicht aktualisiert werden"
+    },
+    "delete": {
+        "title": "Bestätigen Sie den Löschvorgang",
+        "description": "Sind Sie sicher, dass Sie diesen Datensatz löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden..",
+        "cancel": "Stornieren",
+        "delete": "Löschen",
+        "success": "Der Administrator wurde gelöscht",
+        "error": "Der Administrator kann nicht gelöscht werden"
+    }
+}

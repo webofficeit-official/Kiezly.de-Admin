@@ -1,0 +1,78 @@
+{
+  "title": "Manage Job Tags",
+  "list": {
+    "table": {
+      "sl": "Sl No",
+      "name": "Name",
+      "slug": "Slug",
+      "actions": "Actions"
+    },
+    "empty": "No Job Tags available",
+    "search_placeholder": "Search tags...",
+    "search_label": "Search Tags",
+    "search_aria": "Search tags",
+    "clearSearch": "Clear search",
+    "per_page": "Per page",
+    "items": "Items"
+  },
+  "common": {
+    "generating": "Generating...",
+    "clear": "Clear search",
+    "edit": "Edit"
+  },
+  "create": {
+    "title": "Add Tag",
+    "description": "Add a new job tag to organize jobs",
+    "form": {
+      "name": {
+        "label": "Tag Name",
+        "placeholder": "Enter tag name",
+        "error": "Tag name required"
+      },
+      "slug": {
+        "label": "Slug",
+        "placeholder": "software-development",
+        "error": "Slug is required",
+        "regenerate": "↻ Slug Auto-generate"
+      },
+      "slug_conflict": "Slug already exists",
+      "button": {
+        "cancel": "Cancel",
+        "create": "Create",
+        "creating": "Creating"
+      }
+    },
+    "success": "Tag created successfully",
+    "error": "Cannot create tag, Try again later"
+  },
+  "update": {
+    "title": "Edit Tag",
+    "description": "Update tag details",
+    "form": {
+      "name": {
+        "label": "Tag Name",
+        "placeholder": "Enter tag name",
+        "error": "Tag name required"
+      },
+      "slug": {
+        "label": "Slug",
+        "placeholder": "software-development",
+        "error": "Slug is required",
+        "regenerate": "↻ Slug Auto-generate"
+      },
+      "slug_conflict": "Slug already exists",
+      "button": {
+        "cancel": "Cancel",
+        "update": "Update",
+        "updating": "Updating"
+      }
+    },
+    "success": "Tag updated successfully",
+    "error": "Cannot update tag, Try again later"
+  },
+  "pagination": {
+    "page": "Page {page} of {totalPages}",
+    "prev": "Prev",
+    "next": "Next"
+  }
+}

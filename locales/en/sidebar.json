@@ -1,0 +1,16 @@
+{
+    "menu": {
+        "dashboard": "Dashboard",
+        "admins": "Admins",
+        "users": "Users",
+        "jobs": "Manage Jobs",
+        "all-jobs": "All Jobs",
+        "pending-aproval": "New jobs pending aproval",
+        "categories": "Categories",
+        "job-tags": "Job Tags",
+        "langauges": "Languages",
+        "locations": "Locations",
+        "countries": "Countries",
+        "zipcodes": "Postal Codes"
+    }
+}

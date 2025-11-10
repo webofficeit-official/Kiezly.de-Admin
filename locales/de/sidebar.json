@@ -1,0 +1,16 @@
+{
+    "menu": {
+        "dashboard": "Armaturenbrett",
+        "admins": "Administratoren",
+        "users": "Benutzer",
+        "jobs": "Jobs",
+        "all-jobs": "Alle Jobs",
+        "pending-aproval": "Neue Stellen vorbehaltlich der Genehmigung",
+        "categories": "Kategorien",
+        "job-tags": "Job-Tags",
+        "langauges": "Sprachen",
+        "locations": "Standorte",
+        "countries": "Länder",
+        "zipcodes": "Postleitzahlen"
+    }
+}

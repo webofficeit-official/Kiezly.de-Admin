@@ -1,0 +1,74 @@
+{
+    "title": "Manage Categories",
+    "list": {
+        "table": {
+            "sl": "Sl No",
+            "name": "Name",
+            "slug": "Slug",
+            "actions": "Actions"
+        },
+        "empty": "No categories available",
+        "search_placeholder": "Search categories...",
+        "search_label": "Search Categories",
+        "search_aria": "Search categories",
+        "clearSearch": "Clear search",
+        "per_page": "Per page",
+        "items": "Items"
+    },
+    "common":{"generating":"Generating...","clear":"Clear search"},
+    "create": {
+        "title": "Add Category",
+        "description": "Add a new category to organize jobs",
+        "form": {
+            "name": {
+                "label": "Category Name",
+                "placeholder": "Enter category name",
+                "error": "Category name required"
+            },
+            "slug":{
+                "label":"Slug",
+                "placeholder":"childcare",
+                "error":"Slug is required",
+                "regenerate":"↻ Slug Auto-generate"
+            },
+            "slug_conflict": "Slug already exists",
+            "button": {
+                "cancel": "Cancel",
+                "create": "Create",
+                "creating": "Creating"
+            }
+        },
+        "success": "Category created successfully",
+        "error": "Cannot create category, Try again later"
+    },
+    "update": {
+        "title": "Edit Category",
+        "description": "Update category details",
+        "form": {
+            "name": {
+                "label": "Category Name",
+                "placeholder": "Enter category name",
+                "error": "Category name required"
+            },
+            "slug":{
+                "label":"Slug",
+                "placeholder":"childcare",
+                "error":"Slug is required",
+                "regenerate":"↻ Slug Auto-generate"
+            },
+            "slug_conflict": "Slug already exists",
+            "button": {
+                "cancel": "Cancel",
+                "update": "Update",
+                "updating": "Updating"
+            }
+        },
+        "success": "Category updated successfully",
+        "error": "Cannot update category, Try again later"
+    },
+    "pagination": {
+        "page": "Page {page} of {totalPages}",
+        "prev": "Prev",
+        "next": "Next"
+    }
+}

@@ -1,0 +1,74 @@
+import apiClient from "@/lib/config/axios-client";
+import { DeleteAdminData, DeleteAdminResponse, FilterAdminData, FilterAdminResponse, InviteAdminData, InviteAdminResponse, UpdateAdminStatusData, UpdateAdminStatusResponse } from "@/lib/types/admin-type";
+import { useMutation, UseMutationResult } from "@tanstack/react-query";
+
+// Filter Admins 
+export const useFilterAdmins = (): UseMutationResult<
+  FilterAdminResponse,
+  Error,
+  FilterAdminData
+> => {
+  return useMutation({
+    mutationFn: async ({ page, page_size, verified, active, deleted }) => {
+      const res = await apiClient.post(
+        `/all`,
+        { page, page_size, verified, active, deleted },  // body
+        { params: {} }          // query ?token=...
+      );
+      return res.data as FilterAdminResponse;
+    },
+  });
+};
+
+// Invite Admin 
+export const useInviteAdmins = (): UseMutationResult<
+  InviteAdminResponse,
+  Error,
+  InviteAdminData
+> => {
+  return useMutation({
+    mutationFn: async ({ first_name, last_name, email }) => {
+      const res = await apiClient.post(
+        `/invite`,
+        { first_name, last_name, email },  // body
+        { params: {} }          // query ?token=...
+      );
+      return res.data as InviteAdminResponse;
+    },
+  });
+};
+
+// Invite Admin 
+export const useUpdateAdminStatus = (): UseMutationResult<
+  UpdateAdminStatusResponse,
+  Error,
+  UpdateAdminStatusData
+> => {
+  return useMutation({
+    mutationFn: async ({ status, id }) => {
+      const res = await apiClient.put(
+        `/status/${id}`,
+        { status },  // body
+        { params: {} }          // query ?token=...
+      );
+      return res.data as UpdateAdminStatusResponse;
+    },
+  });
+};
+
+// Invite Admin 
+export const useDeleteAdmin = (): UseMutationResult<
+  DeleteAdminResponse,
+  Error,
+  DeleteAdminData
+> => {
+  return useMutation({
+    mutationFn: async ({ id }) => {
+      const res = await apiClient.delete(
+        `/${id}`,
+        {  },  // body
+      );
+      return res.data as DeleteAdminResponse;
+    },
+  });
+};

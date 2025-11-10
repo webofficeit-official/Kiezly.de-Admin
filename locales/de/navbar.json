@@ -1,0 +1,9 @@
+{
+    "title": "Kiezly.de",
+    "user-menu": {
+        "label": "Benutzermenü öffnen",
+        "my-profile": "Mein Profil",
+        "change-password": "Kennwort ändern",
+        "logout": "Abmelden"
+    }
+}

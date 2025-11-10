@@ -1,0 +1,43 @@
+{
+  "title": "Set Your Password",
+  "subtitle": "Please create a secure password to activate your account.",
+  
+  "form": {
+    "password": {
+      "label": "Password *",
+      "show": "Show",
+      "hide": "Hide",
+      "error_required": "Password is required.",
+      "error_min": "Password must be at least 8 characters long.",
+      "error_invalid": "Password must contain at least one letter, one number, and one special character.",
+      "hint": "Use at least 8 characters with a mix of uppercase, lowercase, numbers, and symbols."
+    },
+    "confirm": {
+      "label": "Confirm Password *",
+      "error_required": "Please confirm your password.",
+      "error_match": "Passwords do not match."
+    }
+  },
+
+  "cta": {
+    "set": "Set Password",
+    "setting": "Setting Password..."
+  },
+
+  "error": {
+    "title": "Invalid or Expired Invitation Link",
+    "description": "Please check your email — you might have received a new invitation. If not, contact your administrator.",
+    "cta_resend": "Request New Invitation",
+    "back": "Back to login"
+  },
+
+  "messages": {
+    "bad_link": "This invitation link is invalid or expired.",
+    "success": "Password set successfully! You can now sign in.",
+    "expired": "Your invitation link has expired. Please request a new one."
+  },
+
+  "toasts": {
+    "error": "An unexpected error occurred while setting your password. Please try again."
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "title": "Manage Languages",
+  "list": {
+    "table": {
+      "sl": "Sl No",
+      "name": "Name",
+      "actions": "Actions"
+    },
+    "empty": "No Languages available",
+    "search_placeholder": "Search languages...",
+    "search_label": "Search Languages",
+    "search_aria": "Search languages",
+    "clearSearch": "Clear search",
+    "per_page": "Per page",
+    "items": "Items"
+  },
+  "common": {
+    "clear": "Clear search",
+    "edit": "Edit"
+  },
+  "create": {
+    "title": "Add Language",
+    "description": "Add a new language to the system",
+    "form": {
+      "name": {
+        "label": "Language Name",
+        "placeholder": "Enter language name",
+        "error": "Language name required"
+      },
+      "button": {
+        "cancel": "Cancel",
+        "create": "Create",
+        "creating": "Creating"
+      }
+    },
+    "success": "Language created successfully",
+    "error": "Cannot create language, try again later"
+  },
+  "update": {
+    "title": "Edit Language",
+    "description": "Update language details",
+    "form": {
+      "name": {
+        "label": "Language Name",
+        "placeholder": "Enter language name",
+        "error": "Language name required"
+      },
+      "button": {
+        "cancel": "Cancel",
+        "update": "Update",
+        "updating": "Updating"
+      }
+    },
+    "success": "Language updated successfully",
+    "error": "Cannot update language, try again later"
+  },
+  "pagination": {
+    "page": "Page {page} of {totalPages}",
+    "prev": "Prev",
+    "next": "Next"
+  }
+}
