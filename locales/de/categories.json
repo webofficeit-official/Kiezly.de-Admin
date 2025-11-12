@@ -24,10 +24,10 @@
         "description": "Fügen Sie eine neue Kategorie hinzu, um Jobs zu organisieren",
         "form": {
             "name": {
-                "label": "Kategoriename",
-                "placeholder": "Kategoriename eingeben",
-                "error": "Kategoriename erforderlich"
-            }, 
+                "label": "Kategoriename ({code})",
+                "placeholder": "Geben Sie den Kategorienamen in {code} ein.",
+                "error": "Kategoriename in {code} erforderlich"
+            },
             "slug":{
                 "label":"Slug",
                 "placeholder":"childcare",

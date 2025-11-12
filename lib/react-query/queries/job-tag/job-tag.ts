@@ -47,7 +47,7 @@ export function useGenerateJobTagsSlug() {
 export function useUpdateJobTags() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: async (payload: { id: string | number; name: string; slug: string }) => {
+    mutationFn: async (payload: { id: string | number; name: Record<string, string>; slug: string }) => {
       const res = await apiClient.patch(`/job-tags/${payload.id}`, {
         name: payload.name,
         slug: payload.slug,
