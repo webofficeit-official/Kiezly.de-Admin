@@ -9,6 +9,8 @@ import Pagination from "../ui/pagination/pagination";
 import CategoriesControls from "./CategoriesControls";
 import { JobCategories } from "@/lib/types/job-categories";
 import CategoryUpsertModal from "./CategoryUpsertModal";
+import { useLocalization } from "@/lib/react-query/queries/localization/localization";
+import { Localization } from "@/lib/types/localization-type";
 type Sort = "id_desc" | "name_asc" | "name_desc";
 
 const FilterCategories = () => {
@@ -39,6 +41,8 @@ const FilterCategories = () => {
   );
 
   const { data, isLoading, isError, error } = useFilteredCategories(apiFilters);
+  const { data: loc } = useLocalization()
+  const localization: Localization[] = loc?.data?.items ?? []
 
   useEffect(() => {
     if (!data) return;
@@ -88,6 +92,7 @@ const FilterCategories = () => {
         />
         <CategoriesTable
           categories={categories}
+          localization={localization}
           t={t}
           page={page}
           pageSize={filter.pageSize}

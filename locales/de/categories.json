@@ -3,7 +3,10 @@
     "list": {
         "table": {
             "sl": "Nr.",
-            "name": "Name",
+            "name": {
+                "en": "Name auf Englisch",
+                "de": "Name auf Deutsch"
+            },
             "slug": "Slug",
             "actions": "Aktionen"
         },
