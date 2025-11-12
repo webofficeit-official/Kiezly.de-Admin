@@ -59,6 +59,7 @@ const CategoriesTable = ({
               localization.map(l => {
                 return (
                   <th
+                    key={l.id}
                     className="border-y border-slate-200 px-4 py-3 text-sm font-medium text-slate-500 cursor-pointer select-none"
                     onClick={toggleSort}
                   >
@@ -132,7 +133,7 @@ const CategoriesTable = ({
                 {
                   localization.map(l => {
                     return (
-                      <td className="border-b border-slate-200 px-4 py-4">
+                      <td key={l.id} className="border-b border-slate-200 px-4 py-4">
                         <p className="text-sm font-semibold text-slate-700">
                           {u.name[l.code]}
                         </p>

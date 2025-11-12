@@ -111,9 +111,9 @@ const FilterCategories = () => {
         />
       </div>    
       <CategoryUpsertModal
+        localization={localization}
         isOpen={modalOpen}
         setIsOpen={setModalOpen}
-        t={t}
         category={selectedCategory}
       />
     </>

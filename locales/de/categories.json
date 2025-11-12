@@ -73,5 +73,7 @@
         "page": "Seite {page} von {totalPages}",
         "prev": "Vorher",
         "next": "Nächste"
-    }
+    },
+    "en": "Englisch",
+    "de": "Deutsch"
 }
