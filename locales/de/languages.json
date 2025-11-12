@@ -23,9 +23,9 @@
     "description": "Fügen Sie eine neue Sprache hinzu, um das System zu erweitern",
     "form": {
       "name": {
-        "label": "Sprachname",
-        "placeholder": "Sprachname eingeben",
-        "error": "Sprachname erforderlich"
+        "label": "Sprachname ({code})",
+        "placeholder": "Geben Sie den Sprachname in {code} ein",
+        "error": "Der Sprachname in {code} ist erforderlich"
       },
       "button": {
         "cancel": "Abbrechen",
@@ -58,5 +58,7 @@
     "page": "Seite {page} von {totalPages}",
     "prev": "Vorherige",
     "next": "Nächste"
-  }
+  },
+  "en": "Englisch",
+  "de": "Deutsch"
 }

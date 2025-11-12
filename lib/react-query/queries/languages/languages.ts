@@ -35,7 +35,7 @@ export const useFilteredLanguages = (filters: FilterLanguagesData) =>
 export function useUpdateLanguages() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: async (payload: { id: string | number; name: string}) => {
+    mutationFn: async (payload: { id: string | number; name: Record<string, string>}) => {
       const res = await apiClient.patch(`/languages/${payload.id}`, {
         name: payload.name,
       });

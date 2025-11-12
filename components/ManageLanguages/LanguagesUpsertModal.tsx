@@ -6,24 +6,27 @@ import toast from "react-hot-toast";
 import { InputField } from "../ui/InputField/InputField";
 import { Languages } from "@/lib/types/languages";
 import { useAddLanguages, useUpdateLanguages } from "@/lib/react-query/queries/languages/languages";
+import { useT } from "@/app/[locale]/layout";
+import { Localization } from "@/lib/types/localization-type";
 
 type Props = {
+  localization: Localization[];
   isOpen: boolean;
   setIsOpen: (v: boolean) => void;
-  t: (k: string) => string;
   DataItem?: Languages | null; // edit mode if present
 };
 
 export default function LanguagesUpsertModal({
   isOpen,
   setIsOpen,
-  t,
+  localization = [],
   DataItem,
 }: Props) {
+  const t = useT("languages");
   const isEdit = Boolean(DataItem?.id);
 
-  const [name, setName] = useState<string>("");
-  const [errors, setErrors] = useState<{ name?: string }>({});
+  const [name, setName] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<{ name?: Record<string, string> }>({});
 
   const addData = useAddLanguages();
   const updateData = useUpdateLanguages();
@@ -54,17 +57,30 @@ export default function LanguagesUpsertModal({
   useEffect(() => {
     if (!isOpen) return;
     if (isEdit && DataItem) {
-      setName(String(DataItem.name ?? ""));
+      setName(DataItem.name ?? {});
       setErrors({});
     } else {
-      setName("");
+      setName({});
       setErrors({});
     }
   }, [isOpen, isEdit, DataItem]);
 
+  const onChangeName = (v: string, code: string) => {
+    setName({
+      ...name,
+      [code]: v
+    });
+    setErrors((prev) => ({ ...prev, name: { ...prev.name, [code]: v.trim() ? undefined : t("create.form.name.error", { code: t(code) }) } }));
+  };
+
   const validate = () => {
     const e: typeof errors = {};
-    if (!name.trim()) e.name = t("create.form.name.error");
+    localization.forEach(l => {
+      if (!name[l.code]) {
+        e.name = e.name || {}
+        e.name[l.code] = t("create.form.name.error", { code: t(l.code) });
+      }
+    })
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -81,7 +97,7 @@ export default function LanguagesUpsertModal({
             );
 
       updateData.mutate(
-        { id, name: name.trim() }, // ✅ only name
+        { id, name }, // ✅ only name
         {
           onSuccess: () => {
             toast.success(t("update.success"));
@@ -96,7 +112,7 @@ export default function LanguagesUpsertModal({
       );
     } else {
       addData.mutate(
-        { name: name.trim() }, // ✅ only name
+        { name }, // ✅ only name
         {
           onSuccess: () => {
             toast.success(t("create.success"));
@@ -133,23 +149,23 @@ export default function LanguagesUpsertModal({
               {isEdit ? t("update.description") : t("create.description")}
             </p>
 
-            <InputField
-              label={t("create.form.name.label")}
-              placeholder={t("create.form.name.placeholder")}
-              value={name}
-              onChange={(e: any) => {
-                const v = e.target.value as string;
-                setName(v);
-                setErrors((prev) => ({
-                  ...prev,
-                  name: v.trim() ? undefined : t("create.form.name.error"),
-                }));
-              }}
-              error={Boolean(errors.name)}
-              errorMessage={errors.name}
-              name="language-name"
-              disabled={submitting}
-            />
+            {
+              localization.map(l => {
+                return (
+                  <InputField
+                    key={l.id}
+                    label={`${t("create.form.name.label", { code: t(l.code) })}`}
+                    placeholder={t("create.form.name.placeholder", { code: t(l.code) })}
+                    value={name[l.code] ?? ''}
+                    onChange={(e: any) => onChangeName(e.target.value, l.code)}
+                    error={Boolean(errors.name ? errors.name[l.code] : false)}
+                    errorMessage={errors.name ? errors.name[l.code] : ``}
+                    name="category-name"
+                    disabled={submitting}
+                  />
+                )
+              })
+            }
           </div>
 
           <div className="p-6 pt-0">
