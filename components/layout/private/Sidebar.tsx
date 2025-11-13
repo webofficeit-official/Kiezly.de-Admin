@@ -1,6 +1,6 @@
 import { useT } from "@/app/[locale]/layout";
 import LocalizedLink from "@/lib/localizedLink";
-import { BriefcaseBusiness, ChevronDown, ChevronUp, FolderCheck, FolderCode, Globe, Languages, Layers, LayoutDashboard, MapPinned, Navigation, Newspaper, ShieldPlus, Users } from "lucide-react";
+import { BriefcaseBusiness, ChevronDown, ChevronUp, FolderCheck, FolderCode, Globe, Languages, Layers, LayoutDashboard, MapPinned, Navigation, Newspaper, ShieldPlus, Users,Earth  } from "lucide-react";
 import { useState } from "react";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
@@ -122,6 +122,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                         </li>
                                     </ul>
                                 )}
+                            </li>
+
+                               <li>
+                                <LocalizedLink href="/localization" className="flex px-4 py-2 text-sm hover:bg-gray-100 w-full text-left false">
+                                      <Earth  className="w-5 h-5" />
+                                    <span className="ms-3">{t("menu.localization")}</span>
+                                </LocalizedLink>
                             </li>
                         </ul>
                     </div>

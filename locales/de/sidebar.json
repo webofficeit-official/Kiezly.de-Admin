@@ -11,6 +11,7 @@
         "langauges": "Sprachen",
         "locations": "Standorte",
         "countries": "Länder",
-        "zipcodes": "Postleitzahlen"
+        "zipcodes": "Postleitzahlen",
+        "localization": "Lokalisierung"
     }
 }
