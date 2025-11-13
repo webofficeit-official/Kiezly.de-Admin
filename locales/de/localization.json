@@ -1,0 +1,13 @@
+{
+  "title": "Lokalisierung",
+  "list":{
+
+  },
+  "pagination": {
+    "page": "Seite {page} von {totalPages}",
+    "prev": "Vorherige",
+    "next": "Nächste"
+  },
+  "en": "Englisch",
+  "de": "Deutsch"
+}

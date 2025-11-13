@@ -96,6 +96,7 @@ export default function LocaleLayout({ children, params }: any) {
     "countries",
     "dashboard",
     "postal-codes",
+    "localization"
   ]; // add more as needed
 
   useEffect(() => {

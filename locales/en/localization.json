@@ -1,0 +1,11 @@
+{
+  "title": "Localization",
+
+  "pagination": {
+    "page": "Page {page} of {totalPages}",
+    "prev": "Prev",
+    "next": "Next"
+  },
+  "en": "English",
+  "de": "German"
+}
