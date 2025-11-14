@@ -12,6 +12,8 @@
         "locations": "Standorte",
         "countries": "Länder",
         "zipcodes": "Postleitzahlen",
-        "localization": "Lokalisierung"
+        "localization": "Lokalisierung",
+        "job-type":"Jobmodus",
+        "job-experience":"Berufserfahrung"
     }
 }
