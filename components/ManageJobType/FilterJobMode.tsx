@@ -3,12 +3,13 @@ import { useEffect, useMemo, useState } from "react";
 import { useT } from "@/app/[locale]/layout";
 
 import Pagination from "../ui/pagination/pagination";
-import { JobMode } from "@/lib/types/job-mode-type";
+import { JobModeData } from "@/lib/types/job-mode-type";
 import { useFilteredJobType } from "@/lib/react-query/queries/job-mode/job-mode";
 import JobModeHeader from "./JobModeHeader";
 import JobModeTable from "./JobModeTable";
 import { useLocalization } from "@/lib/react-query/queries/localization/localization";
 import { Localization } from "@/lib/types/localization-type";
+import JobModeUpsertModal from "./JobModeUpsertModal";
 type Sort = "id_desc" | "name_asc" | "name_desc";
 const FilterJobMode = () => {
   const t = useT("job-type");
@@ -24,7 +25,7 @@ const FilterJobMode = () => {
   });
 
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedData, setSelectedData] = useState<JobMode | null>(null);
+  const [selectedData, setSelectedData] = useState<JobModeData | null>(null);
 
   const apiFilters = useMemo(
     () => ({
@@ -37,8 +38,8 @@ const FilterJobMode = () => {
   );
 
   const { data, isLoading, isError, error } = useFilteredJobType(apiFilters);
-  const { data: loc } = useLocalization({})
-     const localization: Localization[] = loc?.data?.items ?? []
+  const { data: loc } = useLocalization({});
+  const localization: Localization[] = loc?.data?.items ?? [];
 
   useEffect(() => {
     if (!data) return;
@@ -65,7 +66,7 @@ const FilterJobMode = () => {
     if (v) setSelectedData(null);
     setModalOpen(v);
   };
-  const onEdit = (cat: JobMode) => {
+  const onEdit = (cat: JobModeData) => {
     setSelectedData(cat);
     setModalOpen(true);
   };
@@ -79,8 +80,7 @@ const FilterJobMode = () => {
           t={t}
         />
 
-        
-           <JobModeTable
+        <JobModeTable
           dataList={dataList}
           localization={localization}
           page={page}
@@ -98,6 +98,12 @@ const FilterJobMode = () => {
           setPage={handlePageChange}
         />
       </div>
+      <JobModeUpsertModal
+        localization={localization}
+        isOpen={modalOpen}
+        setIsOpen={setModalOpen}
+        DataItem={selectedData}
+      />
     </>
   );
 };

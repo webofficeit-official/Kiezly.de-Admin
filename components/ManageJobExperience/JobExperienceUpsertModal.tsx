@@ -178,7 +178,7 @@ export default function JobExperienceUpsertModal({
                   onChange={(e: any) => onChangeName(e.target.value, l.code)}
                   error={Boolean(errors.name ? errors.name[l.code] : false)}
                   errorMessage={errors.name ? errors.name[l.code] : ``}
-                  name="category-name"
+                  name="job-experience-name"
                   disabled={submitting}
                 />
               );

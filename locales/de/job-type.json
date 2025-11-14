@@ -18,7 +18,50 @@
     "per_page": "Pro Seite",
     "items": "Einträge"
   },
+ 
   "create": {
-    "title": "Jobtyp hinzufügen"
-  }
+    "title": "Jobtyp hinzufügen",
+    "description": "Fügen Sie einen neuen Jobtyp hinzu, um Jobs zu organisieren",
+    "form": {
+      "name": {
+        "label": "Name des Jobtyps ({code})",
+        "placeholder": "Jobtypname in {code} eingeben",
+        "error": "Jobtypname in {code} ist erforderlich"
+      },
+      "button": {
+        "cancel": "Abbrechen",
+        "create": "Erstellen",
+        "creating": "Wird erstellt"
+      }
+    },
+    "success": "Jobtyp erfolgreich erstellt",
+    "error": "Jobtyp konnte nicht erstellt werden. Bitte versuchen Sie es später erneut"
+  },
+
+  "update": {
+    "title": "Jobtyp bearbeiten",
+    "description": "Jobtypdetails aktualisieren",
+    "form": {
+      "name": {
+        "label": "Name des Jobtyps",
+        "placeholder": "Jobtypname eingeben",
+        "error": "Jobtypname ist erforderlich"
+      },
+      "button": {
+        "cancel": "Abbrechen",
+        "update": "Aktualisieren",
+        "updating": "Aktualisiere"
+      }
+    },
+    "success": "Jobtyp erfolgreich aktualisiert",
+    "error": "Jobtyp konnte nicht aktualisiert werden. Bitte versuchen Sie es später erneut"
+  },
+
+    "pagination": {
+    "page": "Seite {page} von {totalPages}",
+    "prev": "Vorherige",
+    "next": "Nächste"
+  },
+  "en": "Englisch",
+  "de": "Deutsch"
 }

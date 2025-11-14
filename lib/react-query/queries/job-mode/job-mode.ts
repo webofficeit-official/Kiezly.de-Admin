@@ -32,27 +32,17 @@ export const useFilteredJobType = (filters: FilterJobModeData) =>
 
 
 
-const compact = <T extends Record<string, any>>(obj: T) =>
-  Object.fromEntries(Object.entries(obj).filter(([, v]) => v !== undefined)) as T;
-
 export function useUpdateJobMode() {
   const qc = useQueryClient();
-
-  return useMutation<any, Error, JobMode>({
-    mutationFn: async ({ id, name}) => {
-      const body = compact({
-        name: typeof name === "string" ? name.trim() : undefined,
+  return useMutation({
+    mutationFn: async (payload: { id: string | number; name: Record<string, string>}) => {
+      const res = await apiClient.patch(`/job-type/${payload.id}`, {
+        name: payload.name,
       });
-
-      if (Object.keys(body).length === 0) {
-        throw new Error("No fields provided to update");
-      }
-
-      const res = await apiClient.patch(`/job-type/${id}`, body);
       return res.data;
     },
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["job-type"], exact: false });
+      qc.invalidateQueries({ queryKey: ["job-type"] });
     },
   });
 }
