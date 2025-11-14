@@ -89,7 +89,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
                                {/* Job Experience */}
                             <li>
-                                <LocalizedLink href="/job-experiences" className="flex px-4 py-2 text-sm hover:bg-gray-100 w-full text-left false">
+                                <LocalizedLink href="/job-experience" className="flex px-4 py-2 text-sm hover:bg-gray-100 w-full text-left false">
                                     <Briefcase  className="w-5 h-5" />
                                     <span className="ms-3">{t("menu.job-experience")}</span>
                                 </LocalizedLink>
