@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import toast from "react-hot-toast";
 import { InputField } from "../ui/InputField/InputField";
-import { JobTags } from "@/lib/types/job-tags";
+import { JobTagsData } from "@/lib/types/job-tags";
 import { useAddJobTags, useGenerateJobTagsSlug, useUpdateJobTags } from "@/lib/react-query/queries/job-tag/job-tag";
 import { Localization } from "@/lib/types/localization-type";
 import { useT } from "@/app/[locale]/layout";
@@ -13,7 +13,7 @@ type Props = {
   isOpen: boolean;
   setIsOpen: (v: boolean) => void;
   localization: Localization[]
-  DataItem?: JobTags | null;
+  DataItem?: JobTagsData | null;
 };
 
 export default function JobTagUpsertModal({ isOpen, setIsOpen, localization, DataItem }: Props) {

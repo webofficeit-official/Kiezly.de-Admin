@@ -7,7 +7,7 @@ import JobTagHeader from "./JobTagHeader";
 import JobTagControls from "./JobTagControls";
 import JobTagTable from "./JobTagTable";
 import JobTagUpsertModal from "./JobTagUpsertModal";
-import { JobTags } from "@/lib/types/job-tags";
+import { JobTagsData } from "@/lib/types/job-tags";
 import { useFilteredJobTags } from "@/lib/react-query/queries/job-tag/job-tag";
 import { useLocalization } from "@/lib/react-query/queries/localization/localization";
 import { Localization } from "@/lib/types/localization-type";
@@ -28,7 +28,7 @@ const FilterJobTag = () => {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedData, setSelectedData] =
-    useState<JobTags | null>(null);
+    useState<JobTagsData | null>(null);
 
   const apiFilters = useMemo(
     () => ({
@@ -69,7 +69,7 @@ const FilterJobTag = () => {
     if (v) setSelectedData(null);
     setModalOpen(v);
   };
-  const onEdit = (cat: JobTags) => {
+  const onEdit = (cat: JobTagsData) => {
     setSelectedData(cat);
     setModalOpen(true);
   };

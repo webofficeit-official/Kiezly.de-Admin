@@ -7,7 +7,7 @@ import CategoriesTable from "./CategoriesTable";
 import { useFilteredCategories } from "@/lib/react-query/queries/categories/categories";
 import Pagination from "../ui/pagination/pagination";
 import CategoriesControls from "./CategoriesControls";
-import { JobCategories } from "@/lib/types/job-categories";
+import { JobCategoriesData } from "@/lib/types/job-categories";
 import CategoryUpsertModal from "./CategoryUpsertModal";
 import { useLocalization } from "@/lib/react-query/queries/localization/localization";
 import { Localization } from "@/lib/types/localization-type";
@@ -28,7 +28,7 @@ const FilterCategories = () => {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] =
-    useState<JobCategories | null>(null);
+    useState<JobCategoriesData | null>(null);
 
   const apiFilters = useMemo(
     () => ({
@@ -69,7 +69,7 @@ const FilterCategories = () => {
     if (v) setSelectedCategory(null);
     setModalOpen(v);
   };
-    const onEdit = (cat: JobCategories) => {
+    const onEdit = (cat: JobCategoriesData) => {
     setSelectedCategory(cat);
     setModalOpen(true);
   };

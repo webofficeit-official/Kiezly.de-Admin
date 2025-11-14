@@ -2,7 +2,7 @@
 import { Edit, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 import Tooltip from "../ui/ToolTip/ToolTip";
 import { useMemo } from "react";
-import { JobTags } from "@/lib/types/job-tags";
+import { JobTagsData } from "@/lib/types/job-tags";
 import { Localization } from "@/lib/types/localization-type";
 import { useT } from "@/app/[locale]/layout";
 
@@ -10,11 +10,11 @@ type Sort = "id_desc" | "name_asc" | "name_desc";
 
 type Props = {
   localization: Localization[];
-  dataList: JobTags[];
+  dataList: JobTagsData[];
   page: number;
   pageSize: number;
   loading?: boolean;
-  onEdit?: (cat: JobTags) => void;
+  onEdit?: (cat: JobTagsData) => void;
 
   sort?: Sort; // "id_desc" | "name_asc" | "name_desc"
   onSortChange?: (value: Sort) => void;
@@ -123,7 +123,7 @@ const JobTagTable = ({
           {/* Data Rows */}
           {!loading &&
             !isEmpty &&
-            dataList.map((u: JobTags, i) => (
+            dataList.map((u: JobTagsData, i) => (
               <tr
                 key={`${u.id}-${i}`}
                 className="cursor-pointer whitespace-nowrap transition"

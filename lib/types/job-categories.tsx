@@ -1,10 +1,11 @@
 export type JobCategories = {
     id: Number;
-    name?: Record<string, string>;
+    name?: string;
     slug?: String;
 }
 
 export type JobCategoriesData = {
+    id?: Number;
     name?: Record<string, string>;
     slug?: String;
 }

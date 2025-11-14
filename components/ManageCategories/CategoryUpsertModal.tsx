@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import toast from "react-hot-toast";
 import { InputField } from "../ui/InputField/InputField";
 import { useAddCategories, useGenerateCategorySlug, useUpdateCategory } from "@/lib/react-query/queries/categories/categories";
-import { JobCategories } from "@/lib/types/job-categories";
+import { JobCategories, JobCategoriesData } from "@/lib/types/job-categories";
 import { Localization } from "@/lib/types/localization-type";
 import { useT } from "@/app/[locale]/layout";
 
@@ -13,7 +13,7 @@ type Props = {
   localization: Localization[]
   isOpen: boolean;
   setIsOpen: (v: boolean) => void;
-  category?: JobCategories | null;
+  category?: JobCategoriesData | null;
 };
 
 export default function CategoryUpsertModal({ isOpen, setIsOpen, category, localization }: Props) {

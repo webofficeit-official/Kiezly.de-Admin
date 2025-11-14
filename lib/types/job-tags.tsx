@@ -1,10 +1,11 @@
 export type JobTags = {
     id: Number;
-    name?: Record<string, string>;
+    name?: string;
     slug?: String;
 }
 
 export type JobTagsData = {
+    id?: number;
     name?: Record<string, string>;
     slug?: String;
 }

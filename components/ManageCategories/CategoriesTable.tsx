@@ -1,4 +1,4 @@
-import { JobCategories } from "@/lib/types/job-categories";
+import { JobCategories, JobCategoriesData } from "@/lib/types/job-categories";
 import { Edit, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 import Tooltip from "../ui/ToolTip/ToolTip";
 import { useMemo } from "react";
@@ -8,12 +8,12 @@ type Sort = "id_desc" | "name_asc" | "name_desc";
 
 type Props = {
   localization: Localization[];
-  categories: JobCategories[];
+  categories: JobCategoriesData[];
   t: (k: string, vars?: any) => string;
   page: number;
   pageSize: number;
   loading?: boolean;
-  onEdit?: (cat: JobCategories) => void;
+  onEdit?: (cat: JobCategoriesData) => void;
 
   sort?: Sort; // "id_desc" | "name_asc" | "name_desc"
   onSortChange?: (value: Sort) => void;
@@ -122,7 +122,7 @@ const CategoriesTable = ({
           {/* Data Rows */}
           {!loading &&
             !isEmpty &&
-            categories.map((u: JobCategories, i) => (
+            categories.map((u: JobCategoriesData, i) => (
               <tr
                 key={`${u.id}-${i}`}
                 className="cursor-pointer whitespace-nowrap transition"
