@@ -6,6 +6,9 @@ import Pagination from "../ui/pagination/pagination";
 import { JobMode } from "@/lib/types/job-mode-type";
 import { useFilteredJobType } from "@/lib/react-query/queries/job-mode/job-mode";
 import JobModeHeader from "./JobModeHeader";
+import JobModeTable from "./JobModeTable";
+import { useLocalization } from "@/lib/react-query/queries/localization/localization";
+import { Localization } from "@/lib/types/localization-type";
 type Sort = "id_desc" | "name_asc" | "name_desc";
 const FilterJobMode = () => {
   const t = useT("job-type");
@@ -34,6 +37,8 @@ const FilterJobMode = () => {
   );
 
   const { data, isLoading, isError, error } = useFilteredJobType(apiFilters);
+  const { data: loc } = useLocalization({})
+     const localization: Localization[] = loc?.data?.items ?? []
 
   useEffect(() => {
     if (!data) return;
@@ -72,6 +77,18 @@ const FilterJobMode = () => {
           setModelOpen={proxySetModalOpen}
           modelOpen={modalOpen}
           t={t}
+        />
+
+        
+           <JobModeTable
+          dataList={dataList}
+          localization={localization}
+          page={page}
+          pageSize={filter.pageSize}
+          loading={isLoading}
+          onEdit={onEdit}
+          sort={filter.sort}
+          onSortChange={handleSortChange}
         />
         {/* Pagination */}
         <Pagination

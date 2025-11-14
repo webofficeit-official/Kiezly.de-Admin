@@ -6,6 +6,9 @@ import Pagination from "../ui/pagination/pagination";
 import { JobExperience } from "@/lib/types/job-experience-type";
 import { useFilteredJobExperience } from "@/lib/react-query/queries/job-experience/job-experience";
 import JobExperienceHeader from "./JobExperienceHeader";
+import { useLocalization } from "@/lib/react-query/queries/localization/localization";
+import JobExperienceTable from "./JobExperienceTable";
+import { Localization } from "@/lib/types/localization-type";
 type Sort = "id_desc" | "name_asc" | "name_desc";
 const FilterJobExperience = () => {
   const t = useT("job-experience");
@@ -35,7 +38,8 @@ const FilterJobExperience = () => {
 
   const { data, isLoading, isError, error } =
     useFilteredJobExperience(apiFilters);
-
+ const { data: loc } = useLocalization({})
+   const localization: Localization[] = loc?.data?.items ?? []
   useEffect(() => {
     if (!data) return;
     setDataList(data?.data?.items ?? []);
@@ -73,6 +77,17 @@ const FilterJobExperience = () => {
           setModelOpen={proxySetModalOpen}
           modelOpen={modalOpen}
           t={t}
+        />
+
+           <JobExperienceTable
+          dataList={dataList}
+          localization={localization}
+          page={page}
+          pageSize={filter.pageSize}
+          loading={isLoading}
+          onEdit={onEdit}
+          sort={filter.sort}
+          onSortChange={handleSortChange}
         />
         {/* Pagination */}
         <Pagination
