@@ -15,5 +15,19 @@ export type FilterLocalizationResponseData = {
     q?: string;   
     page?: number;
     page_size?: number;
+    total_items: number
+    total_pages: number
     sort?: string;
 };
+
+export type FilterLocalizationData = {
+    q?: string;   
+    page?: number;
+    page_size?: number;
+    sort?: string;
+};
+
+export type LocalizationData = {
+    code?: String;
+    name?: String;
+}

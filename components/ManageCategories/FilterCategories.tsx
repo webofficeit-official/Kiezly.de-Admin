@@ -41,7 +41,7 @@ const FilterCategories = () => {
   );
 
   const { data, isLoading, isError, error } = useFilteredCategories(apiFilters);
-  const { data: loc } = useLocalization()
+  const { data: loc } = useLocalization({})
   const localization: Localization[] = loc?.data?.items ?? []
 
   useEffect(() => {

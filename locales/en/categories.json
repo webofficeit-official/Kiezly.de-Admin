@@ -5,7 +5,8 @@
             "sl": "Sl No",
             "name": {
                 "en": "Name in English",
-                "de": "Name in German"
+                "de": "Name in German",
+                "ml":"Name in Malayalam"
             },
             "slug": "Slug",
             "actions": "Actions"
@@ -75,5 +76,6 @@
         "next": "Next"
     },
     "en": "English",
-    "de": "German"
+    "de": "German",
+    "ml":"Malayalam"
 }

@@ -41,7 +41,7 @@ const FilterJobTag = () => {
   );
 
   const { data, isLoading, isError, error } = useFilteredJobTags(apiFilters);
-  const { data: loc } = useLocalization()
+  const { data: loc } = useLocalization({})
   const localization: Localization[] = loc?.data?.items ?? []
 
   useEffect(() => {

@@ -46,7 +46,6 @@ const LanguagesTable = ({
     else if (sort === "name_asc") onSortChange("name_desc");
     else onSortChange("id_desc");
   };
-
   return (
     <div className="p-0 overflow-x-auto md:overflow-x-visible">
       <table className="w-full mt-4 text-left table-auto min-w-[560px] md:min-w-0 border-collapse">

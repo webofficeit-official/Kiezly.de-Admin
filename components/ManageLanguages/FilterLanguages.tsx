@@ -41,7 +41,7 @@ const FilterLanguages = () => {
   );
 
   const { data, isLoading, isError, error } = useFilteredLanguages(apiFilters);
-  const { data: loc } = useLocalization()
+  const { data: loc } = useLocalization({})
   const localization: Localization[] = loc?.data?.items ?? []
 
   useEffect(() => {

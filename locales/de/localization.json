@@ -1,13 +1,41 @@
 {
   "title": "Lokalisierung",
-  "list":{
-
+  "list": {
+    "title": "Verfügbare Lokalisierungen",
+    "table": {
+      "sl": "Nr.",
+      "code": "Code",
+      "name": "Name"
+    },
+    "empty": "Keine Lokalisierungen gefunden"
+  },
+  "create": {
+    "title": "Lokalisierung hinzufügen",
+    "description": "Erstellen Sie einen neuen Übersetzungseintrag oder Namespace im System",
+    "form": {
+      "name": {
+        "label": "Name",
+        "placeholder": "Sprachname eingeben (z. B. Englisch)",
+        "error": "Name ist erforderlich"
+      },
+      "code": {
+        "label": "Code",
+        "placeholder": "z. B. en, de",
+        "error": "Code ist erforderlich",
+        "invalid": "Code muss aus 2 Buchstaben bestehen (z. B. en)"
+      },
+      "button": {
+        "cancel": "Abbrechen",
+        "create": "Erstellen",
+        "creating": "Erstelle…"
+      }
+    },
+    "success": "Lokalisierungseintrag erfolgreich erstellt",
+    "error": "Der Lokalisierungseintrag konnte nicht erstellt werden, bitte versuchen Sie es später erneut"
   },
   "pagination": {
     "page": "Seite {page} von {totalPages}",
-    "prev": "Vorherige",
-    "next": "Nächste"
-  },
-  "en": "Englisch",
-  "de": "Deutsch"
+    "prev": "Zurück",
+    "next": "Weiter"
+  }
 }
