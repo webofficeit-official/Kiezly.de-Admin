@@ -3,12 +3,13 @@ import { useEffect, useMemo, useState } from "react";
 import { useT } from "@/app/[locale]/layout";
 
 import Pagination from "../ui/pagination/pagination";
-import { JobExperience } from "@/lib/types/job-experience-type";
+import { JobExperienceData } from "@/lib/types/job-experience-type";
 import { useFilteredJobExperience } from "@/lib/react-query/queries/job-experience/job-experience";
 import JobExperienceHeader from "./JobExperienceHeader";
 import { useLocalization } from "@/lib/react-query/queries/localization/localization";
 import JobExperienceTable from "./JobExperienceTable";
 import { Localization } from "@/lib/types/localization-type";
+import JobExperienceUpsertModal from "./JobExperienceUpsertModal";
 type Sort = "id_desc" | "name_asc" | "name_desc";
 const FilterJobExperience = () => {
   const t = useT("job-experience");
@@ -24,7 +25,7 @@ const FilterJobExperience = () => {
   });
 
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedData, setSelectedData] = useState<JobExperience | null>(null);
+  const [selectedData, setSelectedData] = useState<JobExperienceData | null>(null);
 
   const apiFilters = useMemo(
     () => ({
@@ -65,7 +66,7 @@ const FilterJobExperience = () => {
     if (v) setSelectedData(null);
     setModalOpen(v);
   };
-  const onEdit = (cat: JobExperience) => {
+  const onEdit = (cat: JobExperienceData) => {
     setSelectedData(cat);
     setModalOpen(true);
   };
@@ -97,6 +98,13 @@ const FilterJobExperience = () => {
           setPage={handlePageChange}
         />
       </div>
+
+        <JobExperienceUpsertModal
+              localization={localization}
+              isOpen={modalOpen}
+              setIsOpen={setModalOpen}
+              DataItem={selectedData}
+            />
     </>
   );
 };

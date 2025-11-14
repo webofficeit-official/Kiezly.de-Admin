@@ -19,6 +19,48 @@
     "items": "Einträge"
   },
   "create": {
-    "title": "Berufserfahrung hinzufügen"
-  }
+    "title": "Berufserfahrung hinzufügen",
+    "description": "Fügen Sie eine neue Berufserfahrung hinzu, um Jobs zu organisieren",
+    "form": {
+      "name": {
+        "label": "Name der Berufserfahrung ({code})",
+        "placeholder": "Name der Berufserfahrung in {code} eingeben",
+        "error": "Name der Berufserfahrung in {code} ist erforderlich"
+      },
+      "button": {
+        "cancel": "Abbrechen",
+        "create": "Erstellen",
+        "creating": "Wird erstellt"
+      }
+    },
+    "success": "Berufserfahrung erfolgreich erstellt",
+    "error": "Berufserfahrung konnte nicht erstellt werden. Bitte versuchen Sie es später erneut"
+  },
+  "update": {
+    "title": "Berufserfahrung bearbeiten",
+    "description": "Details der Berufserfahrung aktualisieren",
+    "form": {
+      "name": {
+        "label": "Name der Berufserfahrung",
+        "placeholder": "Name der Berufserfahrung eingeben",
+        "error": "Name der Berufserfahrung ist erforderlich"
+      },
+      "button": {
+        "cancel": "Abbrechen",
+        "update": "Aktualisieren",
+        "updating": "Aktualisiere"
+      }
+    },
+    "success": "Berufserfahrung erfolgreich aktualisiert",
+    "error": "Berufserfahrung konnte nicht aktualisiert werden. Bitte versuchen Sie es später erneut"
+  },
+
+  "pagination": {
+    "page": "Seite {page} von {totalPages}",
+    "prev": "Vorherige",
+    "next": "Nächste"
+  },
+  "en": "Englisch",
+  "de": "Deutsch"
+
 }

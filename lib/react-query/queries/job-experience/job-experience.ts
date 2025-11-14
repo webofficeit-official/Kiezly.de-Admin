@@ -42,29 +42,17 @@ export const useAddJobExperience = (): UseMutationResult<
   });
 };
 
-const compact = <T extends Record<string, any>>(obj: T) =>
-  Object.fromEntries(
-    Object.entries(obj).filter(([, v]) => v !== undefined)
-  ) as T;
-
 export function useUpdateJobExperience() {
   const qc = useQueryClient();
-
-  return useMutation<any, Error, JobExperience>({
-    mutationFn: async ({ id, name }) => {
-      const body = compact({
-        name: typeof name === "string" ? name.trim() : undefined,
+  return useMutation({
+    mutationFn: async (payload: { id: string | number; name: Record<string, string>}) => {
+      const res = await apiClient.patch(`/job-experience/${payload.id}`, {
+        name: payload.name,
       });
-
-      if (Object.keys(body).length === 0) {
-        throw new Error("No fields provided to update");
-      }
-
-      const res = await apiClient.patch(`/job-experience/${id}`, body);
       return res.data;
     },
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["job-experience"], exact: false });
+      qc.invalidateQueries({ queryKey: ["job-experience"] });
     },
   });
 }

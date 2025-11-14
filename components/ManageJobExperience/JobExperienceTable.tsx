@@ -4,17 +4,17 @@ import Tooltip from "../ui/ToolTip/ToolTip";
 import { useMemo } from "react";
 import { Localization } from "@/lib/types/localization-type";
 import { useT } from "@/app/[locale]/layout";
-import { JobExperience } from "@/lib/types/job-experience-type";
+import { JobExperienceData } from "@/lib/types/job-experience-type";
 
 type Sort = "id_desc" | "name_asc" | "name_desc";
 
 type Props = {
   localization: Localization[];
-  dataList: JobExperience[];
+  dataList: JobExperienceData[];
   page: number;
   pageSize: number;
   loading?: boolean;
-  onEdit?: (cat: JobExperience) => void;
+  onEdit?: (cat: JobExperienceData) => void;
 
   sort?: Sort; // "id_desc" | "name_asc" | "name_desc"
   onSortChange?: (value: Sort) => void;
@@ -115,7 +115,7 @@ const JobExperienceTable = ({
           {/* Data Rows */}
           {!loading &&
             !isEmpty &&
-            dataList.map((u: JobExperience, i) => (
+            dataList.map((u: JobExperienceData, i) => (
               <tr
                 key={`${u.id}-${i}`}
                 className="cursor-pointer whitespace-nowrap transition"
