@@ -36,7 +36,7 @@ export default function JobHeader({ job, t }: { job: Job, t: any }) {
                     ...job,
                     status
                 })
-                status == "published" ? toast.success(t(`approve.success.${status}`)) : toast.error(t(`approve.success.${status}`))
+                status == "open" ? toast.success(t(`approve.success.${status}`)) : toast.error(t(`approve.success.${status}`))
             }, onError: (e) => {
                 console.log(e)
                 toast.error(t("approve.failed"))
@@ -53,7 +53,7 @@ export default function JobHeader({ job, t }: { job: Job, t: any }) {
                         {
                             jobDetails.status == "pending_review" &&
                             <div className="space-x-2">
-                                <button className="inline-flex items-center justify-center rounded-2xl text-sm font-medium px-3 py-2 transition-colors disabled:opacity-50 border rounded-xl bg-green-100 text-green-900 border-green-200" onClick={() => handleAproval(jobDetails.id, "published")}><CheckCircle className="mr-2 h-4 w-4" /> {t("detail.header.accept")}</button>
+                                <button className="inline-flex items-center justify-center rounded-2xl text-sm font-medium px-3 py-2 transition-colors disabled:opacity-50 border rounded-xl bg-green-100 text-green-900 border-green-200" onClick={() => handleAproval(jobDetails.id, "open")}><CheckCircle className="mr-2 h-4 w-4" /> {t("detail.header.accept")}</button>
                                 <button className="inline-flex items-center justify-center rounded-2xl text-sm font-medium px-3 py-2 transition-colors disabled:opacity-50 border rounded-xl bg-red-100 text-red-700 border-red-200" onClick={() => handleAproval(jobDetails.id, "rejected")}><Ban className="mr-2 h-4 w-4" /> {t("detail.header.decline")}</button>
                             </div>
                         }
