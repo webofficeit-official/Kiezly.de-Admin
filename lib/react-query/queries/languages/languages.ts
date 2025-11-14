@@ -1,5 +1,5 @@
 import apiClient from "@/lib/config/axios-client";
-import { FilteredLangugesResponse, FilterLanguagesData, LanguagesData, LanguagesResponse } from "@/lib/types/languages";
+import { FilteredLangugesResponse, FilterLanguagesData, Languages, LanguagesData, LanguagesResponse } from "@/lib/types/languages";
 import { useMutation, UseMutationResult, useQuery, useQueryClient } from "@tanstack/react-query";
 
 
@@ -46,3 +46,19 @@ export function useUpdateLanguages() {
     },
   });
 }
+
+
+export const useLanguageDetailsById = (): UseMutationResult<
+  LanguagesResponse,
+  Error,
+  Languages
+> => {
+  return useMutation({
+    mutationFn: async ({ id }) => {
+      const res = await apiClient.get(
+        `/languages/${id}`,
+      );
+      return res.data as LanguagesResponse;
+    },
+  });
+};

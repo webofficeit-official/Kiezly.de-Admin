@@ -1,5 +1,5 @@
 import apiClient from "@/lib/config/axios-client";
-import { CountriesResponse, CountryData, FilterCountriesData, FilteredCountriesResponse, UpdateCountryPayload } from "@/lib/types/country-type";
+import { CountriesResponse, Country, CountryData, FilterCountriesData, FilteredCountriesResponse, UpdateCountryPayload } from "@/lib/types/country-type";
 import { useMutation, UseMutationResult, useQuery, useQueryClient } from "@tanstack/react-query";
 
 
@@ -58,3 +58,18 @@ export function useUpdateCountry() {
     },
   });
 }
+
+export const useCountryDetailsById = (): UseMutationResult<
+  CountriesResponse,
+  Error,
+  Country
+> => {
+  return useMutation({
+    mutationFn: async ({ id }) => {
+      const res = await apiClient.get(
+        `/countries/${id}`,
+      );
+      return res.data as CountriesResponse;
+    },
+  });
+};

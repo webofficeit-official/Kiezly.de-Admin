@@ -56,3 +56,18 @@ export function useUpdateJobMode() {
     },
   });
 }
+
+export const useJobModeDetailsById = (): UseMutationResult<
+  JobModeResponse,
+  Error,
+  JobMode
+> => {
+  return useMutation({
+    mutationFn: async ({ id }) => {
+      const res = await apiClient.get(
+        `/job-type/${id}`,
+      );
+      return res.data as JobModeResponse;
+    },
+  });
+};

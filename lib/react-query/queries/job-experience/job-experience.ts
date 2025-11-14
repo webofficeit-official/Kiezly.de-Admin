@@ -1,7 +1,17 @@
 import apiClient from "@/lib/config/axios-client";
-import { FilteredJobExperienceResponse, FilterJobExperienceData, JobExperience, JobExperienceData, JobExperienceResponse } from "@/lib/types/job-experience-type";
-import { useMutation, UseMutationResult, useQuery, useQueryClient } from "@tanstack/react-query";
-
+import {
+  FilteredJobExperienceResponse,
+  FilterJobExperienceData,
+  JobExperience,
+  JobExperienceData,
+  JobExperienceResponse,
+} from "@/lib/types/job-experience-type";
+import {
+  useMutation,
+  UseMutationResult,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 
 export const useFilteredJobExperience = (filters: FilterJobExperienceData) =>
   useQuery({
@@ -12,8 +22,7 @@ export const useFilteredJobExperience = (filters: FilterJobExperienceData) =>
     },
   });
 
-
- export const useAddJobExperience = (): UseMutationResult<
+export const useAddJobExperience = (): UseMutationResult<
   JobExperienceResponse,
   Error,
   JobExperienceData
@@ -25,21 +34,24 @@ export const useFilteredJobExperience = (filters: FilterJobExperienceData) =>
       return res.data as JobExperienceResponse;
     },
     onSuccess: async () => {
-      await qc.invalidateQueries({ queryKey: ["job-experience"], exact: false });
+      await qc.invalidateQueries({
+        queryKey: ["job-experience"],
+        exact: false,
+      });
     },
   });
 };
 
-
-
 const compact = <T extends Record<string, any>>(obj: T) =>
-  Object.fromEntries(Object.entries(obj).filter(([, v]) => v !== undefined)) as T;
+  Object.fromEntries(
+    Object.entries(obj).filter(([, v]) => v !== undefined)
+  ) as T;
 
 export function useUpdateJobExperience() {
   const qc = useQueryClient();
 
   return useMutation<any, Error, JobExperience>({
-    mutationFn: async ({ id, name}) => {
+    mutationFn: async ({ id, name }) => {
       const body = compact({
         name: typeof name === "string" ? name.trim() : undefined,
       });
@@ -56,3 +68,16 @@ export function useUpdateJobExperience() {
     },
   });
 }
+
+export const useJobExperienceDetailsById = (): UseMutationResult<
+  JobExperienceResponse,
+  Error,
+  JobExperience
+> => {
+  return useMutation({
+    mutationFn: async ({ id }) => {
+      const res = await apiClient.get(`/job-experience/${id}`);
+      return res.data as JobExperienceResponse;
+    },
+  });
+};

@@ -59,3 +59,19 @@ export function useUpdateJobTags() {
     },
   });
 }
+
+
+export const useJobTagDetailsBySlug = (): UseMutationResult<
+  JobTagsResponse,
+  Error,
+  JobTagsData
+> => {
+  return useMutation({
+    mutationFn: async ({ slug }) => {
+      const res = await apiClient.get(
+        `/job-tags/${slug}`,
+      );
+      return res.data as JobTagsResponse;
+    },
+  });
+};

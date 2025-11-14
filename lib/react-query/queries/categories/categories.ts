@@ -59,3 +59,19 @@ export function useUpdateCategory() {
     },
   });
 }
+
+
+export const useCategoryDetailsBySlug = (): UseMutationResult<
+  JobCategoriesResponse,
+  Error,
+  JobCategoriesData
+> => {
+  return useMutation({
+    mutationFn: async ({ slug }) => {
+      const res = await apiClient.get(
+        `/categories/${slug}`,
+      );
+      return res.data as JobCategoriesResponse;
+    },
+  });
+};
