@@ -1,3 +1,24 @@
 {
-     "title": "Jobmodus verwalten"
+  "title": "Jobtyp",
+  "list": {
+    "table": {
+      "sl": "Nr.",
+      "name": {
+        "en": "Name auf Englisch",
+        "de": "Name auf Deutsch",
+        "ml": "Name auf Malayalam"
+      },
+      "actions": "Aktionen"
+    },
+    "empty": "Keine Jobtypen verfügbar",
+    "search_placeholder": "Jobtyp suchen...",
+    "search_label": "Jobtyp suchen",
+    "search_aria": "Jobtyp suchen",
+    "clearSearch": "Suche löschen",
+    "per_page": "Pro Seite",
+    "items": "Einträge"
+  },
+  "create": {
+    "title": "Jobtyp hinzufügen"
+  }
 }

@@ -1,3 +1,24 @@
 {
-     "title": "Manage Job Mode"
+     "title": "Job Type",
+     "list": {
+          "table": {
+               "sl": "Sl No",
+               "name": {
+                    "en": "Name in English",
+                    "de": "Name in German",
+                    "ml": "Name in Malayalam"
+               },
+               "actions": "Actions"
+          },
+          "empty": "No Job Type available",
+          "search_placeholder": "Search Job Type...",
+          "search_label": "Search Job Type",
+          "search_aria": "Search Job Type",
+          "clearSearch": "Clear search",
+          "per_page": "Per page",
+          "items": "Items"
+     },
+     "create": {
+          "title": "Add Job Type"
+     }
 }

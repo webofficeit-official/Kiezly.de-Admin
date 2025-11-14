@@ -5,9 +5,10 @@ import { useT } from "@/app/[locale]/layout";
 import Pagination from "../ui/pagination/pagination";
 import { JobExperience } from "@/lib/types/job-experience-type";
 import { useFilteredJobExperience } from "@/lib/react-query/queries/job-experience/job-experience";
+import JobExperienceHeader from "./JobExperienceHeader";
 type Sort = "id_desc" | "name_asc" | "name_desc";
 const FilterJobExperience = () => {
-  const t = useT("job-expierience");
+  const t = useT("job-experience");
   const [dataList, setDataList] = useState([]);
   const [page, setPage] = useState(1);
   const [totalItems, setTotalItems] = useState(null);
@@ -20,8 +21,7 @@ const FilterJobExperience = () => {
   });
 
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedData, setSelectedData] =
-    useState<JobExperience | null>(null);
+  const [selectedData, setSelectedData] = useState<JobExperience | null>(null);
 
   const apiFilters = useMemo(
     () => ({
@@ -30,10 +30,11 @@ const FilterJobExperience = () => {
       q: filter.q,
       sort: filter.sort,
     }),
-    [filter.page, filter.pageSize, filter.q,filter.sort]
+    [filter.page, filter.pageSize, filter.q, filter.sort]
   );
 
-  const { data, isLoading, isError, error } = useFilteredJobExperience(apiFilters);
+  const { data, isLoading, isError, error } =
+    useFilteredJobExperience(apiFilters);
 
   useEffect(() => {
     if (!data) return;
@@ -51,23 +52,28 @@ const FilterJobExperience = () => {
     setFilter((f) => ({ ...f, q, page: 1 })); // reset to page 1 on new search
 
   const handlePageSizeChange = (size: number) =>
-    setFilter((f) => ({ ...f, pageSize: size, page: 1 })); 
+    setFilter((f) => ({ ...f, pageSize: size, page: 1 }));
 
-    const handleSortChange = (sort: Sort) =>
+  const handleSortChange = (sort: Sort) =>
     setFilter((f) => ({ ...f, sort, page: 1 }));
 
   const proxySetModalOpen = (v: boolean) => {
     if (v) setSelectedData(null);
     setModalOpen(v);
   };
-    const onEdit = (cat: JobExperience) => {
+  const onEdit = (cat: JobExperience) => {
     setSelectedData(cat);
     setModalOpen(true);
   };
   return (
     <>
       <div className="relative flex flex-col w-full h-full text-slate-700 bg-white shadow-md rounded-xl bg-clip-border mt-10  ">
-    
+        <JobExperienceHeader
+          totalItems={totalItems}
+          setModelOpen={proxySetModalOpen}
+          modelOpen={modalOpen}
+          t={t}
+        />
         {/* Pagination */}
         <Pagination
           page={page}
@@ -75,8 +81,7 @@ const FilterJobExperience = () => {
           t={t}
           setPage={handlePageChange}
         />
-      </div>    
-     
+      </div>
     </>
   );
 };
