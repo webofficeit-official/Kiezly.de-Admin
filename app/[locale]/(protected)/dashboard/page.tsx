@@ -12,12 +12,12 @@ export default function Page() {
 
   const breadcrumb = [
     {
-      title: "User",
+      title: t('user'),
       link: '/user',
       isLast: false
     },
     {
-      title: "Dashboard",
+      title: t('dashboard'),
       link: '/dashboard',
       isLast: true
     }

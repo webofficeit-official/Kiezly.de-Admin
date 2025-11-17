@@ -1,0 +1,36 @@
+{
+    "user": "Benutzer",
+    "dashboard": "Armaturenbrett",
+    "count": {
+        "users": {
+            "title": "Benutzer",
+            "total": "Gesamt",
+            "clients": "Kunden",
+            "helper": "Helfer",
+            "admin": "Administratoren"
+        },
+        "jobs": {
+            "title": "Jobs",
+            "total": "Gesamtzahl der Jobs",
+            "open": "Offene Stellen",
+            "in_progress": "In Bearbeitung befindliche Aufträge",
+            "completed": "Abgeschlossene Aufträge",
+            "cancelled": "Abgebrochene Jobs",
+            "draft": "Ausgearbeitete Jobs",
+            "pending_review": "Ausstehende Überprüfungsaufträge",
+            "published": "Veröffentlichte Stellenangebote",
+            "closed": "Geschlossene Stellen",
+            "rejected": "Abgelehnte Jobs",
+            "expired": "Abgelaufene Jobs"
+        },
+        "collection": {
+            "title": "Sammlungen",
+            "categories": "Kategorien",
+            "jobExperience": "Berufserfahrungen",
+            "jobTags": "Job-Tags",
+            "jobType": "Jobtypen",
+            "languages": "Sprachen",
+            "localization": "Lokalisierungen"
+        }
+    }
+}
