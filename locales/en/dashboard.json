@@ -1,4 +1,6 @@
 {
+    "user": "User",
+    "dashboard": "Dashboard",
     "count": {
         "users": {
             "title": "Users",
@@ -20,6 +22,15 @@
             "closed": "Closed jobs",
             "rejected": "Rejected jobs",
             "expired": "Expired jobs"
+        },
+        "collection": {
+            "title": "Collections",
+            "categories": "Categories",
+            "jobExperience": "Job Experiences",
+            "jobTags": "Job Tags",
+            "jobType": "Job Types",
+            "languages": "Languages",
+            "localization": "Localizations"
         }
     }
 }
