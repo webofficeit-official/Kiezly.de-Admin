@@ -25,9 +25,9 @@
     "description": "Fügen Sie einen neuen Job-Tag hinzu, um Jobs zu organisieren",
     "form": {
       "name": {
-        "label": "Job-Tag-Name",
-        "placeholder": "Job-Tag-Namen eingeben",
-        "error": "Job-Tag-Name erforderlich"
+        "label": "Tag-Name ({code})",
+        "placeholder": "Geben Sie den Tag-Namen in {code} ein",
+        "error": "Der Tag-Name in {code} ist erforderlich"
       },
       "slug": {
         "label": "Slug",
@@ -74,5 +74,7 @@
     "page": "Seite {page} von {totalPages}",
     "prev": "Vorherige",
     "next": "Nächste"
-  }
+  },
+  "en": "Englisch",
+  "de": "Deutsch"
 }

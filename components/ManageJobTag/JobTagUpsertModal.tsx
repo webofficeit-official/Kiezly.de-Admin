@@ -4,22 +4,25 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import toast from "react-hot-toast";
 import { InputField } from "../ui/InputField/InputField";
-import { JobTags } from "@/lib/types/job-tags";
+import { JobTagsData } from "@/lib/types/job-tags";
 import { useAddJobTags, useGenerateJobTagsSlug, useUpdateJobTags } from "@/lib/react-query/queries/job-tag/job-tag";
+import { Localization } from "@/lib/types/localization-type";
+import { useT } from "@/app/[locale]/layout";
 
 type Props = {
   isOpen: boolean;
   setIsOpen: (v: boolean) => void;
-  t: (k: string) => string;
-  DataItem?: JobTags | null;
+  localization: Localization[]
+  DataItem?: JobTagsData | null;
 };
 
-export default function JobTagUpsertModal({ isOpen, setIsOpen, t, DataItem }: Props) {
+export default function JobTagUpsertModal({ isOpen, setIsOpen, localization, DataItem }: Props) {
+  const t = useT("job-tags");
   const isEdit = Boolean(DataItem?.id);
 
-  const [name, setName] = useState<string>("");
+  const [name, setName] = useState<Record<string, string>>({});
   const [slug, setSlug] = useState<string>("");
-  const [errors, setErrors] = useState<{ name?: string; slug?: string }>({});
+  const [errors, setErrors] = useState<{ name?: Record<string, string>; slug?: string }>({});
   const [slugEdited, setSlugEdited] = useState(false);
         
   const genSlug = useGenerateJobTagsSlug();
@@ -53,12 +56,12 @@ export default function JobTagUpsertModal({ isOpen, setIsOpen, t, DataItem }: Pr
     if (!isOpen) return;
 
     if (isEdit && DataItem) {
-      setName(String(DataItem.name ?? ""));
+      setName(DataItem.name ?? {});
       setSlug(String(DataItem.slug ?? ""));
       setSlugEdited(true);
       setErrors({});
     } else {
-      setName("");
+      setName({});
       setSlug("");
       setSlugEdited(false);
       setErrors({});
@@ -67,17 +70,25 @@ export default function JobTagUpsertModal({ isOpen, setIsOpen, t, DataItem }: Pr
 
   const validate = () => {
     const e: typeof errors = {};
-    if (!name.trim()) e.name = t("create.form.name.error");
+    localization.forEach(l => {
+      if (!name[l.code]) {
+        e.name = e.name || {}
+        e.name[l.code] = t("create.form.name.error", { code: t(l.code) });
+      }
+    })
     if (!slug.trim()) e.slug = t("create.form.slug.error");
     setErrors(e);
     return Object.keys(e).length === 0;
   };
 
-  const onChangeName = (v: string) => {
-    setName(v);
-    setErrors((prev) => ({ ...prev, name: v.trim() ? undefined : t("create.form.name.error") }));
+  const onChangeName = (v: string, code: string) => {
+    setName({
+      ...name,
+      [code]: v
+    });
+    setErrors((prev) => ({ ...prev, name: { ...prev.name, [code]: v.trim() ? undefined : t("create.form.name.error", { code: t(code) }) } }));
 
-    if (!slugEdited) {
+    if (!slugEdited && code == 'en') {
       const trimmed = v.trim();
       if (!trimmed) {
         setSlug("");
@@ -96,9 +107,9 @@ export default function JobTagUpsertModal({ isOpen, setIsOpen, t, DataItem }: Pr
   };
 
   const onRegenerate = () => {
-    const trimmed = name.trim();
+    const trimmed = name.en.trim();
     if (!trimmed) {
-      setErrors((e) => ({ ...e, name: t("create.form.name.error") }));
+      setErrors((e) => ({ ...e, name: { en: t("create.form.name.error", { code: t('en') })} }));
       return;
     }
     setSlugEdited(false);
@@ -117,7 +128,7 @@ export default function JobTagUpsertModal({ isOpen, setIsOpen, t, DataItem }: Pr
           : Number((DataItem as any)?.id?.valueOf?.() ?? (DataItem as any)?.id);
 
       updateData.mutate(
-        { id, name: name.trim(), slug: slug.trim() },
+        { id, name, slug: slug.trim() },
         {
           onSuccess: () => {
             toast.success(t("update.success"));
@@ -143,7 +154,7 @@ export default function JobTagUpsertModal({ isOpen, setIsOpen, t, DataItem }: Pr
       );
     } else {
       addData.mutate(
-        { name: name.trim(), slug: slug.trim() },
+        { name, slug: slug.trim() },
         {
           onSuccess: () => {
             toast.success(t("create.success"));
@@ -192,16 +203,23 @@ export default function JobTagUpsertModal({ isOpen, setIsOpen, t, DataItem }: Pr
               {isEdit ? (t("update.description")) : t("create.description")}
             </p>
 
-            <InputField
-              label={t("create.form.name.label")}
-              placeholder={t("create.form.name.placeholder")}
-              value={name}
-              onChange={(e: any) => onChangeName(e.target.value)}
-              error={Boolean(errors.name)}
-              errorMessage={errors.name}
-              name="tag-name"
-              disabled={submitting}
-            />
+            {
+              localization.map(l => {
+                return (
+                  <InputField
+                    key={l.id}
+                    label={`${t("create.form.name.label", { code: t(l.code) })}`}
+                    placeholder={t("create.form.name.placeholder", { code: t(l.code) })}
+                    value={name[l.code] ?? ''}
+                    onChange={(e: any) => onChangeName(e.target.value, l.code)}
+                    error={Boolean(errors.name ? errors.name[l.code] : false)}
+                    errorMessage={errors.name ? errors.name[l.code] : ``}
+                    name="category-name"
+                    disabled={submitting}
+                  />
+                )
+              })
+            }
 
             <div className="mt-3">
               <InputField
@@ -218,7 +236,7 @@ export default function JobTagUpsertModal({ isOpen, setIsOpen, t, DataItem }: Pr
                     type="button"
                     onClick={onRegenerate}
                     className="text-xs text-slate-500 underline hover:text-slate-700 px-2 py-1 disabled:opacity-60"
-                    disabled={genSlug.isPending || !name.trim() || submitting}
+                    disabled={genSlug.isPending || !name || submitting}
                   >
                     {genSlug.isPending
                       ? (t("common.generating") ?? "Generating…")

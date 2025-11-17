@@ -3,7 +3,7 @@
   "list": {
     "table": {
       "sl": "Sl No",
-      "name": "Name",
+      "name": "Name - {locale}",
       "slug": "Slug",
       "actions": "Actions"
     },
@@ -25,9 +25,9 @@
     "description": "Add a new job tag to organize jobs",
     "form": {
       "name": {
-        "label": "Tag Name",
-        "placeholder": "Enter tag name",
-        "error": "Tag name required"
+        "label": "Tag Name ({code})",
+        "placeholder": "Enter tag name in {code}",
+        "error": "Tag name in {code} is required"
       },
       "slug": {
         "label": "Slug",
@@ -74,5 +74,7 @@
     "page": "Page {page} of {totalPages}",
     "prev": "Prev",
     "next": "Next"
-  }
+  },
+  "en": "English",
+  "de": "German"
 }

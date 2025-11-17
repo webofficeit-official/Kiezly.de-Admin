@@ -5,6 +5,7 @@ import {
   FilterZipcodesData,
   FilteredZipcodesResponse,
   UpdateZipcodePayload,
+  Zipcode,
 } from "@/lib/types/postal-codes-type"; 
 import { useMutation, UseMutationResult, useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -84,3 +85,19 @@ export function useUpdateZipcode() {
     },
   });
 }
+
+
+export const useZipcodeDetailsById = (): UseMutationResult<
+  ZipcodeResponse,
+  Error,
+  Zipcode
+> => {
+  return useMutation({
+    mutationFn: async ({ id }) => {
+      const res = await apiClient.get(
+        `/zipcodes/${id}`,
+      );
+      return res.data as ZipcodeResponse;
+    },
+  });
+};

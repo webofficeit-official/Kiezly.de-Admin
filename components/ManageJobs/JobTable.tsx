@@ -151,13 +151,13 @@ const JobTable = ({ jobs, t, setJobs, page, pageSize }) => {
                                         <div className="w-max flex gap-2">
                                             <p
                                                 className="text-sm font-semibold text-slate-700">
-                                                {j.job_type.join(", ")}
+                                                {j.job_types?.join(", ")}
                                             </p>
                                         </div>
                                         <div className="w-max flex gap-2">
                                             <p
                                                 className="text-sm text-slate-500">
-                                                {j.job_experience.join(", ")}
+                                                {j.job_experiences?.join(", ")}
                                             </p>
                                         </div>
                                     </td>

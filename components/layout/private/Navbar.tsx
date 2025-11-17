@@ -4,9 +4,8 @@ import LocalizedLink from "@/lib/localizedLink";
 import { LanguagesIcon, ShieldCheck, SquareChevronLeft, SquareChevronRight, User } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import {LOCALES, DEFAULT_LOCALE as DEFAULT } from "@/lib/utils/translation";
 
-const LOCALES = ["en", "de"] as const;
-const DEFAULT = "de";
 
 const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
     const [userMenuOpen, setUserMenuOpen] = useState(false);

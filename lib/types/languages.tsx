@@ -1,10 +1,10 @@
 export type Languages = {
     id: Number;
-    name?: String;
+    name?: Record<string, string>;
 }
 
 export type LanguagesData = {
-    name?: String;
+    name?: Record<string, string>;
 }
 
 export type FilteredLanguages = {

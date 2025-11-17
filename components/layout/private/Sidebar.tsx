@@ -1,6 +1,6 @@
 import { useT } from "@/app/[locale]/layout";
 import LocalizedLink from "@/lib/localizedLink";
-import { BriefcaseBusiness, ChevronDown, ChevronUp, FolderCheck, FolderCode, Globe, Languages, Layers, LayoutDashboard, MapPinned, Navigation, Newspaper, ShieldPlus, Users } from "lucide-react";
+import { BriefcaseBusiness, ChevronDown, ChevronUp, FolderCheck, FolderCode, Globe, Languages, Layers, LayoutDashboard, MapPinned, Navigation, Newspaper, ShieldPlus, Users,Earth,Briefcase,Tags    } from "lucide-react";
 import { useState } from "react";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
@@ -86,6 +86,23 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                     <span className="ms-3">{t("menu.job-tags")}</span>
                                 </LocalizedLink>
                             </li>
+
+                               {/* Job Experience */}
+                            <li>
+                                <LocalizedLink href="/job-experience" className="flex px-4 py-2 text-sm hover:bg-gray-100 w-full text-left false">
+                                    <Briefcase  className="w-5 h-5" />
+                                    <span className="ms-3">{t("menu.job-experience")}</span>
+                                </LocalizedLink>
+                            </li>
+
+                             {/* Job mode */}
+                            <li>
+                                <LocalizedLink href="/job-types" className="flex px-4 py-2 text-sm hover:bg-gray-100 w-full text-left false">
+                                    <Tags className="w-5 h-5" />
+                                    <span className="ms-3">{t("menu.job-type")}</span>
+                                </LocalizedLink>
+                            </li>
+                          
                             {/* Languages */}
                             <li>
                                 <LocalizedLink href="/langauges" className="flex px-4 py-2 text-sm hover:bg-gray-100 w-full text-left false">
@@ -122,6 +139,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                         </li>
                                     </ul>
                                 )}
+                            </li>
+
+                               <li>
+                                <LocalizedLink href="/localization" className="flex px-4 py-2 text-sm hover:bg-gray-100 w-full text-left false">
+                                      <Earth  className="w-5 h-5" />
+                                    <span className="ms-3">{t("menu.localization")}</span>
+                                </LocalizedLink>
                             </li>
                         </ul>
                     </div>

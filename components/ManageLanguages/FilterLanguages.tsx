@@ -9,6 +9,8 @@ import LanguagesTable from "./LanguagesTable";
 import LanguagesUpsertModal from "./LanguagesUpsertModal";
 import { useFilteredLanguages } from "@/lib/react-query/queries/languages/languages";
 import { Languages } from "@/lib/types/languages";
+import { useLocalization } from "@/lib/react-query/queries/localization/localization";
+import { Localization } from "@/lib/types/localization-type";
 type Sort = "id_desc" | "name_asc" | "name_desc";
 
 const FilterLanguages = () => {
@@ -35,10 +37,12 @@ const FilterLanguages = () => {
       q: filter.q,
       sort: filter.sort,
     }),
-    [filter.page, filter.pageSize, filter.q,filter.sort]
+    [filter.page, filter.pageSize, filter.q, filter.sort]
   );
 
   const { data, isLoading, isError, error } = useFilteredLanguages(apiFilters);
+  const { data: loc } = useLocalization({})
+  const localization: Localization[] = loc?.data?.items ?? []
 
   useEffect(() => {
     if (!data) return;
@@ -56,16 +60,16 @@ const FilterLanguages = () => {
     setFilter((f) => ({ ...f, q, page: 1 })); // reset to page 1 on new search
 
   const handlePageSizeChange = (size: number) =>
-    setFilter((f) => ({ ...f, pageSize: size, page: 1 })); 
+    setFilter((f) => ({ ...f, pageSize: size, page: 1 }));
 
-    const handleSortChange = (sort: Sort) =>
+  const handleSortChange = (sort: Sort) =>
     setFilter((f) => ({ ...f, sort, page: 1 }));
 
   const proxySetModalOpen = (v: boolean) => {
     if (v) setSelectedData(null);
     setModalOpen(v);
   };
-    const onEdit = (cat: Languages) => {
+  const onEdit = (cat: Languages) => {
     setSelectedData(cat);
     setModalOpen(true);
   };
@@ -88,12 +92,12 @@ const FilterLanguages = () => {
         />
         <LanguagesTable
           dataList={dataList}
-          t={t}
+          localization={localization}
           page={page}
           pageSize={filter.pageSize}
           loading={isLoading}
           onEdit={onEdit}
-             sort={filter.sort}
+          sort={filter.sort}
           onSortChange={handleSortChange}
         />
 
@@ -104,11 +108,11 @@ const FilterLanguages = () => {
           t={t}
           setPage={handlePageChange}
         />
-      </div>    
+      </div>
       <LanguagesUpsertModal
         isOpen={modalOpen}
         setIsOpen={setModalOpen}
-        t={t}
+        localization={localization}
         DataItem={selectedData}
       />
     </>
