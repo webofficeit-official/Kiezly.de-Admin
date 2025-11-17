@@ -3,7 +3,11 @@
     "list": {
         "table": {
             "sl": "Nr.",
-            "name": "Name",
+            "name": {
+                "en": "Name auf Englisch",
+                "de": "Name auf Deutsch",
+                "ml":"Name auf Malayalam"
+            },
             "slug": "Slug",
             "actions": "Aktionen"
         },
@@ -21,10 +25,10 @@
         "description": "Fügen Sie eine neue Kategorie hinzu, um Jobs zu organisieren",
         "form": {
             "name": {
-                "label": "Kategoriename",
-                "placeholder": "Kategoriename eingeben",
-                "error": "Kategoriename erforderlich"
-            }, 
+                "label": "Kategoriename ({code})",
+                "placeholder": "Geben Sie den Kategorienamen in {code} ein.",
+                "error": "Kategoriename in {code} erforderlich"
+            },
             "slug":{
                 "label":"Slug",
                 "placeholder":"childcare",
@@ -70,5 +74,8 @@
         "page": "Seite {page} von {totalPages}",
         "prev": "Vorher",
         "next": "Nächste"
-    }
+    },
+    "en": "Englisch",
+    "de": "Deutsch",
+    "ml":"Malayalam"
 }

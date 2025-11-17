@@ -12,6 +12,7 @@ import { getCookie } from "cookies-next";
 import toast from "react-hot-toast";
 import { useLocalizedRouter } from "../useLocalizedRouter";
 import { adminProfile } from "../types/auth-type";
+import { getBasePath } from "../utils/translation";
 
 type AuthContextType = {
   user: adminProfile;
@@ -70,12 +71,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (loading) return;
-
+const base = getBasePath(pathname);
     const publicPaths = ["/signin"];
-    const isPublic = publicPaths.includes(pathname);
+    const isPublic = publicPaths.includes(base);
 
     if (user && isPublic) {
-      // logged in but trying to access signin/signup
       replace("/dashboard");
     }
   }, [user, loading, pathname, router]);

@@ -23,9 +23,9 @@
     "description": "Add a new language to the system",
     "form": {
       "name": {
-        "label": "Language Name",
-        "placeholder": "Enter language name",
-        "error": "Language name required"
+        "label": "Language Name ({code})",
+        "placeholder": "Enter language name in {code}",
+        "error": "Language name in {code} is required"
       },
       "button": {
         "cancel": "Cancel",
@@ -58,5 +58,7 @@
     "page": "Page {page} of {totalPages}",
     "prev": "Prev",
     "next": "Next"
-  }
+  },
+  "en": "English",
+  "de": "German"
 }

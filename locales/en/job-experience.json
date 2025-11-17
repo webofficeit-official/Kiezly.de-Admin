@@ -1,0 +1,64 @@
+{
+     "title": "Job Experience",
+     "list": {
+          "table": {
+               "sl": "Sl No",
+               "name": {
+                    "en": "Name in English",
+                    "de": "Name in German",
+                    "ml": "Name in Malayalam"
+               },
+               "actions": "Actions"
+          },
+          "empty": "No Job Experience available",
+          "search_placeholder": "Search Job Experience...",
+          "search_label": "Search Job Experience",
+          "search_aria": "Search Job Experience",
+          "clearSearch": "Clear search",
+          "per_page": "Per page",
+          "items": "Items"
+     },
+     "create": {
+          "title": "Add Job Experience",
+          "description": "Add a new Job Experience to organize jobs",
+          "form": {
+               "name": {
+                    "label": "Job Experience Name ({code})",
+                    "placeholder": "Enter Job Experience name in {code}",
+                    "error": "Job Experience name in {code} required"
+               },
+               "button": {
+                    "cancel": "Cancel",
+                    "create": "Create",
+                    "creating": "Creating"
+               }
+          },
+          "success": "Job Experience created successfully",
+          "error": "Cannot create Job Experience, Try again later"
+     },
+     "update": {
+          "title": "Edit Job Experience",
+          "description": "Update Job Experience details",
+          "form": {
+               "name": {
+                    "label": "Job Experience Name",
+                    "placeholder": "Enter Job Experience name",
+                    "error": "Job Experience name required"
+               },
+               "button": {
+                    "cancel": "Cancel",
+                    "update": "Update",
+                    "updating": "Updating"
+               }
+          },
+          "success": "Job Experience updated successfully",
+          "error": "Cannot update Job Experience, Try again later"
+     },
+     "pagination": {
+          "page": "Page {page} of {totalPages}",
+          "prev": "Prev",
+          "next": "Next"
+     },
+     "en": "English",
+     "de": "German"
+}

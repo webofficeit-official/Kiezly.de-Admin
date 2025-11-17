@@ -11,6 +11,9 @@
         "langauges": "Sprachen",
         "locations": "Standorte",
         "countries": "Länder",
-        "zipcodes": "Postleitzahlen"
+        "zipcodes": "Postleitzahlen",
+        "localization": "Lokalisierung",
+        "job-type":"Jobmodus",
+        "job-experience":"Berufserfahrung"
     }
 }

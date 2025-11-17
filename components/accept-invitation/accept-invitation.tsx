@@ -13,7 +13,6 @@ import {
 
 type Props = { id: string };
 
-// === same strength meter you use in signup ===
 function computePwdScore(password: string) {
   let s = 0;
   if (password.length >= 8) s++;

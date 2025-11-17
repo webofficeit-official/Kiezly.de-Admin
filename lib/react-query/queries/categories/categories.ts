@@ -47,7 +47,7 @@ export function useGenerateCategorySlug() {
 export function useUpdateCategory() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: async (payload: { id: string | number; name: string; slug: string }) => {
+    mutationFn: async (payload: { id: string | number; name: Record<string, string>; slug: string }) => {
       const res = await apiClient.patch(`/categories/${payload.id}`, {
         name: payload.name,
         slug: payload.slug,
@@ -59,3 +59,19 @@ export function useUpdateCategory() {
     },
   });
 }
+
+
+export const useCategoryDetailsBySlug = (): UseMutationResult<
+  JobCategoriesResponse,
+  Error,
+  JobCategoriesData
+> => {
+  return useMutation({
+    mutationFn: async ({ slug }) => {
+      const res = await apiClient.get(
+        `/categories/${slug}`,
+      );
+      return res.data as JobCategoriesResponse;
+    },
+  });
+};

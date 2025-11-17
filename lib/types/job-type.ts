@@ -30,6 +30,8 @@ export type Job = {
     price_max?: string;
     job_type?: string[];
     job_experience?: string[];
+    job_types?: string[];
+    job_experiences?: string[];
     first_aid_verified?: boolean;
     police_verified?: boolean;
     verified?: boolean;

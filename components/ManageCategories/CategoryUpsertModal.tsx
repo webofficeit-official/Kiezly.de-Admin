@@ -5,21 +5,24 @@ import { createPortal } from "react-dom";
 import toast from "react-hot-toast";
 import { InputField } from "../ui/InputField/InputField";
 import { useAddCategories, useGenerateCategorySlug, useUpdateCategory } from "@/lib/react-query/queries/categories/categories";
-import { JobCategories } from "@/lib/types/job-categories";
+import { JobCategories, JobCategoriesData } from "@/lib/types/job-categories";
+import { Localization } from "@/lib/types/localization-type";
+import { useT } from "@/app/[locale]/layout";
 
 type Props = {
+  localization: Localization[]
   isOpen: boolean;
   setIsOpen: (v: boolean) => void;
-  t: (k: string) => string;
-  category?: JobCategories | null;
+  category?: JobCategoriesData | null;
 };
 
-export default function CategoryUpsertModal({ isOpen, setIsOpen, t, category }: Props) {
+export default function CategoryUpsertModal({ isOpen, setIsOpen, category, localization }: Props) {
+  const t = useT("categories");
   const isEdit = Boolean(category?.id);
 
-  const [name, setName] = useState<string>("");
+  const [name, setName] = useState<Record<string, string>>({});
   const [slug, setSlug] = useState<string>("");
-  const [errors, setErrors] = useState<{ name?: string; slug?: string }>({});
+  const [errors, setErrors] = useState<{ name?: Record<string, string>; slug?: string }>({});
   const [slugEdited, setSlugEdited] = useState(false);
 
   const genSlug = useGenerateCategorySlug();
@@ -28,7 +31,7 @@ export default function CategoryUpsertModal({ isOpen, setIsOpen, t, category }: 
 
   const submitting = addCategory.isPending || updateCategory.isPending;
 
- 
+
   useEffect(() => {
     if (!isOpen) return;
     const prev = document.body.style.overflow;
@@ -48,17 +51,17 @@ export default function CategoryUpsertModal({ isOpen, setIsOpen, t, category }: 
     return () => window.removeEventListener("keydown", onKey);
   }, [isOpen, submitting, setIsOpen]);
 
-  
+
   useEffect(() => {
     if (!isOpen) return;
 
     if (isEdit && category) {
-      setName(String(category.name ?? ""));
+      setName(category.name ?? {});
       setSlug(String(category.slug ?? ""));
       setSlugEdited(true);
       setErrors({});
     } else {
-      setName("");
+      setName({});
       setSlug("");
       setSlugEdited(false);
       setErrors({});
@@ -67,17 +70,25 @@ export default function CategoryUpsertModal({ isOpen, setIsOpen, t, category }: 
 
   const validate = () => {
     const e: typeof errors = {};
-    if (!name.trim()) e.name = t("create.form.name.error");
+    localization.forEach(l => {
+      if (!name[l.code]) {
+        e.name = e.name || {}
+        e.name[l.code] = t("create.form.name.error", { code: t(l.code) });
+      }
+    })
     if (!slug.trim()) e.slug = t("create.form.slug.error");
     setErrors(e);
     return Object.keys(e).length === 0;
   };
 
-  const onChangeName = (v: string) => {
-    setName(v);
-    setErrors((prev) => ({ ...prev, name: v.trim() ? undefined : t("create.form.name.error") }));
+  const onChangeName = (v: string, code: string) => {
+    setName({
+      ...name,
+      [code]: v
+    });
+    setErrors((prev) => ({ ...prev, name: { ...prev.name, [code]: v.trim() ? undefined : t("create.form.name.error", { code: t(code) }) } }));
 
-    if (!slugEdited) {
+    if (!slugEdited && code == 'en') {
       const trimmed = v.trim();
       if (!trimmed) {
         setSlug("");
@@ -96,9 +107,9 @@ export default function CategoryUpsertModal({ isOpen, setIsOpen, t, category }: 
   };
 
   const onRegenerate = () => {
-    const trimmed = name.trim();
+    const trimmed = name.en.trim();
     if (!trimmed) {
-      setErrors((e) => ({ ...e, name: t("create.form.name.error") }));
+      setErrors((e) => ({ ...e, name: { en: t("create.form.name.error", { code: t('en') })} }));
       return;
     }
     setSlugEdited(false);
@@ -117,7 +128,7 @@ export default function CategoryUpsertModal({ isOpen, setIsOpen, t, category }: 
           : Number((category as any)?.id?.valueOf?.() ?? (category as any)?.id);
 
       updateCategory.mutate(
-        { id, name: name.trim(), slug: slug.trim() },
+        { id, name: name, slug: slug.trim() },
         {
           onSuccess: () => {
             toast.success(t("update.success"));
@@ -143,7 +154,7 @@ export default function CategoryUpsertModal({ isOpen, setIsOpen, t, category }: 
       );
     } else {
       addCategory.mutate(
-        { name: name.trim(), slug: slug.trim() },
+        { name, slug: slug.trim() },
         {
           onSuccess: () => {
             toast.success(t("create.success") ?? "Category created");
@@ -192,16 +203,23 @@ export default function CategoryUpsertModal({ isOpen, setIsOpen, t, category }: 
               {isEdit ? (t("update.description") ?? "Update the category details.") : t("create.description")}
             </p>
 
-            <InputField
-              label={t("create.form.name.label")}
-              placeholder={t("create.form.name.placeholder")}
-              value={name}
-              onChange={(e: any) => onChangeName(e.target.value)}
-              error={Boolean(errors.name)}
-              errorMessage={errors.name}
-              name="category-name"
-              disabled={submitting}
-            />
+            {
+              localization.map(l => {
+                return (
+                  <InputField
+                    key={l.id}
+                    label={`${t("create.form.name.label", { code: t(l.code) })}`}
+                    placeholder={t("create.form.name.placeholder", { code: t(l.code) })}
+                    value={name[l.code] ?? ''}
+                    onChange={(e: any) => onChangeName(e.target.value, l.code)}
+                    error={Boolean(errors.name ? errors.name[l.code] : false)}
+                    errorMessage={errors.name ? errors.name[l.code] : ``}
+                    name="category-name"
+                    disabled={submitting}
+                  />
+                )
+              })
+            }
 
             <div className="mt-3">
               <InputField
@@ -218,7 +236,7 @@ export default function CategoryUpsertModal({ isOpen, setIsOpen, t, category }: 
                     type="button"
                     onClick={onRegenerate}
                     className="text-xs text-slate-500 underline hover:text-slate-700 px-2 py-1 disabled:opacity-60"
-                    disabled={genSlug.isPending || !name.trim() || submitting}
+                    disabled={genSlug.isPending || !name || submitting}
                   >
                     {genSlug.isPending
                       ? (t("common.generating") ?? "Generating…")
@@ -248,11 +266,11 @@ export default function CategoryUpsertModal({ isOpen, setIsOpen, t, category }: 
               >
                 {submitting
                   ? (isEdit
-                      ? (t("update.form.button.updating") ?? "Updating…")
-                      : (t("create.form.button.creating") ?? "Creating…"))
+                    ? (t("update.form.button.updating") ?? "Updating…")
+                    : (t("create.form.button.creating") ?? "Creating…"))
                   : (isEdit
-                      ? (t("update.form.button.update") ?? "Update")
-                      : (t("create.form.button.create") ?? "Create"))}
+                    ? (t("update.form.button.update") ?? "Update")
+                    : (t("create.form.button.create") ?? "Create"))}
               </button>
             </div>
           </div>

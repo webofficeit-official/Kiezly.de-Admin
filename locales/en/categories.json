@@ -3,7 +3,11 @@
     "list": {
         "table": {
             "sl": "Sl No",
-            "name": "Name",
+            "name": {
+                "en": "Name in English",
+                "de": "Name in German",
+                "ml":"Name in Malayalam"
+            },
             "slug": "Slug",
             "actions": "Actions"
         },
@@ -21,9 +25,9 @@
         "description": "Add a new category to organize jobs",
         "form": {
             "name": {
-                "label": "Category Name",
-                "placeholder": "Enter category name",
-                "error": "Category name required"
+                "label": "Category Name ({code})",
+                "placeholder": "Enter category name in {code}",
+                "error": "Category name in {code} required"
             },
             "slug":{
                 "label":"Slug",
@@ -70,5 +74,8 @@
         "page": "Page {page} of {totalPages}",
         "prev": "Prev",
         "next": "Next"
-    }
+    },
+    "en": "English",
+    "de": "German",
+    "ml":"Malayalam"
 }

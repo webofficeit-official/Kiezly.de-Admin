@@ -22,8 +22,7 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import { useLocalizedRouter } from "@/lib/useLocalizedRouter";
 import { useT } from "@/app/[locale]/layout";
 import LocalizedLink from "@/lib/localizedLink";
-const LOCALES = ["en", "de"] as const;
-const DEFAULT = "de";
+import {LOCALES, DEFAULT_LOCALE } from "@/lib/utils/translation";
 
 export default function Header() {
   const { user, logout } = useAuth();
@@ -54,8 +53,8 @@ export default function Header() {
   dayjs.extend(relativeTime);
 
   useEffect(() => {
-    const seg = pathname.split("/").filter(Boolean)[0];
-    setActiveLanguage(LOCALES.includes(seg as any) ? seg : DEFAULT);
+  const seg = pathname.split("/").filter(Boolean)[0];
+   setActiveLanguage(LOCALES.includes(seg as any) ? seg : DEFAULT_LOCALE);
   }, [pathname]);
 
   const handleChange = (next: "en" | "de") => {
@@ -145,7 +144,7 @@ export default function Header() {
                 <span className="absolute -top-1.5 -right-1.5 bg-black text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
                   {(LOCALES.includes(activeLanguag as any)
                     ? activeLanguag
-                    : DEFAULT
+                    : DEFAULT_LOCALE
                   ).toUpperCase()}
                 </span>
               </button>

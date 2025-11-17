@@ -11,6 +11,9 @@
         "langauges": "Languages",
         "locations": "Locations",
         "countries": "Countries",
-        "zipcodes": "Postal Codes"
+        "zipcodes": "Postal Codes",
+        "localization":"Localization",
+        "job-type":"Job Mode",
+        "job-experience":"Job Experience"
     }
 }
