@@ -94,7 +94,7 @@ const JobTagTable = ({
                 {
                   localization.map(l => {
                     return (
-                      <td className="border-b border-slate-200 px-4 py-3">
+                      <td key={l.id} className="border-b border-slate-200 px-4 py-3">
                         <div className="h-3 w-40 animate-pulse rounded bg-slate-200" />
                       </td>
                     )

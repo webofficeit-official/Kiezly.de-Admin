@@ -148,7 +148,7 @@ const UserTable = ({ users, t, setUsers, page, pageSize }) => {
                                 </td>
                                 <td className="p-4 border-b border-slate-200 w-0">
                                     <div className="w-max flex gap-2">
-                                        <p
+                                        <div
                                             className="text-sm text-slate-500">
                                             {u.skills.map((s, i) => (
                                                 <div key={i}>
@@ -156,7 +156,7 @@ const UserTable = ({ users, t, setUsers, page, pageSize }) => {
                                                 </div>
                                             ))}
 
-                                        </p>
+                                        </div>
                                     </div>
                                 </td>
                                 <td className="p-4 border-b border-slate-200">
