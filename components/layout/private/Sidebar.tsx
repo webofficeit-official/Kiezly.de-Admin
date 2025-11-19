@@ -1,6 +1,6 @@
 import { useT } from "@/app/[locale]/layout";
 import LocalizedLink from "@/lib/localizedLink";
-import { BriefcaseBusiness, ChevronDown, ChevronUp, FolderCheck, FolderCode, Globe, Languages, Layers, LayoutDashboard, MapPinned, Navigation, Newspaper, ShieldPlus, Users,Earth,Briefcase,Tags    } from "lucide-react";
+import { BriefcaseBusiness, ChevronDown, ChevronUp, FolderCheck, FolderCode, Globe, Languages, Layers, LayoutDashboard, MapPinned, Navigation, Newspaper, ShieldPlus, Users,Earth,Briefcase,Tags, Layers2, Ban    } from "lucide-react";
 import { useState } from "react";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
@@ -65,6 +65,14 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                     hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 text-sm">
                                                 <Newspaper className="w-5 h-5" />
                                                 <span className="ms-3">{t("menu.pending-aproval")}</span>
+                                            </LocalizedLink>
+                                        </li>
+                                        <li>
+                                            <LocalizedLink href="/reported-jobs" className="flex items-center w-full p-2 pl-11 text-gray-900 
+                                                    transition duration-75 rounded-lg group 
+                                                    hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 text-sm">
+                                                <Ban className="w-5 h-5" />
+                                                <span className="ms-3">{t("menu.reported-jobs")}</span>
                                             </LocalizedLink>
                                         </li>
                                     </ul>
