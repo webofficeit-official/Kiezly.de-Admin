@@ -57,7 +57,6 @@ const FilterAdmins = () => {
           }, remaining);
         },
         onError: (error) => {
-          console.error(error);
           const elapsed = Date.now() - start;
           const remaining = Math.max(0, MIN_LOADING_MS - elapsed);
           setTimeout(() => {

@@ -3,6 +3,7 @@ import { Edit, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 import Tooltip from "../ui/ToolTip/ToolTip";
 import { useMemo } from "react";
 import { Localization } from "@/lib/types/localization-type";
+import DraggableScroll from "../ui/DragableScrollbar/DragableScrollBar";
 
 type Sort = "id_desc" | "name_asc" | "name_desc";
 
@@ -48,7 +49,7 @@ const CategoriesTable = ({
   };
 
   return (
-    <div className="p-0 overflow-x-auto md:overflow-x-visible">
+ <DraggableScroll className="p-0" horizontalOnly={true}>
       <table className="w-full mt-4 text-left table-auto min-w-[560px] md:min-w-0 border-collapse">
         <thead className="bg-slate-50 sticky top-0 z-10">
           <tr className="whitespace-nowrap">
@@ -90,13 +91,11 @@ const CategoriesTable = ({
                   <div className="mx-auto h-3 w-8 animate-pulse rounded bg-slate-200" />
                 </td>
                 {
-                  localization.map(l => {
-                    return (
-                      <td className="border-b border-slate-200 px-4 py-3">
-                        <div className="h-3 w-40 animate-pulse rounded bg-slate-200" />
-                      </td>
-                    )
-                  })
+                  (localization ?? []).map((l) => (
+                    <td key={`skel-${l.id}-${idx}`} className="border-b border-slate-200 px-4 py-3">
+                      <div className="h-3 w-40 animate-pulse rounded bg-slate-200" />
+                    </td>
+                  ))
                 }
                 <td className="border-b border-slate-200 px-4 py-3">
                   <div className="h-3 w-32 animate-pulse rounded bg-slate-200" />
@@ -131,15 +130,11 @@ const CategoriesTable = ({
                   {i + (page - 1) * pageSize + 1}
                 </td>
                 {
-                  localization.map(l => {
-                    return (
-                      <td key={l.id} className="border-b border-slate-200 px-4 py-4">
-                        <p className="text-sm font-semibold text-slate-700">
-                          {u.name[l.code]}
-                        </p>
-                      </td>
-                    )
-                  })
+                  (localization ?? []).map((l) => (
+                    <td key={`${u.id}-name-${l.code}`} className="border-b border-slate-200 px-4 py-4">
+                      <p className="text-sm font-semibold text-slate-700">{u.name?.[l.code]}</p>
+                    </td>
+                  ))
                 }
                 <td className="border-b border-slate-200 px-4 py-4">
                   <p className="text-sm font-semibold text-slate-700">
@@ -162,7 +157,7 @@ const CategoriesTable = ({
             ))}
         </tbody>
       </table>
-    </div>
+    </DraggableScroll>
   );
 };
 

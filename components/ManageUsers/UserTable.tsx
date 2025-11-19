@@ -4,6 +4,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { User } from "@/lib/types/user-type";
 import { useState } from "react";
 import UserModel from "./UserModel";
+import DraggableScroll from "../ui/DragableScrollbar/DragableScrollBar";
 dayjs.extend(relativeTime);
 
 const UserTable = ({ users, t, setUsers, page, pageSize }) => {
@@ -19,7 +20,7 @@ const UserTable = ({ users, t, setUsers, page, pageSize }) => {
     };
 
     return (
-        <div className="p-0 overflow-scroll">
+       <DraggableScroll className="p-0" horizontalOnly={true}>
             <table className="w-full mt-4 text-left table-auto min-w-max">
                 <thead>
                     <tr>
@@ -176,7 +177,7 @@ const UserTable = ({ users, t, setUsers, page, pageSize }) => {
                     userId={selectedUserId}
                 />
             )}
-        </div>
+        </DraggableScroll>
     )
 }
 

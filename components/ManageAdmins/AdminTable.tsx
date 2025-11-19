@@ -5,6 +5,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { useDeleteAdmin, useUpdateAdminStatus } from "@/lib/react-query/queries/admins/admins";
 import toast from "react-hot-toast";
 import DeleteButton from "../ui/DeleteButton";
+import DraggableScroll from "../ui/DragableScrollbar/DragableScrollBar";
 dayjs.extend(relativeTime);
 
 const AdminTable = ({ admins, t, setAdmins }) => {
@@ -50,7 +51,7 @@ const AdminTable = ({ admins, t, setAdmins }) => {
     }
 
     return (
-        <div className="p-0 overflow-scroll">
+        <DraggableScroll className="p-0" horizontalOnly={true}>
             <table className="w-full mt-4 text-left table-auto min-w-max">
                 <thead>
                     <tr>
@@ -207,7 +208,7 @@ const AdminTable = ({ admins, t, setAdmins }) => {
                     }
                 </tbody>
             </table>
-        </div>
+        </DraggableScroll>
     )
 }
 

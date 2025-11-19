@@ -5,6 +5,7 @@ import { Job } from "@/lib/types/job-type";
 import { useState } from "react";
 import LocalizedLink from "@/lib/localizedLink";
 import UserModel from "../ManageUsers/UserModel";
+import DraggableScroll from "../ui/DragableScrollbar/DragableScrollBar";
 dayjs.extend(relativeTime);
 
 const JobTable = ({ jobs, t, setJobs, page, pageSize }) => {
@@ -20,7 +21,7 @@ const JobTable = ({ jobs, t, setJobs, page, pageSize }) => {
     };
 
     return (
-        <div className="p-0 overflow-scroll">
+        <DraggableScroll className="p-0" horizontalOnly={true}>
             <table className="w-full mt-4 text-left table-auto min-w-max">
                 <thead>
                     <tr>
@@ -195,7 +196,7 @@ const JobTable = ({ jobs, t, setJobs, page, pageSize }) => {
                     userId={selectedUserId}
                 />
             )}
-        </div>
+        </DraggableScroll>
     )
 }
 

@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { Localization } from "@/lib/types/localization-type";
 import { useT } from "@/app/[locale]/layout";
 import { JobExperienceData } from "@/lib/types/job-experience-type";
+import DraggableScroll from "../ui/DragableScrollbar/DragableScrollBar";
 
 type Sort = "id_desc" | "name_asc" | "name_desc";
 
@@ -47,7 +48,7 @@ const JobExperienceTable = ({
     else onSortChange("id_desc");
   };
   return (
-    <div className="p-0 overflow-x-auto md:overflow-x-visible">
+    <DraggableScroll className="p-0" horizontalOnly={true}>
       <table className="w-full mt-4 text-left table-auto min-w-[560px] md:min-w-0 border-collapse">
         <thead className="bg-slate-50 sticky top-0 z-10">
           <tr className="whitespace-nowrap">
@@ -151,7 +152,7 @@ const JobExperienceTable = ({
             ))}
         </tbody>
       </table>
-    </div>
+    </DraggableScroll>
   );
 };
 
