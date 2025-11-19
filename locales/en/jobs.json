@@ -11,7 +11,8 @@
             "location": "Location",
             "type-experience": "Job type & experience",
             "date": "Starts and End date",
-            "external_link": "External link"
+            "external_link": "External link",
+            "status":"Status"
         },
         "empty": "No jobs available"
     },
