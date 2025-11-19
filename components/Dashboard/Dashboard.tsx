@@ -58,8 +58,8 @@ const Dashboard = ({ t }) => {
       ) : (
         <div className="fade-in">
           {dashboard?.map((dash, i) => (
-            <>
-              <div className="relative mx-4 mt-12 overflow-hidden text-slate-700 rounded-none bg-clip-border">
+          
+              <div key={dash.title + i} className="relative mx-4 mt-12 overflow-hidden text-slate-700 rounded-none bg-clip-border">
                 <div className="flex items-center justify-between ">
                   <div>
                     <h3 className="text-lg font-bold text-slate-800">
@@ -87,7 +87,7 @@ const Dashboard = ({ t }) => {
                   ))}
                 </div>
               </div>
-            </>
+            
           ))}
         </div>
       )}
