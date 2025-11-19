@@ -5,6 +5,7 @@
         "users": "Users",
         "jobs": "Manage Jobs",
         "all-jobs": "All Jobs",
+        "reported-jobs": "Reported Jobs",
         "pending-aproval": "New jobs pending aproval",
         "categories": "Categories",
         "job-tags": "Job Tags",
@@ -12,8 +13,8 @@
         "locations": "Locations",
         "countries": "Countries",
         "zipcodes": "Postal Codes",
-        "localization":"Localization",
-        "job-type":"Job Type",
-        "job-experience":"Job Experience"
+        "localization": "Localization",
+        "job-type": "Job Type",
+        "job-experience": "Job Experience"
     }
 }

@@ -1,0 +1,61 @@
+{
+    "title": "Reported Jobs",
+    "subtitle": "Reported",
+    "filter": {
+        "title": "Filter reported job",
+        "description": "Filter job reports",
+        "form": {
+            "jobs": {
+                "label": "Jobs",
+                "placeholder": "Filter by job"
+            },
+            "helpers": {
+                "label": "Helper",
+                "placeholder": "Filter by helpers"
+            },
+            "status": {
+                "label": "Status",
+                "placeholder": "Choose a status",
+                "options": {
+                    "all": "All",
+                    "pending": "Pending",
+                    "reviewed": "Reviewed",
+                    "rejected": "Rejected",
+                    "resolved": "Resolved"
+                }
+            },
+            "sort": {
+                "label": "Sort By",
+                "placeholder": "Choose sorting",
+                "options": {
+                    "asc": "Newest",
+                    "desc": "Oldest"
+                }
+            },
+            "pageSize": {
+                "label": "Page Size",
+                "placeholder": "Items per page"
+            },
+            "button": {
+                "cancel": "Cancel",
+                "filter": "Filter"
+            }
+        }
+    },
+    "list": {
+        "table": {
+            "sl": "Sl no",
+            "job-title": "Job title",
+            "reason": "Reason",
+            "description": "Description",
+            "user": "User Details",
+            "status": "Status"
+        },
+        "empty": "No reports available"
+    },
+    "pagination": {
+        "page": "Page {page} of {totalPages}",
+        "prev": "Prev",
+        "next": "Next"
+    }
+}

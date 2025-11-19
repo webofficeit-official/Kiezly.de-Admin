@@ -100,6 +100,7 @@ export default function LocaleLayout({ children, params }: any) {
     "localization",
     "job-experience",
     "job-type",
+    "reported-jobs"
   ]; // add more as needed
 
   useEffect(() => {
