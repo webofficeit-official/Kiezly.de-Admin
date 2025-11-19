@@ -13,7 +13,7 @@ export default function Page() {
   const breadcrumb = [
     {
       title: t('user'),
-      link: '/user',
+      link: '/userS',
       isLast: false
     },
     {

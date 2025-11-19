@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
 import { useT } from "@/app/[locale]/layout";
@@ -7,92 +7,137 @@ import UserTable from "./UserTable";
 import UserPagination from "./UserPagination";
 import { useFilterUsers } from "@/lib/react-query/queries/user/users";
 import FilterModel from "./FilterModel";
+import HeaderSkeleton from "../ui/skeleton/HeaderSkeleton";
+import TableSkeleton from "../ui/skeleton/TableSkeleton";
+const MIN_LOADING_MS = 350;
 
 export type FilterOption = {
-    name?: string
-    location?: string
-    firstAid?: boolean
-    policeVerified?: boolean
-    role?: "client" | "helper"
-    sort?: "new" | "oldest" | "name_asc" | "name_desc"
-} 
+  name?: string;
+  location?: string;
+  firstAid?: boolean;
+  policeVerified?: boolean;
+  role?: "client" | "helper";
+  sort?: "new" | "oldest" | "name_asc" | "name_desc";
+};
 
 const FilterUser = () => {
-    const t = useT("users");
+  const t = useT("users");
 
-    const [users, setUsers] = useState([]);
-    const [page, setPage] = useState(1);
-    const [totalItems, setTotalItems] = useState(null);
-    const [totalPages, setTotalPages] = useState(null);
-    const [filter, setFilter] = useState({
-        q: "",
-        location: "",
-        firstAid: null,
-        policeVerified: null,
-        role: "",
-        sort: "",
-        pageSize: 10,
-    })
+  const [users, setUsers] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(null);
+  const [totalPages, setTotalPages] = useState(null);
+  const [filter, setFilter] = useState({
+    q: "",
+    location: "",
+    firstAid: null,
+    policeVerified: null,
+    role: "",
+    sort: "",
+    pageSize: 10,
+  });
 
-    const [inviteAdminModelOpen, setInviteAdminModelOpen] = useState(false);
+  const [inviteAdminModelOpen, setInviteAdminModelOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-    const filterUsers = useFilterUsers();
+  const filterUsers = useFilterUsers();
 
-    useEffect(() => {
-        filterUsers.mutate({
-            page: page,
-            page_size: filter.pageSize,
-            q: filter?.q,
-            location: filter?.location,
-            role: filter?.role,
-            sort: filter?.sort,
-            police_verified: filter?.policeVerified,
-            has_first_aid: filter?.firstAid,
-        }, {
-            onSuccess: (data) => {
-                setUsers(data?.data?.items)
-                setPage(data?.data?.page)
-                setFilter({
-                    ...filter,
-                    pageSize: data?.data?.page_size
-                })
-                setTotalItems(data?.data?.total_items)
-                setTotalPages(data?.data?.total_pages)
-            },
-            onError: (error) => {
-                console.log(error);
-            }
-        })
-    }, [page, inviteAdminModelOpen])
+  useEffect(() => {
+    let mounted = true;
+    const start = Date.now();
 
-    return (
-        <>
-            <div className="relative flex flex-col w-full h-full text-slate-700 bg-white shadow-md rounded-xl bg-clip-border mt-10  ">
+    setLoading(true);
+    filterUsers.mutate(
+      {
+        page: page,
+        page_size: filter.pageSize,
+        q: filter?.q,
+        location: filter?.location,
+        role: filter?.role,
+        sort: filter?.sort,
+        police_verified: filter?.policeVerified,
+        has_first_aid: filter?.firstAid,
+      },
+      {
+        onSuccess: (data) => {
+          if (!mounted) return;
+          const elapsed = Date.now() - start;
+          const remaining = Math.max(0, MIN_LOADING_MS - elapsed);
+          setTimeout(() => {
+            if (!mounted) return;
+            setUsers(data?.data?.items);
+            setPage(data?.data?.page);
+            setFilter({
+              ...filter,
+              pageSize: data?.data?.page_size,
+            });
+            setTotalItems(data?.data?.total_items);
+            setTotalPages(data?.data?.total_pages);
+            setLoading(false);
+          }, remaining);
+        },
+        onError: (error) => {
+          console.log(error);
+          const elapsed = Date.now() - start;
+          const remaining = Math.max(0, MIN_LOADING_MS - elapsed);
+          setTimeout(() => {
+            if (!mounted) return;
+            setLoading(false);
+          }, remaining);
+        },
+      }
+    );
+    return () => {
+      mounted = false;
+    };
+  }, [page, inviteAdminModelOpen]);
 
-                {/* User header */}
-                <UserHeader
-                    totalItems={totalItems} 
-                    setInviteAdminModelOpen={setInviteAdminModelOpen} 
-                    inviteAdminModelOpen={inviteAdminModelOpen} 
-                    t={t}
-                />
+  return (
+    <>
+      <div className="relative flex flex-col w-full h-full text-slate-700 bg-white shadow-md rounded-xl bg-clip-border mt-10  ">
+        {/* User header */}
+        {loading ? (
+          <HeaderSkeleton />
+        ) : (
+          <UserHeader
+            totalItems={totalItems}
+            setInviteAdminModelOpen={setInviteAdminModelOpen}
+            inviteAdminModelOpen={inviteAdminModelOpen}
+            t={t}
+          />
+        )}
 
-                {/* User Table */}
-                <UserTable users={users} t={t} setUsers={setUsers} page={page} pageSize={filter.pageSize} />
+        {/* User Table */}
+        {loading ? (
+          <TableSkeleton rows={8} columns={9} />
+        ) : (
+          <UserTable
+            users={users}
+            t={t}
+            setUsers={setUsers}
+            page={page}
+            pageSize={filter.pageSize}
+          />
+        )}
 
-                {/* Pagination */}
-                <UserPagination page={page} totalPages={totalPages} t={t} setPage={setPage} />
-            </div>
+        {/* Pagination */}
+        <UserPagination
+          page={page}
+          totalPages={totalPages}
+          t={t}
+          setPage={setPage}
+        />
+      </div>
 
-            <FilterModel 
-                isOpen={inviteAdminModelOpen} 
-                setIsOpen={setInviteAdminModelOpen} 
-                t={t}
-                filter={filter}
-                setFilter={setFilter} 
-            />
-        </>
-    )
-}
+      <FilterModel
+        isOpen={inviteAdminModelOpen}
+        setIsOpen={setInviteAdminModelOpen}
+        t={t}
+        filter={filter}
+        setFilter={setFilter}
+      />
+    </>
+  );
+};
 
-export default FilterUser
+export default FilterUser;
