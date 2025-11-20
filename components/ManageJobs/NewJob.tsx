@@ -9,6 +9,7 @@ import { useFilterJobs } from "@/lib/react-query/queries/job/jobs";
 import FilterModel from "./FilterModel";
 import HeaderSkeleton from "../ui/skeleton/HeaderSkeleton";
 import TableSkeleton from "../ui/skeleton/TableSkeleton";
+import Pagination from "../ui/pagination/pagination";
 const MIN_LOADING_MS = 350;
 
 export type FilterOption = {
@@ -137,12 +138,18 @@ const NewJob = () => {
         )}
 
         {/* Pagination */}
-        <JobPagination
+        <Pagination
           page={page}
           totalPages={totalPages}
           t={t}
           setPage={setPage}
         />
+        {/* <JobPagination
+          page={page}
+          totalPages={totalPages}
+          t={t}
+          setPage={setPage}
+        /> */}
       </div>
     </>
   );

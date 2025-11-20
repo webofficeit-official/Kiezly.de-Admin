@@ -1,5 +1,8 @@
+import DraggableScroll from "../DragableScrollbar/DragableScrollBar";
+
 export default function ApplicantsSkeleton() {
   return (
+     <DraggableScroll className="p-0" horizontalOnly={true}>
     <aside className="lg:sticky lg:top-6">
       <div className="shadow-lg border-gray-100 bg-white rounded-xl overflow-hidden animate-pulse">
         
@@ -50,5 +53,6 @@ export default function ApplicantsSkeleton() {
         </div>
       </div>
     </aside>
+    </DraggableScroll>
   );
 }
