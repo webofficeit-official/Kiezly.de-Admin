@@ -1,3 +1,5 @@
+import DraggableScroll from "../DragableScrollbar/DragableScrollBar";
+
 type Props = {
   rows?: number;     
   columns?: number; 
@@ -5,7 +7,7 @@ type Props = {
 
 export default function TableSkeleton({ rows = 8, columns = 9 }: Props) {
   return (
-    <div className="p-4">
+      <DraggableScroll className="p-4" horizontalOnly={true}>
       <table className="w-full animate-pulse">
         <thead>
           <tr>
@@ -29,6 +31,6 @@ export default function TableSkeleton({ rows = 8, columns = 9 }: Props) {
           ))}
         </tbody>
       </table>
-    </div>
+    </DraggableScroll>
   );
 }

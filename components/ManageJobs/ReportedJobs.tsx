@@ -9,6 +9,7 @@ import { useFilterJobReports } from "@/lib/react-query/queries/job-reports/job-r
 import ReportTable from "./Report/ReportTable";
 import ReportHeader from "./Report/ReportHeader";
 import ReportFilterModel from "./Report/ReportFilterModel";
+import Pagination from "../ui/pagination/pagination";
 const MIN_LOADING_MS = 350;
 
 const ReportedJobs = () => {
@@ -19,10 +20,10 @@ const ReportedJobs = () => {
   const [totalItems, setTotalItems] = useState(null);
   const [totalPages, setTotalPages] = useState(null);
   const [filter, setFilter] = useState({
-    job_ids: '',
-    user_ids: '',
-    status: 'pending',
-    sort: 'asc',
+    job_ids: "",
+    user_ids: "",
+    status: "pending",
+    sort: "asc",
     pageSize: 10,
   });
 
@@ -42,7 +43,7 @@ const ReportedJobs = () => {
         sort: filter.sort,
         status: filter.status,
         page_size: filter.pageSize,
-        page
+        page,
       },
       {
         onSuccess: (data) => {
@@ -107,12 +108,18 @@ const ReportedJobs = () => {
         )}
 
         {/* Pagination */}
-        <JobPagination
+        <Pagination
           page={page}
           totalPages={totalPages}
           t={t}
           setPage={setPage}
         />
+        {/* <JobPagination
+          page={page}
+          totalPages={totalPages}
+          t={t}
+          setPage={setPage}
+        /> */}
       </div>
 
       <ReportFilterModel
