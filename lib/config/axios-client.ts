@@ -161,7 +161,8 @@ apiClient.interceptors.response.use(
         // Decide refresh endpoint — by default we use admin refresh for consistency.
         const locale = getRequestLocale();
         const refreshPath = `${locale}/admin/auth/refresh`;
-        const refreshUrl = `${baseURL.replace(/\/+$/, "")}/${refreshPath}`; 
+        const refreshUrl = new URL(refreshPath, baseURL).toString();
+
 
         const { data } = await axios.post(
           refreshUrl,

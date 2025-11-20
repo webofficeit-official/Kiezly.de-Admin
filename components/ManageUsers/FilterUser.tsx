@@ -9,6 +9,7 @@ import { useFilterUsers } from "@/lib/react-query/queries/user/users";
 import FilterModel from "./FilterModel";
 import HeaderSkeleton from "../ui/skeleton/HeaderSkeleton";
 import TableSkeleton from "../ui/skeleton/TableSkeleton";
+import Pagination from "../ui/pagination/pagination";
 const MIN_LOADING_MS = 350;
 
 export type FilterOption = {
@@ -120,13 +121,20 @@ const FilterUser = () => {
           />
         )}
 
-        {/* Pagination */}
-        <UserPagination
+        <Pagination
           page={page}
           totalPages={totalPages}
           t={t}
           setPage={setPage}
         />
+
+        {/* Pagination */}
+        {/* <UserPagination
+          page={page}
+          totalPages={totalPages}
+          t={t}
+          setPage={setPage}
+        /> */}
       </div>
 
       <FilterModel

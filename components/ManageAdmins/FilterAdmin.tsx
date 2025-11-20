@@ -9,6 +9,7 @@ import AdminTable from "./AdminTable";
 import { useT } from "@/app/[locale]/layout";
 import HeaderSkeleton from "../ui/skeleton/HeaderSkeleton";
 import TableSkeleton from "../ui/skeleton/TableSkeleton";
+import Pagination from "../ui/pagination/pagination";
 const MIN_LOADING_MS = 350;
 
 const FilterAdmins = () => {
@@ -98,13 +99,20 @@ const FilterAdmins = () => {
           <AdminTable admins={admins} t={t} setAdmins={setAdmins} />
         )}
 
-        {/* Pagination */}
-        <AdminPagination
+        <Pagination
           page={page}
           totalPages={totalPages}
           t={t}
           setPage={setPage}
         />
+
+        {/* Pagination */}
+        {/* <AdminPagination
+          page={page}
+          totalPages={totalPages}
+          t={t}
+          setPage={setPage}
+        /> */}
       </div>
 
       <InviteAdmins
