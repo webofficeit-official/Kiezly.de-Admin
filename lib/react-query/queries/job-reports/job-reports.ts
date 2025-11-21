@@ -1,5 +1,5 @@
 import apiClient from "@/lib/config/axios-client";
-import { FilterJobReportData, FilterJobReportResponse, JobReportFilterCollectionData, JobReportFilterCollectionResponse } from "@/lib/types/job-report-types";
+import { FilterJobReportData, FilterJobReportResponse, JobReportFilterCollectionData, JobReportFilterCollectionResponse, UpdateJobReportData, UpdateJobReportResponse } from "@/lib/types/job-report-types";
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 
 
@@ -20,7 +20,7 @@ export const useFilterJobReports = (): UseMutationResult<
     });
 };
 
-// Job Profile 
+// Job report filter collection 
 export const useJobReportFilterCollection = (): UseMutationResult<
     JobReportFilterCollectionResponse,
     Error,
@@ -32,6 +32,23 @@ export const useJobReportFilterCollection = (): UseMutationResult<
                 `/filter/job-reports`,
             );
             return res.data as JobReportFilterCollectionResponse;
+        },
+    });
+};
+
+// Update job report status 
+export const useJobReportStatusUpdate = (): UseMutationResult<
+    UpdateJobReportResponse,
+    Error,
+    UpdateJobReportData
+> => {
+    return useMutation({
+        mutationFn: async ({ id, status }) => {
+            const res = await apiClient.patch(
+                `/manage-jobs/reports/${id}`,
+                { status },
+            );
+            return res.data as UpdateJobReportResponse;
         },
     });
 };

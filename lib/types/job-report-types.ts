@@ -42,3 +42,10 @@ export type JobReportFilterCollection = {
     jobs: Job[];
     helpers: User[];
 }
+
+export type UpdateJobReportData = {
+    id: number;
+    status: string;
+};
+
+export type UpdateJobReportResponse = { success: boolean; message: string, data: { jobReport: JobReport } };

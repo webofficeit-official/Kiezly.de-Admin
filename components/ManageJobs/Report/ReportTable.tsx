@@ -1,24 +1,35 @@
-import { Check, Eye, Facebook, Globe, Instagram, Linkedin, X } from "lucide-react";
+import { Check, Edit, Eye, Facebook, Globe, Instagram, Linkedin, X } from "lucide-react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { Job } from "@/lib/types/job-type";
 import { useState } from "react";
 import LocalizedLink from "@/lib/localizedLink";
 import DraggableScroll from "@/components/ui/DragableScrollbar/DragableScrollBar";
-import UserModel from "@/components/ManageUsers/UserModel";
 import { JobReport } from "@/lib/types/job-report-types";
+import StatusModel from "./StatusModel";
 dayjs.extend(relativeTime);
 
 const ReportTable = ({ jobReports, t, setJobReports, page, pageSize }) => {
-    const [isUserModalOpen, setIsUserModalOpen] = useState(false);
-    const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
-    const closeUserModal = () => {
-        setIsUserModalOpen(false);
-        setSelectedUserId(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedRport, setSelectedReport] = useState<JobReport | null>(null);
+    const closeModal = (id: number, status: string) => {
+        setJobReports(
+            jobReports.map(j => {
+                if(j.id == id) {
+                    j = {
+                        ...j,
+                        status
+                    }
+                }
+                return j
+            })
+        )
+        setIsModalOpen(false);
+        setSelectedReport(null);
     };
-    const openUserModal = (userId: string) => {
-        setSelectedUserId(userId);
-        setIsUserModalOpen(true);
+    const openModal = (report: JobReport) => {
+        setSelectedReport(report);
+        setIsModalOpen(true);
     };
 
     return (
@@ -101,7 +112,7 @@ const ReportTable = ({ jobReports, t, setJobReports, page, pageSize }) => {
                                     <td className="p-4 border-b border-slate-200">
                                         <div className="flex flex-col">
                                             <p className="text-sm font-semibold text-slate-700">
-                                                {j.reason}
+                                                {t(`list.table.options.${j.reason}`)}
                                             </p>
                                         </div>
                                     </td>
@@ -130,9 +141,17 @@ const ReportTable = ({ jobReports, t, setJobReports, page, pageSize }) => {
                                         </p>
                                     </td>
                                     <td className="p-4 border-b border-slate-200">
-                                        <LocalizedLink href={`/job/${j.job.slug}`}>
-                                            <Eye className="w-5 h-5 text-black" />
-                                        </LocalizedLink>
+                                        <div className="flex space-x-2">
+                                            <LocalizedLink href={`/job/${j.job.slug}`}>
+                                                <Eye className="w-5 h-5 text-black" />
+                                            </LocalizedLink>
+                                            {
+                                                (j.status == 'pending' || j.status == 'reviewed') &&
+                                                <button onClick={() => openModal(j)}>
+                                                    <Edit className="w-5 h-5 text-red-700" />
+                                                </button>
+                                            }
+                                        </div>
                                     </td>
                                 </tr>
                             )) : (
@@ -144,11 +163,12 @@ const ReportTable = ({ jobReports, t, setJobReports, page, pageSize }) => {
                 </tbody>
             </table>
 
-            {isUserModalOpen && (
-                <UserModel
-                    isOpen={isUserModalOpen}
-                    onClose={closeUserModal}
-                    userId={selectedUserId}
+            {isModalOpen && (
+                <StatusModel
+                    isOpen={isModalOpen}
+                    onClose={closeModal}
+                    report={selectedRport}
+                    t={t}
                 />
             )}
         </DraggableScroll>
