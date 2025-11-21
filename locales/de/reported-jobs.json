@@ -1,0 +1,111 @@
+{
+    "title": "Gemeldete Jobs",
+    "subtitle": "Gemeldet",
+    "filter": {
+        "title": "Gemeldeten Job filtern",
+        "description": "Jobberichte filtern",
+        "form": {
+            "jobs": {
+                "label": "Jobs",
+                "placeholder": "Nach Job filtern"
+            },
+            "helpers": {
+                "label": "Helfer",
+                "placeholder": "Nach Helfern filtern"
+            },
+            "status": {
+                "label": "Status",
+                "placeholder": "Wählen Sie einen Status",
+                "options": {
+                    "all": "Alle",
+                    "pending": "Ausstehend",
+                    "reviewed": "Bewertet",
+                    "rejected": "Abgelehnt",
+                    "resolved": "Gelöst"
+                }
+            },
+            "sort": {
+                "label": "Sortieren nach",
+                "placeholder": "Wählen Sie Sortierung",
+                "options": {
+                    "asc": "Neueste",
+                    "desc": "Älteste"
+                }
+            },
+            "pageSize": {
+                "label": "Seitengröße",
+                "placeholder": "Artikel pro Seite"
+            },
+            "button": {
+                "cancel": "Stornieren",
+                "filter": "Filter"
+            }
+        }
+    },
+    "update-model": {
+        "title": "Berichtsstatus aktualisieren",
+        "status": {
+            "label": "Status",
+            "placeholder": "Wählen Sie einen Status",
+            "options": {
+                "pending": "Ausstehend",
+                "reviewed": "Bewertet",
+                "rejected": "Abgelehnt",
+                "resolved": "Gelöst"
+            }
+        },
+        "reason": {
+            "label": "Grund",
+            "options": {
+                "spam-promotional": "Spam/Werbung",
+                "fake-scam": "Gefälschte Stellenanzeige / Betrug",
+                "asking-money": "Um Geld bitten",
+                "misleading-information": "Irreführende Informationen",
+                "offensive-content": "Anstößige/unangemessene Inhalte",
+                "illegal-activity": "Illegale Aktivität",
+                "discrimination": "Diskriminierung",
+                "duplicate": "Doppelter Beitrag",
+                "expired": "Abgelaufener Auftrag",
+                "low-quality": "Niedrige Qualität / Unprofessionell",
+                "other": "Sonstige (bitte angeben)"
+            }
+        },
+        "description": {
+            "label": "Beschreibung"
+        },
+        "button": {
+            "change": "Aktualisierungsstatus"
+        },
+        "success": "Status erfolgreich aktualisiert",
+        "error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
+    },
+    "list": {
+        "table": {
+            "sl": "Sl-Nr",
+            "job-title": "Berufsbezeichnung",
+            "reason": "Grund",
+            "description": "Beschreibung",
+            "user": "Benutzerdetails",
+            "status": "Status",
+            "options": {
+                "spam-promotional": "Spam/Werbung",
+                "fake-scam": "Gefälschte Stellenanzeige / Betrug",
+                "asking-money": "Um Geld bitten",
+                "misleading-information": "Irreführende Informationen",
+                "offensive-content": "Anstößige/unangemessene Inhalte",
+                "illegal-activity": "Illegale Aktivität",
+                "discrimination": "Diskriminierung",
+                "duplicate": "Doppelter Beitrag",
+                "expired": "Abgelaufener Auftrag",
+                "low-quality": "Niedrige Qualität / Unprofessionell",
+                "other": "Sonstige (bitte angeben)"
+            }
+        },
+        "empty": "Keine Berichte verfügbar"
+    },
+    "pagination": {
+        "page": "Seite {page} von {totalPages}",
+        "prev": "Vorher",
+        "next": "Nächste"
+    }
+}

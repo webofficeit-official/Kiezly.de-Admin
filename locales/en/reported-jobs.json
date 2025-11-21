@@ -42,6 +42,43 @@
             }
         }
     },
+    "update-model": {
+        "title": "Update report status",
+        "status": {
+            "label": "Status",
+            "placeholder": "Choose a status",
+            "options": {
+                "pending": "Pending",
+                "reviewed": "Reviewed",
+                "rejected": "Rejected",
+                "resolved": "Resolved"
+            }
+        },
+        "reason": {
+            "label": "Reason",
+            "options": {
+                "spam-promotional": "Spam / Promotional",
+                "fake-scam": "Fake Job / Scam",
+                "asking-money": "Asking for Money",
+                "misleading-information": "Misleading Information",
+                "offensive-content": "Offensive / Inappropriate Content",
+                "illegal-activity": "Illegal Activity",
+                "discrimination": "Discrimination",
+                "duplicate": "Duplicate Posting",
+                "expired": "Expired Job",
+                "low-quality": "Low Quality / Unprofessional",
+                "other": "Other (please specify)"
+            }
+        },
+        "description": {
+            "label": "Description"
+        },
+        "button": {
+            "change": "Update Status"
+        },
+        "success": "Status updated successfully",
+        "error": "something went wrong try again"
+    },
     "list": {
         "table": {
             "sl": "Sl no",
@@ -49,7 +86,20 @@
             "reason": "Reason",
             "description": "Description",
             "user": "User Details",
-            "status": "Status"
+            "status": "Status",
+            "options": {
+                "spam-promotional": "Spam / Promotional",
+                "fake-scam": "Fake Job / Scam",
+                "asking-money": "Asking for Money",
+                "misleading-information": "Misleading Information",
+                "offensive-content": "Offensive / Inappropriate Content",
+                "illegal-activity": "Illegal Activity",
+                "discrimination": "Discrimination",
+                "duplicate": "Duplicate Posting",
+                "expired": "Expired Job",
+                "low-quality": "Low Quality / Unprofessional",
+                "other": "Other (please specify)"
+            }
         },
         "empty": "No reports available"
     },
