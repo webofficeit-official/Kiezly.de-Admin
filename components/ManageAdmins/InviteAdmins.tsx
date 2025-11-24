@@ -8,11 +8,11 @@ const InviteAdmins = ({ isOpen, setIsOpen, t }) => {
     const [email, setEmail] = useState("");
 
     const [submitting, setSubmitting] = useState(false)
-    const [error, setError] = useState({
-        firstName: false,
-        lastName: false,
-        email: false
-    });
+    const [error, setError] = useState<{
+        firstName?: boolean
+        lastName?: boolean
+        email?: boolean
+    }>({});
 
     const inviteAdmin = useInviteAdmins();
 
@@ -25,35 +25,43 @@ const InviteAdmins = ({ isOpen, setIsOpen, t }) => {
     }
 
     const handleSubmit = () => {
-        if (firstName == "") setError(prev => ({ ...prev, firstName: true }))
-        if (lastName == "") setError(prev => ({ ...prev, lastName: true }))
-        if (email == "" || !isEmailValid(email)) setError(prev => ({ ...prev, email: true }));
+        const newError: typeof error = {};
 
-        if (error.email || error.firstName || error.lastName) {
-            return false
-        } else {
-            setSubmitting(true)
+        if (!firstName) newError.firstName = true;
+        if (!lastName) newError.lastName = true;
+        if (!email || !isEmailValid(email)) newError.email = true;
 
-            inviteAdmin.mutate({
-                first_name: firstName,
-                last_name: lastName,
-                email
-            }, {
-                onSuccess: (d) => {
-                    setFirstName("")
-                    setLastName("")
-                    setEmail("")
-                    setSubmitting(false)
-                    setIsOpen(!isOpen)
-                    toast.success(t("invite.success"))
+        setError(newError); // update once
+
+        if (Object.keys(newError).length === 0) {
+            setSubmitting(true);
+
+            inviteAdmin.mutate(
+                {
+                    first_name: firstName,
+                    last_name: lastName,
+                    email,
                 },
-                onError: (e) => {
-                    console.log(e);
-                    toast.success(t("invite.error"))
+                {
+                    onSuccess: () => {
+                        setFirstName("");
+                        setLastName("");
+                        setEmail("");
+                        setSubmitting(false);
+                        setIsOpen(!isOpen);
+                        toast.success(t("invite.success"));
+                    },
+                    onError: (e) => {
+                        console.log(e);
+                        toast.error(t("invite.error")); // 🔁 changed to error instead of success
+                        setSubmitting(false);
+                    },
                 }
-            })
+            );
         }
-    }
+
+        return false;
+    };
 
     return (
         <div data-dialog-backdrop="dialog" data-dialog-backdrop-close="true" className={`absolute ${isOpen || 'hidden'} left-0 top-0 inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-300`}>
