@@ -1,13 +1,13 @@
 export type Country = {
     id: Number;
     code?: String;
-    name?: String;
+    name?:  Record<string, string>;
     currency?: String;
 }
 
 export type CountryData = {
     code?: String;
-    name?: String;
+    name?: Record<string, string>;
     currency?: String;
 }
 
@@ -31,7 +31,7 @@ export type FilterCountriesData = {
 
 export type UpdateCountryPayload = {
   id: string | number;
-  name?: string;
+  name?: Record<string, string>;
   code?: string;
   currency?: string;
 };

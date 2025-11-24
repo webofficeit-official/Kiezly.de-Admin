@@ -31,6 +31,7 @@ export type adminProfile = {
   created_at?:any,
   updated_at?:any,
   bio?: string;
+  is_super_admin?:boolean
 };
 
 

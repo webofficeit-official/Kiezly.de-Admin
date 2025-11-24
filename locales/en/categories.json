@@ -19,7 +19,7 @@
         "per_page": "Per page",
         "items": "Items"
     },
-    "common":{"generating":"Generating...","clear":"Clear search"},
+    "common":{"generating":"Generating...","clear":"Clear search","edit":"Edit"},
     "create": {
         "title": "Add Category",
         "description": "Add a new category to organize jobs",

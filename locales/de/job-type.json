@@ -18,7 +18,10 @@
     "per_page": "Pro Seite",
     "items": "Einträge"
   },
- 
+  "common": {
+    "clear": "Suche löschen",
+    "edit": "Bearbeiten"
+  },
   "create": {
     "title": "Jobtyp hinzufügen",
     "description": "Fügen Sie einen neuen Jobtyp hinzu, um Jobs zu organisieren",

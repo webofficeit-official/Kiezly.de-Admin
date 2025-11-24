@@ -1,4 +1,5 @@
 import { useT } from "@/app/[locale]/layout";
+import { useAuth } from "@/lib/context/auth-context";
 import LocalizedLink from "@/lib/localizedLink";
 import { BriefcaseBusiness, ChevronDown, ChevronUp, FolderCheck, FolderCode, Globe, Languages, Layers, LayoutDashboard, MapPinned, Navigation, Newspaper, ShieldPlus, Users,Earth,Briefcase,Tags, Layers2, Ban    } from "lucide-react";
 import { useState } from "react";
@@ -7,6 +8,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isJobOpen, setIsJobOpen] = useState(false);
     const t = useT('sidebar');
+    const {user}=useAuth();
 
     return (
         <>
@@ -27,12 +29,17 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                 </LocalizedLink>
                             </li>
                             {/* Admins */}
-                            <li>
+                            {user?.is_super_admin?(
+                                 <li>
                                 <LocalizedLink href="/admins" className="flex px-4 py-2 text-sm hover:bg-gray-100 w-full text-left false">
                                     <ShieldPlus className="w-5 h-5" />
                                     <span className="ms-3">{t("menu.admins")}</span>
                                 </LocalizedLink>
                             </li>
+                            ):(
+                                <></>
+                            )}
+                          
                             {/* Users */}
                             <li>
                                 <LocalizedLink href="/users" className="flex px-4 py-2 text-sm hover:bg-gray-100 w-full text-left false">

@@ -5,28 +5,38 @@ import { createPortal } from "react-dom";
 import toast from "react-hot-toast";
 import { InputField } from "../ui/InputField/InputField";
 import { Country, UpdateCountryPayload } from "@/lib/types/country-type";
-import { useAddCountries, useUpdateCountry } from "@/lib/react-query/queries/countries/countries";
+import {
+  useAddCountries,
+  useUpdateCountry,
+} from "@/lib/react-query/queries/countries/countries";
+import { Localization } from "@/lib/types/localization-type";
+import { useT } from "@/app/[locale]/layout";
 
 type Props = {
+  localization: Localization[];
   isOpen: boolean;
   setIsOpen: (v: boolean) => void;
-  t: (k: string) => string;
   DataItem?: Country | null;
 };
 
 export default function CountriesUpsertModal({
+  localization = [],
   isOpen,
   setIsOpen,
-  t,
   DataItem,
 }: Props) {
+  const t = useT("countries");
   const isEdit = Boolean(DataItem?.id);
 
-  const [name, setName] = useState<string>("");
+  const [name, setName] = useState<Record<string, string>>({});
   const [code, setCode] = useState<string>("");
   const [currency, setCurrency] = useState<string>("");
 
-  const [errors, setErrors] = useState<{ name?: string; code?: string; currency?: string }>({});
+  const [errors, setErrors] = useState<{
+    name?: Record<string, string>;
+    code?: string;
+    currency?: string;
+  }>({});
 
   const addData = useAddCountries();
   const updateData = useUpdateCountry();
@@ -53,12 +63,12 @@ export default function CountriesUpsertModal({
   useEffect(() => {
     if (!isOpen) return;
     if (isEdit && DataItem) {
-      setName(String(DataItem.name ?? ""));
+      setName(DataItem.name ?? {});
       setCode(String(DataItem.code ?? "").toUpperCase());
       setCurrency(String(DataItem.currency ?? "").toUpperCase());
       setErrors({});
     } else {
-      setName("");
+      setName({});
       setCode("");
       setCurrency("");
       setErrors({});
@@ -69,15 +79,29 @@ export default function CountriesUpsertModal({
 
   const validate = () => {
     const e: typeof errors = {};
-    if (!name.trim()) e.name = tOr("create.form.name.error", "Name is required");
+    localization.forEach((l) => {
+      if (!name[l.code] || !name[l.code].trim()) {
+        e.name = e.name || {};
+        e.name[l.code] = t("create.form.name.error", { code: t(l.code) });
+      }
+    });
 
     const codeTrim = code.trim().toUpperCase();
     if (!codeTrim) e.code = tOr("create.form.code.error", "Code is required");
-    else if (!/^[A-Z]{2}$/.test(codeTrim)) e.code = tOr("create.form.code.invalid", "Code must be 2 letters (ISO alpha-2)");
+    else if (!/^[A-Z]{2}$/.test(codeTrim))
+      e.code = tOr(
+        "create.form.code.invalid",
+        "Code must be 2 letters (ISO alpha-2)"
+      );
 
     const currTrim = currency.trim().toUpperCase();
-    if (!currTrim) e.currency = tOr("create.form.currency.error", "Currency is required");
-    else if (!/^[A-Z]{3}$/.test(currTrim)) e.currency = tOr("create.form.currency.invalid", "Currency must be 3 letters (ISO 4217)");
+    if (!currTrim)
+      e.currency = tOr("create.form.currency.error", "Currency is required");
+    else if (!/^[A-Z]{3}$/.test(currTrim))
+      e.currency = tOr(
+        "create.form.currency.invalid",
+        "Currency must be 3 letters (ISO 4217)"
+      );
 
     setErrors(e);
     return Object.keys(e).length === 0;
@@ -86,51 +110,54 @@ export default function CountriesUpsertModal({
   const handleSubmit = () => {
     if (!validate()) return;
 
-    const nameTrim = name.trim();
+    const namePayload = name; 
     const codeUp = code.trim().toUpperCase();
     const currencyUp = currency.trim().toUpperCase();
 
     if (isEdit && DataItem?.id != null) {
-      const id: string | number =
+      const id =
         typeof DataItem.id === "string" || typeof DataItem.id === "number"
           ? DataItem.id
-          : Number((DataItem as any)?.id?.valueOf?.() ?? (DataItem as any)?.id);
+          : Number(DataItem.id);
 
-      const updatePayload: UpdateCountryPayload = { id };
 
-      const currentName = String(DataItem.name ?? "");
+     
+
       const currentCode = String(DataItem.code ?? "").toUpperCase();
       const currentCurrency = String(DataItem.currency ?? "").toUpperCase();
 
-      if (nameTrim !== currentName) updatePayload.name = nameTrim;
-      if (codeUp !== currentCode) updatePayload.code = codeUp;
-      if (currencyUp !== currentCurrency) updatePayload.currency = currencyUp;
+    
 
-      if (Object.keys(updatePayload).length === 1) {
-        setIsOpen(false);
-        return;
-      }
-
-      updateData.mutate(updatePayload, {
+      updateData.mutate(  { id, name: namePayload,code:currentCode,currency:currentCurrency }, {
         onSuccess: () => {
-          toast.success(tOr("update.success", "Country updated successfully"));
+          toast.success(t("update.success"));
           setIsOpen(false);
         },
         onError: (e: any) => {
-          const msg = e?.response?.data?.message || e?.message || tOr("update.error", "Cannot update country");
+          const msg =
+            e?.response?.data?.message || e?.message || t("update.error");
           toast.error(msg);
         },
       });
     } else {
+      // CREATE
       addData.mutate(
-        { name: nameTrim, code: codeUp, currency: currencyUp },
+        {
+          name: namePayload,
+          code: codeUp,
+          currency: currencyUp,
+        },
         {
           onSuccess: () => {
-            toast.success(tOr("create.success", "Country created successfully"));
+            toast.success(t("create.success"));
             setIsOpen(false);
           },
           onError: (e: any) => {
-            const msg = e?.response?.data?.errors?.name||e?.response?.data?.errors?.code || e?.message || tOr("create.error", "Cannot create country");
+            const msg =
+              e?.response?.data?.errors?.name ||
+              e?.response?.data?.errors?.code ||
+              e?.message ||
+              t("create.error");
             toast.error(msg);
           },
         }
@@ -139,7 +166,21 @@ export default function CountriesUpsertModal({
   };
 
   if (!isOpen) return null;
-
+  const onChangeName = (v: string, code: string) => {
+    setName({
+      ...name,
+      [code]: v,
+    });
+    setErrors((prev) => ({
+      ...prev,
+      name: {
+        ...prev.name,
+        [code]: v.trim()
+          ? undefined
+          : t("create.form.name.error", { code: t(code) }),
+      },
+    }));
+  };
   const modal = (
     <div
       className="fixed inset-0 z-[999] bg-black/60 backdrop-blur-sm"
@@ -153,33 +194,39 @@ export default function CountriesUpsertModal({
         <div className="relative mx-auto w-full max-w-[28rem] rounded-xl bg-white text-slate-700 shadow-md">
           <div className="flex flex-col p-6">
             <h4 className="mb-1 text-2xl font-semibold text-slate-700">
-              {isEdit ? tOr("update.title", "Edit Country") : tOr("create.title", "Add Country")}
+              {isEdit
+                ? tOr("update.title", "Edit Country")
+                : tOr("create.title", "Add Country")}
             </h4>
             <p className="mb-3 mt-1 text-slate-400">
-              {isEdit ? tOr("update.description", "Update country details") : tOr("create.description", "Add a new country")}
+              {isEdit
+                ? tOr("update.description", "Update country details")
+                : tOr("create.description", "Add a new country")}
             </p>
-
-            <InputField
-              label={tOr("create.form.name.label", "Country Name")}
-              placeholder={tOr("create.form.name.placeholder", "Enter country name")}
-              value={name}
-              onChange={(e: any) => {
-                const v = e.target.value as string;
-                setName(v);
-                setErrors((prev) => ({
-                  ...prev,
-                  name: v.trim() ? undefined : tOr("create.form.name.error", "Name is required"),
-                }));
-              }}
-              error={Boolean(errors.name)}
-              errorMessage={errors.name}
-              name="country-name"
-              disabled={submitting}
-            />
+            {localization.map((l) => {
+              return (
+                <InputField
+                  key={l.id}
+                  label={`${t("create.form.name.label", { code: t(l.code) })}`}
+                  placeholder={t("create.form.name.placeholder", {
+                    code: t(l.code),
+                  })}
+                  value={name[l.code] ?? ""}
+                  onChange={(e: any) => onChangeName(e.target.value, l.code)}
+                  error={Boolean(errors.name ? errors.name[l.code] : false)}
+                  errorMessage={errors.name ? errors.name[l.code] : ``}
+                  name="job-experience-name"
+                  disabled={submitting}
+                />
+              );
+            })}
 
             <div className="mt-3">
               <InputField
-                label={tOr("create.form.code.label", "Country Code (ISO alpha-2)")}
+                label={tOr(
+                  "create.form.code.label",
+                  "Country Code (ISO alpha-2)"
+                )}
                 placeholder={tOr("create.form.code.placeholder", "e.g., US")}
                 value={code}
                 onChange={(e: any) => {
@@ -197,7 +244,10 @@ export default function CountriesUpsertModal({
             <div className="mt-3">
               <InputField
                 label={tOr("create.form.currency.label", "Currency (ISO 4217)")}
-                placeholder={tOr("create.form.currency.placeholder", "e.g., USD")}
+                placeholder={tOr(
+                  "create.form.currency.placeholder",
+                  "e.g., USD"
+                )}
                 value={currency}
                 onChange={(e: any) => {
                   const v = (e.target.value as string).toUpperCase();

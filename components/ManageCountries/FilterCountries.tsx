@@ -9,6 +9,8 @@ import CountriesHeader from "./CountriesHeader";
 import CountriesControls from "./CountriesControls";
 import CountriesTable from "./CountriesTable";
 import CountriesUpsertModal from "./CountriesUpsertModal";
+import { useLocalization } from "@/lib/react-query/queries/localization/localization";
+import { Localization } from "@/lib/types/localization-type";
 type Sort = "id_desc" | "name_asc" | "name_desc";
 
 const FilterCountries = () => {
@@ -25,8 +27,7 @@ const FilterCountries = () => {
   });
 
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedData, setSelectedData] =
-    useState<Country | null>(null);
+  const [selectedData, setSelectedData] = useState<Country | null>(null);
 
   const apiFilters = useMemo(
     () => ({
@@ -35,10 +36,12 @@ const FilterCountries = () => {
       q: filter.q,
       sort: filter.sort,
     }),
-    [filter.page, filter.pageSize, filter.q,filter.sort]
+    [filter.page, filter.pageSize, filter.q, filter.sort]
   );
 
   const { data, isLoading, isError, error } = useFilteredCountries(apiFilters);
+  const { data: loc } = useLocalization({});
+  const localization: Localization[] = loc?.data?.items ?? [];
 
   useEffect(() => {
     if (!data) return;
@@ -56,16 +59,16 @@ const FilterCountries = () => {
     setFilter((f) => ({ ...f, q, page: 1 })); // reset to page 1 on new search
 
   const handlePageSizeChange = (size: number) =>
-    setFilter((f) => ({ ...f, pageSize: size, page: 1 })); 
+    setFilter((f) => ({ ...f, pageSize: size, page: 1 }));
 
-    const handleSortChange = (sort: Sort) =>
+  const handleSortChange = (sort: Sort) =>
     setFilter((f) => ({ ...f, sort, page: 1 }));
 
   const proxySetModalOpen = (v: boolean) => {
     if (v) setSelectedData(null);
     setModalOpen(v);
   };
-    const onEdit = (cat: Country) => {
+  const onEdit = (cat: Country) => {
     setSelectedData(cat);
     setModalOpen(true);
   };
@@ -87,13 +90,13 @@ const FilterCountries = () => {
           t={t}
         />
         <CountriesTable
+          localization={localization}
           dataList={dataList}
-          t={t}
           page={page}
           pageSize={filter.pageSize}
           loading={isLoading}
           onEdit={onEdit}
-             sort={filter.sort}
+          sort={filter.sort}
           onSortChange={handleSortChange}
         />
 
@@ -104,11 +107,11 @@ const FilterCountries = () => {
           t={t}
           setPage={handlePageChange}
         />
-      </div>    
+      </div>
       <CountriesUpsertModal
+        localization={localization}
         isOpen={modalOpen}
         setIsOpen={setModalOpen}
-        t={t}
         DataItem={selectedData}
       />
     </>

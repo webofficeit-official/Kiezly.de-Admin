@@ -4,7 +4,11 @@
     "table": {
       "sl": "Nr.",
       "code": "Code",
-      "name": "Name",
+      "name": {
+        "en": "Name auf Englisch",
+        "de": "Name auf Deutsch",
+        "ml": "Name auf Malayalam"
+      },
       "currency": "Währung",
       "actions": "Aktionen"
     },
@@ -13,8 +17,8 @@
     "search_label": "Länder suchen",
     "search_aria": "Länder suchen",
     "clearSearch": "Suche löschen",
-    "per_page": "pro Seite",
-    "items": "Elemente"
+    "per_page": "Pro Seite",
+    "items": "Einträge"
   },
   "common": {
     "clear": "Suche löschen",
@@ -22,33 +26,33 @@
   },
   "create": {
     "title": "Land hinzufügen",
-    "description": "Fügen Sie ein neues Land zum System hinzu",
+    "description": "Ein neues Land zum System hinzufügen",
     "form": {
       "name": {
-        "label": "Ländername",
-        "placeholder": "Ländernamen eingeben",
-        "error": "Ländernamen erforderlich"
+        "label": "Ländername ({code})",
+        "placeholder": "Ländernamen in {code} eingeben",
+        "error": "Ländernamen in {code} eingeben"
       },
       "code": {
-        "label": "Ländercode (ISO Alpha-2)",
-        "placeholder": "2-stelligen Ländercode eingeben (z. B. DE)",
-        "error": "Ländercode erforderlich",
+        "label": "Ländercode",
+        "placeholder": "2-stelligen Ländercode eingeben (z. B. US)",
+        "error": "Ländercode ist erforderlich",
         "invalid": "Code muss aus 2 Buchstaben bestehen (ISO Alpha-2)"
       },
       "currency": {
-        "label": "Währung (ISO 4217)",
-        "placeholder": "3-stelligen Währungscode eingeben (z. B. EUR)",
-        "error": "Währung erforderlich",
+        "label": "Währung",
+        "placeholder": "3-stelligen Währungscode eingeben (z. B. USD)",
+        "error": "Währung ist erforderlich",
         "invalid": "Währung muss aus 3 Buchstaben bestehen (ISO 4217)"
       },
       "button": {
         "cancel": "Abbrechen",
         "create": "Erstellen",
-        "creating": "Wird erstellt..."
+        "creating": "Wird erstellt"
       }
     },
     "success": "Land erfolgreich erstellt",
-    "error": "Land kann nicht erstellt werden, bitte versuchen Sie es später erneut"
+    "error": "Land konnte nicht erstellt werden, bitte später erneut versuchen"
   },
   "update": {
     "title": "Land bearbeiten",
@@ -57,32 +61,32 @@
       "name": {
         "label": "Ländername",
         "placeholder": "Ländernamen eingeben",
-        "error": "Ländernamen erforderlich"
+        "error": "Ländernamen eingeben"
       },
       "code": {
-        "label": "Ländercode",
-        "placeholder": "2-stelligen Ländercode eingeben (z. B. DE)",
-        "error": "Ländercode erforderlich",
+        "label": "Ländercode (ISO Alpha-2)",
+        "placeholder": "2-stelligen Ländercode eingeben (z. B. US)",
+        "error": "Ländercode ist erforderlich",
         "invalid": "Code muss aus 2 Buchstaben bestehen (ISO Alpha-2)"
       },
       "currency": {
-        "label": "Währung",
-        "placeholder": "3-stelligen Währungscode eingeben (z. B. EUR)",
-        "error": "Währung erforderlich",
+        "label": "Währung (ISO 4217)",
+        "placeholder": "3-stelligen Währungscode eingeben (z. B. USD)",
+        "error": "Währung ist erforderlich",
         "invalid": "Währung muss aus 3 Buchstaben bestehen (ISO 4217)"
       },
       "button": {
         "cancel": "Abbrechen",
         "update": "Aktualisieren",
-        "updating": "Wird aktualisiert..."
+        "updating": "Wird aktualisiert"
       }
     },
     "success": "Land erfolgreich aktualisiert",
-    "error": "Land kann nicht aktualisiert werden, bitte versuchen Sie es später erneut"
+    "error": "Land konnte nicht aktualisiert werden, bitte später erneut versuchen"
   },
   "pagination": {
     "page": "Seite {page} von {totalPages}",
-    "prev": "Vorherige",
-    "next": "Nächste"
+    "prev": "Zurück",
+    "next": "Weiter"
   }
 }
