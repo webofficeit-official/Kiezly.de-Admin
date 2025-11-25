@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { InputField } from "../ui/InputField/InputField";
 import { Zipcode, UpdateZipcodePayload } from "@/lib/types/postal-codes-type";
 import { useAddZipcode, useUpdateZipcode } from "@/lib/react-query/queries/postal-codes/postal-codes";
-import { useFilteredCountries } from "@/lib/react-query/queries/countries/countries";
+import { useCountriesCollection } from "@/lib/react-query/queries/countries/countries";
 
 type CountryOption = { id: number; name: string; code: string };
 
@@ -234,7 +234,7 @@ export default function PostalCodeUpsertModal({ isOpen, setIsOpen, t, DataItem }
     [q]
   );
 
-  const { data: countryData, isLoading: countryLoading } = useFilteredCountries(countryFilters);
+  const { data: countryData, isLoading: countryLoading } = useCountriesCollection(countryFilters);
 
   const countryArray: any[] = useMemo(() => {
     const d: any = countryData;
@@ -244,6 +244,7 @@ export default function PostalCodeUpsertModal({ isOpen, setIsOpen, t, DataItem }
     if (Array.isArray(d.data)) return d.data;
     const dd = d.data;
     if (dd) {
+      if (Array.isArray(dd.countries)) return dd.countries;
       if (Array.isArray(dd.items)) return dd.items;
       if (Array.isArray(dd.data)) return dd.data;
       if (Array.isArray(dd.results)) return dd.results;
