@@ -20,6 +20,7 @@ export type FilteredCountries = {
 }
 
 export type FilteredCountriesResponse = { success: boolean; message: string, data: FilteredCountries };
+export type CountriesCollectionResponse = { success: boolean; message: string, data: { countries: Country[] } };
 export type CountriesResponse = { success: boolean; message: string, data: Country };
 
 export type FilterCountriesData = {
