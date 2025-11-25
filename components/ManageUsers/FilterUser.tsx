@@ -98,6 +98,12 @@ const FilterUser = () => {
     };
   }, [page, filter]);
 
+  const clearFilter = () => {
+  setFilter(defaultFilter);      
+  setFilterDraft(defaultFilter); 
+  setPage(1);   
+  }                 
+
   return (
     <>
       <div className="relative flex flex-col w-full h-full text-slate-700 bg-white shadow-md rounded-xl bg-clip-border mt-10  ">
@@ -110,6 +116,7 @@ const FilterUser = () => {
             setInviteAdminModelOpen={setInviteAdminModelOpen}
             inviteAdminModelOpen={inviteAdminModelOpen}
             t={t}
+            onClearFilter={clearFilter}
           />
         )}
 

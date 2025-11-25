@@ -21,15 +21,8 @@ export type FilterOption = {
   sort?: "new" | "oldest" | "name_asc" | "name_desc";
 };
 
-const FilterJob = () => {
-  const t = useT("jobs");
-
-  const [jobs, setJobs] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalItems, setTotalItems] = useState(null);
-  const [totalPages, setTotalPages] = useState(null);
-  const [filter, setFilter] = useState({
-    q: "",
+const defaultFilter = {
+ q: "",
     location: "",
     categories: [],
     client: null,
@@ -44,8 +37,18 @@ const FilterJob = () => {
     status: null,
     sort: null,
     pageSize: 10,
-  });
-  const [appliedFilter, setAppliedFilter] = useState(filter);
+};
+
+
+const FilterJob = () => {
+  const t = useT("jobs");
+
+  const [jobs, setJobs] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(null);
+  const [totalPages, setTotalPages] = useState(null);
+  const [filter, setFilter] = useState(defaultFilter);
+  const [appliedFilter, setAppliedFilter] = useState(defaultFilter);
 
   const [inviteAdminModelOpen, setInviteAdminModelOpen] = useState(false);
 
@@ -114,6 +117,12 @@ const FilterJob = () => {
     setPage(1); // always reset page
   };
 
+  const clearFilter = () => {
+  setFilter(defaultFilter);         // reset draft filter
+  setAppliedFilter(defaultFilter);  // trigger API with empty filter
+  setPage(1);                       // reset pagination
+};
+
   return (
     <>
       <div className="relative flex flex-col w-full h-full text-slate-700 bg-white shadow-md rounded-xl bg-clip-border mt-10  ">
@@ -126,6 +135,7 @@ const FilterJob = () => {
             setInviteAdminModelOpen={setInviteAdminModelOpen}
             inviteAdminModelOpen={inviteAdminModelOpen}
             t={t}
+            onClearFilter={clearFilter} 
           />
         )}
 
