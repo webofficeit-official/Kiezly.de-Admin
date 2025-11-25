@@ -54,7 +54,8 @@
             },
             "button": {
                 "cancel": "Stornieren",
-                "filter": "Filter"
+                "filter": "Filter",
+                "clear":"Filter löschen"
             }
         }
     },

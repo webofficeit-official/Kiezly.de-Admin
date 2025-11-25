@@ -12,6 +12,16 @@ import TableSkeleton from "../ui/skeleton/TableSkeleton";
 import Pagination from "../ui/pagination/pagination";
 const MIN_LOADING_MS = 350;
 
+const defaultFilter = {
+  q: "",
+  location: "",
+  firstAid: null,
+  policeVerified: null,
+  role: "",
+  sort: "",
+  pageSize: 10,
+};
+
 export type FilterOption = {
   name?: string;
   location?: string;
@@ -28,20 +38,19 @@ const FilterUser = () => {
   const [page, setPage] = useState(1);
   const [totalItems, setTotalItems] = useState(null);
   const [totalPages, setTotalPages] = useState(null);
-  const [filter, setFilter] = useState({
-    q: "",
-    location: "",
-    firstAid: null,
-    policeVerified: null,
-    role: "",
-    sort: "",
-    pageSize: 10,
-  });
+  const [filter, setFilter] = useState(defaultFilter);
+  const [filterDraft, setFilterDraft] = useState(defaultFilter);
 
   const [inviteAdminModelOpen, setInviteAdminModelOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const filterUsers = useFilterUsers();
+
+  useEffect(() => {
+    if (inviteAdminModelOpen) {
+      setFilterDraft(filter);
+    }
+  }, [inviteAdminModelOpen]);
 
   useEffect(() => {
     let mounted = true;
@@ -67,11 +76,7 @@ const FilterUser = () => {
           setTimeout(() => {
             if (!mounted) return;
             setUsers(data?.data?.items);
-            setPage(data?.data?.page);
-            setFilter({
-              ...filter,
-              pageSize: data?.data?.page_size,
-            });
+            setPage(data?.data?.page);          
             setTotalItems(data?.data?.total_items);
             setTotalPages(data?.data?.total_pages);
             setLoading(false);
@@ -91,7 +96,13 @@ const FilterUser = () => {
     return () => {
       mounted = false;
     };
-  }, [page, inviteAdminModelOpen]);
+  }, [page, filter]);
+
+  const clearFilter = () => {
+  setFilter(defaultFilter);      
+  setFilterDraft(defaultFilter); 
+  setPage(1);   
+  }                 
 
   return (
     <>
@@ -105,6 +116,7 @@ const FilterUser = () => {
             setInviteAdminModelOpen={setInviteAdminModelOpen}
             inviteAdminModelOpen={inviteAdminModelOpen}
             t={t}
+            onClearFilter={clearFilter}
           />
         )}
 
@@ -141,8 +153,12 @@ const FilterUser = () => {
         isOpen={inviteAdminModelOpen}
         setIsOpen={setInviteAdminModelOpen}
         t={t}
-        filter={filter}
-        setFilter={setFilter}
+        filter={filterDraft}
+        setFilter={setFilterDraft}
+        applyFilter={() => {
+          setFilter(filterDraft); 
+          setPage(1); 
+        }}
       />
     </>
   );

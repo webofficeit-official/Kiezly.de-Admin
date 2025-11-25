@@ -11,6 +11,14 @@ import ReportHeader from "./Report/ReportHeader";
 import ReportFilterModel from "./Report/ReportFilterModel";
 import Pagination from "../ui/pagination/pagination";
 const MIN_LOADING_MS = 350;
+const defaultFilter = {
+    job_ids: "",
+    user_ids: "",
+    status: "pending",
+    sort: "asc",
+    pageSize: 10,
+  }
+
 
 const ReportedJobs = () => {
   const t = useT("reported-jobs");
@@ -19,18 +27,18 @@ const ReportedJobs = () => {
   const [page, setPage] = useState(1);
   const [totalItems, setTotalItems] = useState(null);
   const [totalPages, setTotalPages] = useState(null);
-  const [filter, setFilter] = useState({
-    job_ids: "",
-    user_ids: "",
-    status: "pending",
-    sort: "asc",
-    pageSize: 10,
-  });
+  const [filter, setFilter] = useState(defaultFilter);
+  const [appliedFilter, setAppliedFilter] = useState(defaultFilter);
 
   const [inviteAdminModelOpen, setInviteAdminModelOpen] = useState(false);
 
   const filterJobReports = useFilterJobReports();
   const [loading, setLoading] = useState(false);
+
+  const applyFilter = () => {
+    setAppliedFilter({ ...filter });
+    setPage(1); 
+  };
 
   useEffect(() => {
     let mounted = true;
@@ -77,7 +85,13 @@ const ReportedJobs = () => {
     return () => {
       mounted = false;
     };
-  }, [page, inviteAdminModelOpen]);
+  }, [page, appliedFilter]);
+
+  const clearFilter = () => {
+  setFilter(defaultFilter);
+  setAppliedFilter(defaultFilter);
+  setPage(1);
+};
 
   return (
     <>
@@ -91,6 +105,7 @@ const ReportedJobs = () => {
             setInviteAdminModelOpen={setInviteAdminModelOpen}
             inviteAdminModelOpen={inviteAdminModelOpen}
             t={t}
+            onClearFilter={clearFilter}
           />
         )}
 
@@ -127,7 +142,8 @@ const ReportedJobs = () => {
         setIsOpen={setInviteAdminModelOpen}
         t={t}
         filter={filter}
-        setFilter={setFilter}
+         setFilter={setFilter}
+        applyFilter={applyFilter}
       />
     </>
   );
