@@ -149,8 +149,8 @@ const FilterUser = () => {
         filter={filterDraft}
         setFilter={setFilterDraft}
         applyFilter={() => {
-          setFilter(filterDraft); // APPLY REAL FILTER
-          setPage(1); // RESET PAGE
+          setFilter(filterDraft); 
+          setPage(1); 
         }}
       />
     </>

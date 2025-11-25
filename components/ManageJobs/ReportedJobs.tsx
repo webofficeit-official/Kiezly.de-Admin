@@ -26,11 +26,17 @@ const ReportedJobs = () => {
     sort: "asc",
     pageSize: 10,
   });
+  const [appliedFilter, setAppliedFilter] = useState(filter);
 
   const [inviteAdminModelOpen, setInviteAdminModelOpen] = useState(false);
 
   const filterJobReports = useFilterJobReports();
   const [loading, setLoading] = useState(false);
+
+  const applyFilter = () => {
+    setAppliedFilter({ ...filter });
+    setPage(1); 
+  };
 
   useEffect(() => {
     let mounted = true;
@@ -77,7 +83,7 @@ const ReportedJobs = () => {
     return () => {
       mounted = false;
     };
-  }, [page, inviteAdminModelOpen]);
+  }, [page, appliedFilter]);
 
   return (
     <>
@@ -127,7 +133,8 @@ const ReportedJobs = () => {
         setIsOpen={setInviteAdminModelOpen}
         t={t}
         filter={filter}
-        setFilter={setFilter}
+         setFilter={setFilter}
+        applyFilter={applyFilter}
       />
     </>
   );

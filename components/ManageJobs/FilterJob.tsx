@@ -45,6 +45,7 @@ const FilterJob = () => {
     sort: null,
     pageSize: 10,
   });
+  const [appliedFilter, setAppliedFilter] = useState(filter);
 
   const [inviteAdminModelOpen, setInviteAdminModelOpen] = useState(false);
 
@@ -106,7 +107,12 @@ const FilterJob = () => {
     return () => {
       mounted = false;
     };
-  }, [page, inviteAdminModelOpen]);
+  }, [page, appliedFilter]);
+
+  const applyFilter = () => {
+    setAppliedFilter({ ...filter });
+    setPage(1); // always reset page
+  };
 
   return (
     <>
@@ -157,6 +163,7 @@ const FilterJob = () => {
         t={t}
         filter={filter}
         setFilter={setFilter}
+        applyFilter={applyFilter}
       />
     </>
   );
