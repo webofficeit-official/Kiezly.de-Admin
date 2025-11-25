@@ -1,13 +1,13 @@
 "use client";
 
+import { useT } from "@/app/[locale]/layout";
+import { useAddCategories, useGenerateCategorySlug, useUpdateCategory } from "@/lib/react-query/queries/categories/categories";
+import { JobCategoriesData } from "@/lib/types/job-categories";
+import { Localization } from "@/lib/types/localization-type";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import toast from "react-hot-toast";
 import { InputField } from "../ui/InputField/InputField";
-import { useAddCategories, useGenerateCategorySlug, useUpdateCategory } from "@/lib/react-query/queries/categories/categories";
-import { JobCategories, JobCategoriesData } from "@/lib/types/job-categories";
-import { Localization } from "@/lib/types/localization-type";
-import { useT } from "@/app/[locale]/layout";
 
 type Props = {
   localization: Localization[]

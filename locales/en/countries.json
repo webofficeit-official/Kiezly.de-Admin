@@ -4,7 +4,11 @@
     "table": {
       "sl": "Sl No",
       "code": "Code",
-      "name": "Name",
+      "name": {
+        "en": "Name in English",
+        "de": "Name in German",
+        "ml": "Name in Malayalam"
+      },
       "currency": "Currency",
       "actions": "Actions"
     },
@@ -25,9 +29,9 @@
     "description": "Add a new country to the system",
     "form": {
       "name": {
-        "label": "Country Name",
-        "placeholder": "Enter country name",
-        "error": "Country name is required"
+        "label": "Country Name ({code})",
+        "placeholder": "Enter country name in {code}",
+        "error": "Country name in {code} required"
       },
       "code": {
         "label": "Country Code",

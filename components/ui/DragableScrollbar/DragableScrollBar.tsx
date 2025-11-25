@@ -3,8 +3,8 @@
 import React, { useEffect, useRef } from "react";
 
 type Props = React.PropsWithChildren<{
-  className?: string;           // extra Tailwind classes for the wrapper
-  horizontalOnly?: boolean;     // true if you want only horizontal dragging
+  className?: string;
+  horizontalOnly?: boolean;
 }>;
 
 export default function DraggableScroll({
@@ -13,109 +13,67 @@ export default function DraggableScroll({
   horizontalOnly = true,
 }: Props) {
   const ref = useRef<HTMLDivElement | null>(null);
-  const stateRef = useRef({
-    isDown: false,
-    startX: 0,
-    startY: 0,
-    scrollLeft: 0,
-    scrollTop: 0,
-    preventClick: false,
-    pointerId: -1,
+
+  const pos = useRef({
+    left: 0,
+    top: 0,
+    x: 0,
+    y: 0,
+    isDragging: false,
   });
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    // Ensure touch momentum on iOS & allow vertical page scrolling if horizontalOnly
-(el.style as any).webkitOverflowScrolling = "touch";
+    const mouseDown = (e: MouseEvent) => {
+      if (e.button !== 0) return;
 
-    // touchAction must be set inline (Tailwind doesn't include this by default)
-    el.style.touchAction = horizontalOnly ? "pan-y" : "auto";
+      pos.current.left = el.scrollLeft;
+      pos.current.top = el.scrollTop;
+      pos.current.x = e.clientX;
+      pos.current.y = e.clientY;
+      pos.current.isDragging = false;
 
-    const onPointerDown = (ev: PointerEvent) => {
-      // ignore non-primary buttons
-      if ((ev as any).button && (ev as any).button !== 0) return;
+      el.classList.add("cursor-grabbing");
 
-      // don't start drag if target is interactive
-      const interactive = (ev.target as HTMLElement).closest(
-        "a,button,input,select,textarea,summary,[role='button']"
-      );
-      if (interactive) return;
-
-      // capture pointer so we receive subsequent events
-      try { el.setPointerCapture(ev.pointerId); } catch {}
-
-      stateRef.current.isDown = true;
-      stateRef.current.pointerId = ev.pointerId;
-      stateRef.current.startX = ev.clientX;
-      stateRef.current.startY = ev.clientY;
-      stateRef.current.scrollLeft = el.scrollLeft;
-      stateRef.current.scrollTop = el.scrollTop;
-      stateRef.current.preventClick = false;
-
-      // add visual classes (Tailwind) to indicate dragging
-      el.classList.add("cursor-grabbing", "select-none");
-      // optionally set grab cursor when pressing:
-      el.classList.remove("cursor-grab");
+      document.addEventListener("mousemove", mouseMove);
+      document.addEventListener("mouseup", mouseUp);
     };
 
-    const onPointerMove = (ev: PointerEvent) => {
-      if (!stateRef.current.isDown) return;
-      // small deadzone to allow clicks
-      const dx = ev.clientX - stateRef.current.startX;
-      const dy = ev.clientY - stateRef.current.startY;
-      if (Math.abs(dx) < 3 && Math.abs(dy) < 3) return;
+    const mouseMove = (e: MouseEvent) => {
+      const dx = e.clientX - pos.current.x;
+      const dy = e.clientY - pos.current.y;
 
-      stateRef.current.preventClick = true;
+      // detect dragging
+      if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
+        pos.current.isDragging = true;
+        (window as any).__isDragging = true;
+      }
 
       if (horizontalOnly) {
-        el.scrollLeft = stateRef.current.scrollLeft - dx;
+        el.scrollLeft = pos.current.left - dx;
       } else {
-        el.scrollLeft = stateRef.current.scrollLeft - dx;
-        el.scrollTop = stateRef.current.scrollTop - dy;
+        el.scrollLeft = pos.current.left - dx;
+        el.scrollTop = pos.current.top - dy;
       }
     };
 
-    const onPointerUp = (ev: PointerEvent) => {
-      if (!stateRef.current.isDown) return;
-      stateRef.current.isDown = false;
-      try { el.releasePointerCapture(stateRef.current.pointerId); } catch {}
-      stateRef.current.pointerId = -1;
+    const mouseUp = () => {
+      el.classList.remove("cursor-grabbing");
 
-      // restore classes
-      el.classList.remove("cursor-grabbing", "select-none");
-      el.classList.add("cursor-grab");
+      setTimeout(() => {
+        (window as any).__isDragging = false;
+      }, 50);
 
-      // brief timeout to prevent click events after drag
-      setTimeout(() => (stateRef.current.preventClick = false), 0);
+      document.removeEventListener("mousemove", mouseMove);
+      document.removeEventListener("mouseup", mouseUp);
     };
 
-    const onClickCapture = (ev: MouseEvent) => {
-      if (stateRef.current.preventClick) {
-        ev.stopImmediatePropagation();
-        ev.preventDefault();
-      }
-    };
-
-    // set initial cursor hint
-    el.classList.add("cursor-grab");
-
-    el.addEventListener("pointerdown", onPointerDown);
-    window.addEventListener("pointermove", onPointerMove);
-    window.addEventListener("pointerup", onPointerUp);
-    el.addEventListener("click", onClickCapture, true);
+    el.addEventListener("mousedown", mouseDown);
 
     return () => {
-      el.removeEventListener("pointerdown", onPointerDown);
-      window.removeEventListener("pointermove", onPointerMove);
-      window.removeEventListener("pointerup", onPointerUp);
-      el.removeEventListener("click", onClickCapture, true);
-
-      // cleanup classes
-      el.classList.remove("cursor-grab", "cursor-grabbing", "select-none");
-      el.style.touchAction = "";
-      (el.style as any).webkitOverflowScrolling = "";
+      el.removeEventListener("mousedown", mouseDown);
     };
   }, [horizontalOnly]);
 
@@ -123,9 +81,7 @@ export default function DraggableScroll({
     <div
       ref={ref}
       className={`overflow-auto ${className}`}
-      tabIndex={0}
-      role="region"
-      aria-label="draggable scroll region"
+      style={{ cursor: "grab" }}
     >
       {children}
     </div>

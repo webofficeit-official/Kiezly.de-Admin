@@ -3,12 +3,14 @@ import Tooltip from "../ui/ToolTip/ToolTip";
 import { useMemo } from "react";
 import { Country } from "@/lib/types/country-type";
 import DraggableScroll from "../ui/DragableScrollbar/DragableScrollBar";
+import { Localization } from "@/lib/types/localization-type";
+import { useT } from "@/app/[locale]/layout";
 
 type Sort = "id_desc" | "name_asc" | "name_desc";
 
 type Props = {
+  localization: Localization[];
   dataList: Country[];
-  t: (k: string, vars?: any) => string;
   page: number;
   pageSize: number;
   loading?: boolean;
@@ -19,15 +21,16 @@ type Props = {
 
 const CountriesTable = ({
   dataList = [],
-  t,
   page,
   pageSize,
   loading = false,
   onEdit,
   sort = "id_desc",
   onSortChange,
+  localization = [],
 }: Props) => {
   const isEmpty = !loading && dataList.length === 0;
+  const t = useT("countries");
 
   const nameSortIcon = useMemo(() => {
     if (sort === "name_asc") return <ArrowUp className="w-4 h-4" />;
@@ -42,16 +45,19 @@ const CountriesTable = ({
     else onSortChange("id_desc");
   };
 
-
   function asString(value: any, preferredLocale = "en"): string {
     if (value == null) return "";
-    if (typeof value === "string" || typeof value === "number") return String(value);
+    if (typeof value === "string" || typeof value === "number")
+      return String(value);
 
     if (typeof value === "object") {
-      if (preferredLocale && typeof (value as any)[preferredLocale] === "string") {
+      if (
+        preferredLocale &&
+        typeof (value as any)[preferredLocale] === "string"
+      ) {
         return (value as any)[preferredLocale];
       }
-  
+
       for (const k of Object.keys(value)) {
         if (typeof (value as any)[k] === "string") return (value as any)[k];
       }
@@ -60,7 +66,7 @@ const CountriesTable = ({
   }
 
   return (
-   <DraggableScroll className="p-0" horizontalOnly={true}>
+    <DraggableScroll className="p-0" horizontalOnly={true}>
       <table className="w-full mt-4 text-left table-auto min-w-[560px] md:min-w-0 border-collapse">
         <thead className="bg-slate-50 sticky top-0 z-10">
           <tr className="whitespace-nowrap">
@@ -72,15 +78,20 @@ const CountriesTable = ({
               {t("list.table.code")}
             </th>
 
-            <th
-              className="border-y border-slate-200 px-4 py-3 text-sm font-medium text-slate-500 cursor-pointer select-none"
-              onClick={toggleSort}
-            >
-              <div className="flex items-center justify-between w-full">
-                <span>{t("list.table.name")}</span>
-                {nameSortIcon}
-              </div>
-            </th>
+            {localization.map((l) => {
+              return (
+                <th
+                  key={l.id}
+                  className="border-y border-slate-200 px-4 py-3 text-sm font-medium text-slate-500 cursor-pointer select-none"
+                  onClick={toggleSort}
+                >
+                  <div className="flex items-center justify-between w-full">
+                    <span>{t(`list.table.name.${l.code}`)}</span>
+                    {nameSortIcon}
+                  </div>
+                </th>
+              );
+            })}
 
             <th className="border-y border-slate-200 px-4 py-3 text-sm font-medium text-slate-500 text-center w-32">
               {t("list.table.currency")}
@@ -103,9 +114,16 @@ const CountriesTable = ({
                 <td className="border-b border-slate-200 px-4 py-3">
                   <div className="h-3 w-85 animate-pulse rounded bg-slate-200" />
                 </td>
-                <td className="border-b border-slate-200 px-4 py-3">
-                  <div className="h-3 w-85 animate-pulse rounded bg-slate-200" />
-                </td>
+                {localization.map((l) => {
+                  return (
+                    <td
+                      key={l.id}
+                      className="border-b border-slate-200 px-4 py-3"
+                    >
+                      <div className="h-3 w-40 animate-pulse rounded bg-slate-200" />
+                    </td>
+                  );
+                })}
                 <td className="border-b border-slate-200 px-4 py-3">
                   <div className="h-3 w-85 animate-pulse rounded bg-slate-200" />
                 </td>
@@ -118,7 +136,10 @@ const CountriesTable = ({
           {/* Empty State */}
           {!loading && isEmpty && (
             <tr>
-              <td colSpan={5} className="py-10 text-center text-sm text-slate-500">
+              <td
+                colSpan={5}
+                className="py-10 text-center text-sm text-slate-500"
+              >
                 {t("list.empty")}
               </td>
             </tr>
@@ -128,21 +149,37 @@ const CountriesTable = ({
           {!loading &&
             !isEmpty &&
             dataList.map((u: Country, i) => (
-              <tr key={`${u.id}-${i}`} className="cursor-pointer whitespace-nowrap transition">
+              <tr
+                key={`${u.id}-${i}`}
+                className="cursor-pointer whitespace-nowrap transition"
+              >
                 <td className="border-b border-slate-200 px-4 py-4 text-center">
                   {i + (page - 1) * pageSize + 1}
                 </td>
 
                 <td className="border-b border-slate-200 px-4 py-4">
-                  <p className="text-sm font-semibold text-slate-700">{asString(u.code)}</p>
+                  <p className="text-sm font-semibold text-slate-700">
+                    {asString(u.code)}
+                  </p>
                 </td>
 
-                <td className="border-b border-slate-200 px-4 py-4">
-                  <p className="text-sm font-semibold text-slate-700">{asString(u.name)}</p>
-                </td>
+                {localization.map((l) => {
+                  return (
+                    <td
+                      key={l.id}
+                      className="border-b border-slate-200 px-4 py-4"
+                    >
+                      <p className="text-sm font-semibold text-slate-700">
+                        {u.name[l.code]}
+                      </p>
+                    </td>
+                  );
+                })}
 
                 <td className="border-b border-slate-200 px-4 py-4">
-                  <p className="text-sm font-semibold text-slate-700">{asString(u.currency)}</p>
+                  <p className="text-sm font-semibold text-slate-700">
+                    {asString(u.currency)}
+                  </p>
                 </td>
 
                 <td className="border-b border-slate-200 px-4 py-4 text-center">

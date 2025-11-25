@@ -41,7 +41,7 @@ export function useUpdateCountry() {
   return useMutation<any, Error, UpdateCountryPayload>({
     mutationFn: async ({ id, name, code, currency }) => {
       const body = compact({
-        name: typeof name === "string" ? name.trim() : undefined,
+        name:name, 
         code: typeof code === "string" ? code.trim().toUpperCase() : undefined,
         currency: typeof currency === "string" ? currency.trim().toUpperCase() : undefined,
       });
