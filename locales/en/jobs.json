@@ -181,8 +181,11 @@
     "approve": {
         "success": {
             "published": "Job has been published",
-            "rejected": "Job has been rejected"
+            "rejected": "Job has been rejected",
+            "open":"The job has been approved successfully"
+            
         },
-        "error": "Something went wrong"
+        "error": "Something went wrong",
+        "failed":"Failed to update status."
     }
 }
