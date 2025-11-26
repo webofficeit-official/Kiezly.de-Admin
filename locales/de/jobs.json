@@ -181,8 +181,10 @@
     "approve": {
         "success": {
             "published": "Job wurde veröffentlicht",
-            "rejected": "Job wurde abgelehnt"
+            "rejected": "Job wurde abgelehnt",
+            "open":"Der Auftrag wurde erfolgreich freigegeben."
         },
-        "error": "Etwas ist schief gelaufen"
+        "error": "Etwas ist schief gelaufen",
+        "failed": "Status konnte nicht aktualisiert werden."
     }
 }
