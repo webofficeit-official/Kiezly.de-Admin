@@ -1,7 +1,16 @@
+import { getCookie } from "cookies-next";
+
 export const LOCALES = ["en", "de"] as const;
 export type Locale = (typeof LOCALES)[number];
 export const DEFAULT_LOCALE: Locale = "de";
 
+export const getCurrentLocale = (): Locale => {
+  const cookieLocale = getCookie("NEXT_LOCALE");
+
+  return LOCALES.includes(cookieLocale as Locale)
+    ? (cookieLocale as Locale)
+    : DEFAULT_LOCALE;
+};
 
 export function getLocaleFromPath(pathname?: string, fallback: Locale = DEFAULT_LOCALE): Locale {
   if (!pathname) return fallback;

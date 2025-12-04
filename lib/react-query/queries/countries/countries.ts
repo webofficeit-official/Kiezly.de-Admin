@@ -1,5 +1,5 @@
 import apiClient from "@/lib/config/axios-client";
-import { CountriesResponse, Country, CountryData, FilterCountriesData, FilteredCountriesResponse, UpdateCountryPayload } from "@/lib/types/country-type";
+import { CountriesCollectionResponse, CountriesResponse, Country, CountryData, FilterCountriesData, FilteredCountriesResponse, UpdateCountryPayload } from "@/lib/types/country-type";
 import { useMutation, UseMutationResult, useQuery, useQueryClient } from "@tanstack/react-query";
 
 
@@ -9,6 +9,16 @@ export const useFilteredCountries = (filters: FilterCountriesData) =>
     queryFn: async () => {
       const res = await apiClient.get("/countries", { params: filters });
       return res.data as FilteredCountriesResponse;
+    },
+  });
+
+
+export const useCountriesCollection = (filters: FilterCountriesData) =>
+  useQuery({
+    queryKey: ["countries", filters],
+    queryFn: async () => {
+      const res = await apiClient.get("/collection/countries", { params: filters });
+      return res.data as CountriesCollectionResponse;
     },
   });
 
@@ -41,7 +51,7 @@ export function useUpdateCountry() {
   return useMutation<any, Error, UpdateCountryPayload>({
     mutationFn: async ({ id, name, code, currency }) => {
       const body = compact({
-        name: typeof name === "string" ? name.trim() : undefined,
+        name:name, 
         code: typeof code === "string" ? code.trim().toUpperCase() : undefined,
         currency: typeof currency === "string" ? currency.trim().toUpperCase() : undefined,
       });

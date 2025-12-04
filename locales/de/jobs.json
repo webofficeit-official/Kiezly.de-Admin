@@ -11,7 +11,8 @@
             "location": "Standort",
             "type-experience": "Job type & experience",
             "date": "Beginn- und Enddatum",
-            "external_link": "Externer Link"
+            "external_link": "Externer Link",
+            "status":"Status"
         },
         "empty": "Keine Jobs verfügbar"
     },
@@ -104,7 +105,8 @@
             },
             "button": {
                 "cancel": "Stornieren",
-                "filter": "Filter"
+                "filter": "Filter",
+                  "clear":"Filter löschen"
             }
         }
     },
@@ -179,8 +181,10 @@
     "approve": {
         "success": {
             "published": "Job wurde veröffentlicht",
-            "rejected": "Job wurde abgelehnt"
+            "rejected": "Job wurde abgelehnt",
+            "open":"Der Auftrag wurde erfolgreich freigegeben."
         },
-        "error": "Etwas ist schief gelaufen"
+        "error": "Etwas ist schief gelaufen",
+        "failed": "Status konnte nicht aktualisiert werden."
     }
 }

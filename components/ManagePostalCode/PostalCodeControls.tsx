@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Listbox, Portal, Transition } from "@headlessui/react";
 import { Search, X, ChevronDown, Check } from "lucide-react";
-import { useFilteredCountries } from "@/lib/react-query/queries/countries/countries";
+import { useCountriesCollection } from "@/lib/react-query/queries/countries/countries";
 
 const PAGE_SIZE_OPTIONS = [10, 20, 50, 100];
 
@@ -109,7 +109,7 @@ export default function PostalCodeControls({
     [debouncedQ]
   );
 
-  const { data: countryData, isLoading: countryLoading } = useFilteredCountries(filters);
+  const { data: countryData, isLoading: countryLoading } = useCountriesCollection(filters);
 
   // Robustly normalize your API shapes:
   // - { items: [] }               (direct)
@@ -119,6 +119,7 @@ export default function PostalCodeControls({
     const d: any = countryData;
     let arr: any[] = [];
     if (Array.isArray(d?.data?.items)) arr = d.data.items;
+    else if (Array.isArray(d?.data?.countries)) arr = d.data?.countries;
     else if (Array.isArray(d?.items)) arr = d.items;
     else if (Array.isArray(d?.data)) arr = d.data;
     return arr

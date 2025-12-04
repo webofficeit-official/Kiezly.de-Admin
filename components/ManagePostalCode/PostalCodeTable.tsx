@@ -2,6 +2,7 @@ import { Edit, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 import Tooltip from "../ui/ToolTip/ToolTip";
 import { useMemo } from "react";
 import { Zipcode } from "@/lib/types/postal-codes-type";
+import DraggableScroll from "../ui/DragableScrollbar/DragableScrollBar";
 
 type Sort = "id_desc" | "name_asc" | "name_desc";
 
@@ -43,7 +44,7 @@ const PostalCodeTable = ({
   };
 
   return (
-    <div className="p-0 overflow-x-auto md:overflow-x-visible">
+   <DraggableScroll className="p-0" horizontalOnly={true}>
       <table className="w-full mt-4 text-left table-auto min-w-[900px] md:min-w-0 border-collapse">
         <thead className="bg-slate-50 sticky top-0 z-10">
           <tr className="whitespace-nowrap">
@@ -182,7 +183,7 @@ const PostalCodeTable = ({
             ))}
         </tbody>
       </table>
-    </div>
+    </DraggableScroll>
   );
 };
 

@@ -129,7 +129,7 @@ export default function JobExperienceUpsertModal({
       );
     } else {
       addData.mutate(
-        { name }, // ✅ only name
+        { name }, 
         {
           onSuccess: () => {
             toast.success(t("create.success"));

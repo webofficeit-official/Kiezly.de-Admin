@@ -5,6 +5,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { useDeleteAdmin, useUpdateAdminStatus } from "@/lib/react-query/queries/admins/admins";
 import toast from "react-hot-toast";
 import DeleteButton from "../ui/DeleteButton";
+import DraggableScroll from "../ui/DragableScrollbar/DragableScrollBar";
 dayjs.extend(relativeTime);
 
 const AdminTable = ({ admins, t, setAdmins }) => {
@@ -50,7 +51,7 @@ const AdminTable = ({ admins, t, setAdmins }) => {
     }
 
     return (
-        <div className="p-0 overflow-scroll">
+        <DraggableScroll className="p-0" horizontalOnly={true}>
             <table className="w-full mt-4 text-left table-auto min-w-max">
                 <thead>
                     <tr>
@@ -185,9 +186,10 @@ const AdminTable = ({ admins, t, setAdmins }) => {
                                         {dayjs(a?.created_at).format("MMM D, YYYY")}
                                     </p>
                                 </td>
-                                <td className="p-4 border-b border-slate-200 flex                                                                                               ">
+                                <td className="p-4 border-b border-slate-200">
+                                    <div className="flex">
                                     {
-                                        (!a.super && !a.deleted) && <>
+                                        (!a.super && !a.deleted) ? <>
                                             <button
                                                 className="relative p-2 max-h-[40px] max-w-[40px] items-center select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-slate-900 transition-all hover:bg-slate-900/10 active:bg-slate-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                                 type="button"
@@ -199,15 +201,17 @@ const AdminTable = ({ admins, t, setAdmins }) => {
                                                 }
                                             </button>
                                             <DeleteButton onConfirm={() => handleDelete(a.id)} t={t} />
+                                        </> : <>
                                         </>
                                     }
+                                    </div>
                                 </td>
                             </tr>
                         ))
                     }
                 </tbody>
             </table>
-        </div>
+        </DraggableScroll>
     )
 }
 

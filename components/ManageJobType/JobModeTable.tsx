@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { Localization } from "@/lib/types/localization-type";
 import { useT } from "@/app/[locale]/layout";
 import { JobModeData } from "@/lib/types/job-mode-type";
+import DraggableScroll from "../ui/DragableScrollbar/DragableScrollBar";
 
 type Sort = "id_desc" | "name_asc" | "name_desc";
 
@@ -47,7 +48,8 @@ const JobModeTable = ({
     else onSortChange("id_desc");
   };
   return (
-    <div className="p-0 overflow-x-auto md:overflow-x-visible">
+     <DraggableScroll className="p-0" horizontalOnly={true}>
+      
       <table className="w-full mt-4 text-left table-auto min-w-[560px] md:min-w-0 border-collapse">
         <thead className="bg-slate-50 sticky top-0 z-10">
           <tr className="whitespace-nowrap">
@@ -87,7 +89,7 @@ const JobModeTable = ({
                 {
                   localization.map(l => {
                     return (
-                      <td className="border-b border-slate-200 px-4 py-3">
+                      <td key={l.id} className="border-b border-slate-200 px-4 py-3">
                         <div className="h-3 w-40 animate-pulse rounded bg-slate-200" />
                       </td>
                     )
@@ -151,7 +153,7 @@ const JobModeTable = ({
             ))}
         </tbody>
       </table>
-    </div>
+    </DraggableScroll>
   );
 };
 

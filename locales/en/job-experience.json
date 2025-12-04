@@ -18,6 +18,10 @@
           "per_page": "Per page",
           "items": "Items"
      },
+     "common": {
+          "clear": "Clear search",
+          "edit": "Edit"
+     },
      "create": {
           "title": "Add Job Experience",
           "description": "Add a new Job Experience to organize jobs",

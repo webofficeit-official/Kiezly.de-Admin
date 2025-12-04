@@ -19,7 +19,7 @@
         "per_page": "pro Seite",
         "items": "Elemente"
     },
-    "common":{"generating":"Wird generiert...","clear":"Suche löschen"},
+    "common":{"generating":"Wird generiert...","clear":"Suche löschen",  "edit": "Bearbeiten"},
     "create": {
         "title": "Kategorie hinzufügen",
         "description": "Fügen Sie eine neue Kategorie hinzu, um Jobs zu organisieren",

@@ -1,13 +1,13 @@
 export type Country = {
     id: Number;
     code?: String;
-    name?: String;
+    name?:  Record<string, string>;
     currency?: String;
 }
 
 export type CountryData = {
     code?: String;
-    name?: String;
+    name?: Record<string, string>;
     currency?: String;
 }
 
@@ -20,6 +20,7 @@ export type FilteredCountries = {
 }
 
 export type FilteredCountriesResponse = { success: boolean; message: string, data: FilteredCountries };
+export type CountriesCollectionResponse = { success: boolean; message: string, data: { countries: Country[] } };
 export type CountriesResponse = { success: boolean; message: string, data: Country };
 
 export type FilterCountriesData = {
@@ -31,7 +32,7 @@ export type FilterCountriesData = {
 
 export type UpdateCountryPayload = {
   id: string | number;
-  name?: string;
+  name?: Record<string, string>;
   code?: string;
   currency?: string;
 };

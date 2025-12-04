@@ -11,7 +11,8 @@
             "location": "Location",
             "type-experience": "Job type & experience",
             "date": "Starts and End date",
-            "external_link": "External link"
+            "external_link": "External link",
+            "status":"Status"
         },
         "empty": "No jobs available"
     },
@@ -104,7 +105,8 @@
             },
             "button": {
                 "cancel": "Cancel",
-                "filter": "Filter"
+                "filter": "Filter",
+                "clear":"Clear Filters"
             }
         }
     },
@@ -179,8 +181,11 @@
     "approve": {
         "success": {
             "published": "Job has been published",
-            "rejected": "Job has been rejected"
+            "rejected": "Job has been rejected",
+            "open":"The job has been approved successfully"
+            
         },
-        "error": "Something went wrong"
+        "error": "Something went wrong",
+        "failed":"Failed to update status."
     }
 }
