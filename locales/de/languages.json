@@ -3,7 +3,7 @@
   "list": {
     "table": {
       "sl": "Nr.",
-      "name": "Name",
+      "name": "Name auf {locale}",
       "actions": "Aktionen"
     },
     "empty": "Keine Sprachen verfügbar",
