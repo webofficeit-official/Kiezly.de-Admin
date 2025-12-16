@@ -71,10 +71,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (loading) return;
-const base = getBasePath(pathname);
+    const base = getBasePath(pathname);
     const publicPaths = ["/signin"];
     const isPublic = publicPaths.includes(base);
-
+    if (!user) {
+      replace("/signin");
+    }
+    
     if (user && isPublic) {
       replace("/dashboard");
     }
@@ -85,18 +88,20 @@ const base = getBasePath(pathname);
     email: string,
     password: string,
     opts?: {
-       remember?: boolean;
+      remember?: boolean;
       onSuccess?: () => void;
       onError?: (err: any) => void;
     }
   ) {
-     const remember = !!opts?.remember;
+    const remember = !!opts?.remember;
     loginMutation.mutate(
       { email, password },
       {
         onSuccess: (data: LoginResponse) => {
-          if (data?.token?.access) setAccessToken(data.token.access,{ remember });
-          if (data?.token?.refresh) setRefreshToken(data.token.refresh,{ remember });
+          if (data?.token?.access)
+            setAccessToken(data.token.access, { remember });
+          if (data?.token?.refresh)
+            setRefreshToken(data.token.refresh, { remember });
           loadUser();
 
           opts?.onSuccess?.();
