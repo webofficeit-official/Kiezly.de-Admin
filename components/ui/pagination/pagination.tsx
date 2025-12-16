@@ -1,5 +1,5 @@
 const Pagination = ({ page, totalPages, t, setPage }) => {
-  // Normalize empty state
+  // Normalize empty state 
   const noData = !totalPages || totalPages < 1;
   const safeTotalPages = noData ? 1 : totalPages;
 
