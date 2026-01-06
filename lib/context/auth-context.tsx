@@ -74,10 +74,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const base = getBasePath(pathname);
     const publicPaths = ["/signin"];
     const isPublic = publicPaths.includes(base);
-    if (!user) {
+    if (!user && !base.includes("/forgot-password") && base !== "/reset-password") {
       replace("/signin");
     }
-    
+
     if (user && isPublic) {
       replace("/dashboard");
     }
