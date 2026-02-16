@@ -85,6 +85,14 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                 <span className="ms-3">{t("menu.reported-jobs")}</span>
                                             </LocalizedLink>
                                         </li>
+                                         <li>
+                                            <LocalizedLink href="/jobs-review" className={`flex items-center w-full p-2 pl-11 text-gray-900 
+                                                    transition duration-75 rounded-lg group 
+                                                    hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 text-sm ${currentPath == 'reported-jobs' && 'bg-slate-100'}`} onClick={() => setCurrentPath('reported-jobs')}>
+                                                <Ban className="w-5 h-5" />
+                                                <span className="ms-3">{t("menu.jobs-review")}</span>
+                                            </LocalizedLink>
+                                        </li>
                                     </ul>
                                 )}
                             </li>
