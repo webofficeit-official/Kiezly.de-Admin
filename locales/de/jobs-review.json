@@ -1,0 +1,9 @@
+{
+    "title": "Jobs Überprüfung",
+    "subtitle": "Rezensionen",
+     "pagination": {
+        "page": "Seite {page} von {totalPages}",
+        "prev": "Vorherige",
+        "next": "Nächste"
+    }
+}
