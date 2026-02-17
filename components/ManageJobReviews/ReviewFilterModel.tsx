@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 import { FilterJobSelectHelper } from "../ManageJobs/Form/FilterJobSelectHelper";
 import { FilterJobSelect } from "../ManageJobs/Form/FilterJobSelect";
 import { useFilterJobs } from "@/lib/react-query/queries/job/jobs";
-import { useFilterUsers } from "@/lib/react-query/queries/user/users";
+import {
+  useFilterUsers,
+  useUserProfile,
+} from "@/lib/react-query/queries/user/users";
 
 const ReviewFilterModel = ({
   isOpen,
@@ -14,55 +17,150 @@ const ReviewFilterModel = ({
   applyFilter,
 }) => {
   const [jobs, setJobs] = useState([]);
-  const [users, setUsers] = useState([]);
+  const [reviewerUsers, setReviewerUsers] = useState([]);
+  const [revieweeUsers, setRevieweeUsers] = useState([]);
+
   const [jobSearch, setJobSearch] = useState("");
-  const [userSearch, setUserSearch] = useState("");
+  const [reviewerSearch, setReviewerSearch] = useState("");
+  const [revieweeSearch, setRevieweeSearch] = useState("");
 
   const filterJobs = useFilterJobs();
   const filterUsers = useFilterUsers();
+  const userProfile = useUserProfile();
 
-  // Load initial data
+  /* ----------------------------------------------------
+     Utility: ensure selected user always exists in list
+  ---------------------------------------------------- */
+  const ensureSelectedUser = async (list, selectedId, setter) => {
+    if (!selectedId) {
+      setter(list);
+      return;
+    }
+
+    const exists = list.find((u) => u.id === selectedId);
+
+    if (exists) {
+      setter(list);
+      return;
+    }
+
+    // Fetch selected user separately if not inside first 10
+    userProfile.mutate(
+      { id: selectedId },
+      {
+        onSuccess: (res) => {
+          const selectedUser = res?.data;
+          if (selectedUser) {
+            setter([selectedUser, ...list]);
+          } else {
+            setter(list);
+          }
+        },
+        onError: () => setter(list),
+      }
+    );
+  };
+
+  /* ----------------------------------------------------
+     Load initial jobs + users when modal opens
+  ---------------------------------------------------- */
   useEffect(() => {
     if (!isOpen) return;
 
+    // Reset search but keep selected filter
+    setJobSearch("");
+    setReviewerSearch("");
+    setRevieweeSearch("");
+
+    // Jobs
     filterJobs.mutate(
       { page: 1, page_size: 10 },
-      { onSuccess: (d) => setJobs(d?.data?.items || []) }
+      {
+        onSuccess: (d) => {
+          setJobs(d?.data?.items || []);
+        },
+      }
     );
 
+    // Users
     filterUsers.mutate(
       { page: 1, page_size: 10 },
-      { onSuccess: (d) => setUsers(d?.data?.items || []) }
+      {
+        onSuccess: (d) => {
+          const users = d?.data?.items || [];
+
+          ensureSelectedUser(users, filter.reviewer_id, setReviewerUsers);
+          ensureSelectedUser(users, filter.reviewee_id, setRevieweeUsers);
+        },
+      }
     );
   }, [isOpen]);
 
-  // Job search
+  /* ----------------------------------------------------
+     Job Search (debounced)
+  ---------------------------------------------------- */
   useEffect(() => {
     if (!isOpen) return;
 
     const delay = setTimeout(() => {
       filterJobs.mutate(
         { q: jobSearch, page: 1, page_size: 10 },
-        { onSuccess: (d) => setJobs(d?.data?.items || []) }
+        {
+          onSuccess: (d) => {
+            setJobs(d?.data?.items || []);
+          },
+        }
       );
     }, 400);
 
     return () => clearTimeout(delay);
   }, [jobSearch]);
 
-  // User search
+  /* ----------------------------------------------------
+     Reviewer Search
+  ---------------------------------------------------- */
   useEffect(() => {
     if (!isOpen) return;
 
     const delay = setTimeout(() => {
       filterUsers.mutate(
-        { q: userSearch, page: 1, page_size: 10 },
-        { onSuccess: (d) => setUsers(d?.data?.items || []) }
+        { q: reviewerSearch, page: 1, page_size: 10 },
+        {
+          onSuccess: (d) => {
+            const users = d?.data?.items || [];
+            ensureSelectedUser(users, filter.reviewer_id, setReviewerUsers);
+          },
+        }
       );
     }, 400);
 
     return () => clearTimeout(delay);
-  }, [userSearch]);
+  }, [reviewerSearch]);
+
+  /* ----------------------------------------------------
+     Reviewee Search
+  ---------------------------------------------------- */
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const delay = setTimeout(() => {
+      filterUsers.mutate(
+        { q: revieweeSearch, page: 1, page_size: 10 },
+        {
+          onSuccess: (d) => {
+            const users = d?.data?.items || [];
+            ensureSelectedUser(users, filter.reviewee_id, setRevieweeUsers);
+          },
+        }
+      );
+    }, 400);
+
+    return () => clearTimeout(delay);
+  }, [revieweeSearch]);
+
+  /* ----------------------------------------------------
+     Dropdown Options
+  ---------------------------------------------------- */
 
   const VISIBILITY = [
     { value: "", label: t("filter.form.visibility.options.all") },
@@ -71,8 +169,14 @@ const ReviewFilterModel = ({
   ];
 
   const SORT_BY = [
-    { value: "created_at", label: t("filter.form.sortBy.options.created_at") },
-    { value: "rating", label: t("filter.form.sortBy.options.rating") },
+    {
+      value: "created_at",
+      label: t("filter.form.sortBy.options.created_at"),
+    },
+    {
+      value: "rating",
+      label: t("filter.form.sortBy.options.rating"),
+    },
   ];
 
   const SORT_ORDER = [
@@ -99,9 +203,7 @@ const ReviewFilterModel = ({
 
         <div className="bg-white rounded-xl shadow-xl max-w-3xl w-full p-6 relative">
           <div className="flex justify-between mb-4">
-            <h2 className="text-xl font-bold">
-              {t("filter.title")}
-            </h2>
+            <h2 className="text-xl font-bold">{t("filter.title")}</h2>
             <X className="cursor-pointer" onClick={() => setIsOpen(false)} />
           </div>
 
@@ -116,9 +218,7 @@ const ReviewFilterModel = ({
               value={filter.job_id}
               enableSearch
               onSearchChange={setJobSearch}
-              onChange={(v) =>
-                setFilter({ ...filter, job_id: v })
-              }
+              onChange={(v) => setFilter({ ...filter, job_id: v })}
               options={jobs.map((j) => ({
                 id: j.id,
                 display_name: j.title,
@@ -130,11 +230,9 @@ const ReviewFilterModel = ({
               label={t("filter.form.reviewer.label")}
               value={filter.reviewer_id}
               enableSearch
-              onSearchChange={setUserSearch}
-              onChange={(v) =>
-                setFilter({ ...filter, reviewer_id: v })
-              }
-              options={users.map((u) => ({
+              onSearchChange={setReviewerSearch}
+              onChange={(v) => setFilter({ ...filter, reviewer_id: v })}
+              options={reviewerUsers.map((u) => ({
                 id: u.id,
                 display_name:
                   u.display_name || `${u.first_name} ${u.last_name}`,
@@ -149,11 +247,9 @@ const ReviewFilterModel = ({
               label={t("filter.form.reviewee.label")}
               value={filter.reviewee_id}
               enableSearch
-              onSearchChange={setUserSearch}
-              onChange={(v) =>
-                setFilter({ ...filter, reviewee_id: v })
-              }
-              options={users.map((u) => ({
+              onSearchChange={setRevieweeSearch}
+              onChange={(v) => setFilter({ ...filter, reviewee_id: v })}
+              options={revieweeUsers.map((u) => ({
                 id: u.id,
                 display_name:
                   u.display_name || `${u.first_name} ${u.last_name}`,
@@ -171,8 +267,7 @@ const ReviewFilterModel = ({
               onChange={(v) =>
                 setFilter({
                   ...filter,
-                  visibility:
-                    v === "" ? undefined : v === "true",
+                  visibility: v === "" ? undefined : v === "true",
                 })
               }
               options={VISIBILITY}
@@ -185,18 +280,14 @@ const ReviewFilterModel = ({
             <FilterJobSelect
               label={t("filter.form.sortBy.label")}
               value={filter.sort_by}
-              onChange={(v) =>
-                setFilter({ ...filter, sort_by: v })
-              }
+              onChange={(v) => setFilter({ ...filter, sort_by: v })}
               options={SORT_BY}
             />
 
             <FilterJobSelect
               label={t("filter.form.sort.label")}
               value={filter.sort_order}
-              onChange={(v) =>
-                setFilter({ ...filter, sort_order: v })
-              }
+              onChange={(v) => setFilter({ ...filter, sort_order: v })}
               options={SORT_ORDER}
             />
 
@@ -210,6 +301,7 @@ const ReviewFilterModel = ({
             />
           </div>
 
+          {/* Buttons */}
           <div className="text-end space-x-2">
             <button
               className="border border-red-600 text-red-600 px-4 py-2 rounded"

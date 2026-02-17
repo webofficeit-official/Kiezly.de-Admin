@@ -59,7 +59,7 @@ export function FilterJobSelectHelper({
             )}
           </Listbox.Button>
 
-          {/* 🔥 Clear Button (OUTSIDE Listbox.Button logic) */}
+          {/*  Clear Button (OUTSIDE Listbox.Button logic) */}
           {selectedOption && (
             <button
               type="button"

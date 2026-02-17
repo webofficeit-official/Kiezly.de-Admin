@@ -97,7 +97,7 @@ export default function LanguagesUpsertModal({
             );
 
       updateData.mutate(
-        { id, name }, // ✅ only name
+        { id, name }, // only name
         {
           onSuccess: () => {
             toast.success(t("update.success"));
@@ -112,7 +112,7 @@ export default function LanguagesUpsertModal({
       );
     } else {
       addData.mutate(
-        { name }, // ✅ only name
+        { name }, //  only name
         {
           onSuccess: () => {
             toast.success(t("create.success"));

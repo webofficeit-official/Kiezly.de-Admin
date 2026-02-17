@@ -9,7 +9,9 @@ import JobReviewHeader from "./JobReviewHeader";
 import { useFilterReviews } from "@/lib/react-query/queries/jobs-review/jobs-review";
 import ReviewTable from "./ReviewTable";
 import ReviewFilterModel from "./ReviewFilterModel";
+
 const MIN_LOADING_MS = 350;
+
 type ReviewSortBy = "created_at" | "rating";
 type ReviewSortOrder = "ASC" | "DESC";
 
@@ -24,6 +26,7 @@ interface ReviewFilter {
   sort_order: ReviewSortOrder;
   pageSize: number;
 }
+
 const defaultFilter: ReviewFilter = {
   job_id: "",
   reviewer_id: "",
@@ -41,18 +44,31 @@ const FilterJobReviews = () => {
 
   const [jobReviews, setJobReviews] = useState([]);
   const [page, setPage] = useState(1);
-  const [totalItems, setTotalItems] = useState(null);
-  const [totalPages, setTotalPages] = useState(null);
-  const [filter, setFilter] = useState(defaultFilter);
-  const [appliedFilter, setAppliedFilter] = useState(defaultFilter);
+  const [totalItems, setTotalItems] = useState<number | null>(null);
+  const [totalPages, setTotalPages] = useState<number | null>(null);
+
+  // Draft filter (used in modal)
+  const [filter, setFilter] = useState<ReviewFilter>(defaultFilter);
+
+  //  Applied filter (used for API)
+  const [appliedFilter, setAppliedFilter] =
+    useState<ReviewFilter>(defaultFilter);
 
   const [inviteAdminModelOpen, setInviteAdminModelOpen] = useState(false);
 
   const filterJobReviews = useFilterReviews();
   const [loading, setLoading] = useState(false);
 
+  //  Sync draft with applied when opening modal
+  useEffect(() => {
+    if (inviteAdminModelOpen) {
+      setFilter(appliedFilter);
+    }
+  }, [inviteAdminModelOpen]);
+
+  //  Apply filter button
   const applyFilter = () => {
-    setAppliedFilter({ ...filter });
+    setAppliedFilter(filter);
     setPage(1);
   };
 
@@ -91,21 +107,15 @@ const FilterJobReviews = () => {
           }, remaining);
         },
         onError: () => {
-          const elapsed = Date.now() - start;
-          const remaining = Math.max(0, MIN_LOADING_MS - elapsed);
-
-          setTimeout(() => {
-            if (!mounted) return;
-            setLoading(false);
-          }, remaining);
+          setLoading(false);
         },
-      },
+      }
     );
 
     return () => {
       mounted = false;
     };
-  }, [page, appliedFilter]);
+  }, [page, appliedFilter]); //  ONLY appliedFilter triggers API
 
   const clearFilter = () => {
     setFilter(defaultFilter);
@@ -115,8 +125,7 @@ const FilterJobReviews = () => {
 
   return (
     <>
-      <div className="relative flex flex-col w-full h-full text-slate-700 bg-white shadow-md rounded-xl bg-clip-border mt-10  ">
-        {/* Job header */}
+      <div className="relative flex flex-col w-full h-full text-slate-700 bg-white shadow-md rounded-xl bg-clip-border mt-10">
         {loading ? (
           <HeaderSkeleton />
         ) : (
@@ -129,7 +138,6 @@ const FilterJobReviews = () => {
           />
         )}
 
-        {/* Job Table */}
         {loading ? (
           <TableSkeleton rows={8} columns={9} />
         ) : (
@@ -137,23 +145,16 @@ const FilterJobReviews = () => {
             jobReviews={jobReviews}
             t={t}
             page={page}
-            pageSize={filter.pageSize}
+            pageSize={appliedFilter.pageSize}
           />
         )}
 
-        {/* Pagination */}
         <Pagination
           page={page}
           totalPages={totalPages}
           t={t}
           setPage={setPage}
         />
-        {/* <JobPagination
-          page={page}
-          totalPages={totalPages}
-          t={t}
-          setPage={setPage}
-        /> */}
       </div>
 
       <ReviewFilterModel
