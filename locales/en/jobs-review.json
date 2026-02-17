@@ -1,9 +1,74 @@
 {
-    "title": "Jobs Review",
-    "subtitle": "Reviews",
-     "pagination": {
-        "page": "Page {page} of {totalPages}",
-        "prev": "Prev",
-        "next": "Next"
+  "title": "Jobs Review",
+  "subtitle": "Reviews",
+  "filter": {
+    "title": "Filter job reviews",
+    "description": "Filter job reviews",
+    "form": {
+      "jobs": {
+        "label": "Jobs",
+        "placeholder": "Filter by job"
+      },
+      "reviewer": {
+        "label": "Reviewer",
+        "placeholder": "Filter by reviewer"
+      },
+      "reviewee": {
+        "label": "Reviewee",
+        "placeholder": "Filter by reviewee"
+      },
+      "visibility": {
+        "label": "Visibility",
+        "placeholder": "Select visibility",
+        "options": {
+          "all": "All",
+          "visible": "Visible",
+          "hidden": "Hidden"
+        }
+      },
+      "sortBy": {
+        "label": "Sort By",
+        "options": {
+          "created_at": "Created Date",
+          "rating": "Rating"
+        }
+      },
+      "sort": {
+        "label": "Sort Order",
+        "placeholder": "Choose sorting",
+        "options": {
+          "asc": "Ascending",
+          "desc": "Descending"
+        }
+      },
+      "pageSize": {
+        "label": "Page Size",
+        "placeholder": "Items per page"
+      },
+      "button": {
+        "cancel": "Cancel",
+        "filter": "Filter",
+        "clear": "Clear Filters"
+      }
     }
+  },
+  "list": {
+    "table": {
+      "sl": "Sl no",
+      "job-title": "Job title",
+      "reviewee": "Reviewee",
+      "reviewer": "Reviewer",
+      "rating": "Rating",
+      "comment": "Comments",
+      "status": "Status",
+      "visibility": "Visibility",
+      "actions": "Actions"
+    },
+    "empty": "No reviews available"
+  },
+  "pagination": {
+    "page": "Page {page} of {totalPages}",
+    "prev": "Prev",
+    "next": "Next"
+  }
 }
