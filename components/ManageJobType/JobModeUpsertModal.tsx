@@ -127,7 +127,7 @@ export default function JobModeUpsertModal({
       );
     } else {
       addData.mutate(
-        { name }, // ✅ only name
+        { name }, //  only name
         {
           onSuccess: () => {
             toast.success(t("create.success"));

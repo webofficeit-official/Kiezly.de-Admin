@@ -1,0 +1,74 @@
+{
+  "title": "Jobs Überprüfung",
+  "subtitle": "Rezensionen",
+  "filter": {
+    "title": "Job-Bewertungen filtern",
+    "description": "Filtern Sie die Job-Bewertungen",
+    "form": {
+      "jobs": {
+        "label": "Jobs",
+        "placeholder": "Nach Job filtern"
+      },
+      "reviewer": {
+        "label": "Bewerter",
+        "placeholder": "Nach Bewerter filtern"
+      },
+      "reviewee": {
+        "label": "Bewerteter",
+        "placeholder": "Nach Bewertetem filtern"
+      },
+      "visibility": {
+        "label": "Sichtbarkeit",
+        "placeholder": "Sichtbarkeit auswählen",
+        "options": {
+          "all": "Alle",
+          "visible": "Sichtbar",
+          "hidden": "Versteckt"
+        }
+      },
+      "sortBy": {
+        "label": "Sortieren nach",
+        "options": {
+          "created_at": "Erstellungsdatum",
+          "rating": "Bewertung"
+        }
+      },
+      "sort": {
+        "label": "Sortierreihenfolge",
+        "placeholder": "Sortierung wählen",
+        "options": {
+          "asc": "Aufsteigend",
+          "desc": "Absteigend"
+        }
+      },
+      "pageSize": {
+        "label": "Seitengröße",
+        "placeholder": "Einträge pro Seite"
+      },
+      "button": {
+        "cancel": "Abbrechen",
+        "filter": "Filtern",
+        "clear": "Filter zurücksetzen"
+      }
+    }
+  },
+  "list": {
+    "table": {
+      "sl": "Nr.",
+      "job-title": "Jobtitel",
+      "reviewee": "Bewerteter",
+      "reviewer": "Bewerter",
+      "rating": "Bewertung",
+      "comment": "Kommentare",
+      "status": "Status",
+      "visibility": "Sichtbarkeit",
+      "actions": "Aktionen"
+    },
+    "empty": "Keine Bewertungen verfügbar"
+  },
+  "pagination": {
+    "page": "Seite {page} von {totalPages}",
+    "prev": "Vorherige",
+    "next": "Nächste"
+  }
+}

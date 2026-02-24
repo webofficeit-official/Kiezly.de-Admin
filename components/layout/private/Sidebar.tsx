@@ -4,6 +4,7 @@ import LocalizedLink from "@/lib/localizedLink";
 import { BriefcaseBusiness, ChevronDown, ChevronUp, FolderCheck, FolderCode, Globe, Languages, Layers, LayoutDashboard, MapPinned, Navigation, Newspaper, ShieldPlus, Users,Earth,Briefcase,Tags, Layers2, Ban    } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { FaClipboardCheck } from "react-icons/fa";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     const pathName = usePathname()
@@ -83,6 +84,14 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                     hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 text-sm ${currentPath == 'reported-jobs' && 'bg-slate-100'}`} onClick={() => setCurrentPath('reported-jobs')}>
                                                 <Ban className="w-5 h-5" />
                                                 <span className="ms-3">{t("menu.reported-jobs")}</span>
+                                            </LocalizedLink>
+                                        </li>
+                                         <li>
+                                            <LocalizedLink href="/jobs-review" className={`flex items-center w-full p-2 pl-11 text-gray-900 
+                                                    transition duration-75 rounded-lg group 
+                                                    hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 text-sm ${currentPath == 'jobs-review' && 'bg-slate-100'}`} onClick={() => setCurrentPath('jobs-review')}>
+                                              <FaClipboardCheck  className="w-5 h-5" />
+                                                <span className="ms-3">{t("menu.jobs-review")}</span>
                                             </LocalizedLink>
                                         </li>
                                     </ul>
